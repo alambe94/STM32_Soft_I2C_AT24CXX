@@ -107,12 +107,13 @@ int main(void)
 	/*********************scan for i2c devices****************************/
 	for (uint16_t i = 0; i < 128; i++)
 	{
-		itoa(i<<1 ,temp, 16);
+		itoa(i<<1 ,temp, 16);//int string base 16 (hex)
 
 		if(Soft_I2C_Scan(i<<1)==Soft_I2C_OK)
 		{
 			ssd1306_SetCursor(0, 30);
 			ssd1306_WriteString("At:", Font_11x18, White);
+			ssd1306_WriteString("0x", Font_11x18, White);
 			ssd1306_WriteString(temp, Font_11x18, White);
 			ssd1306_UpdateScreen();
 			HAL_Delay(10);
@@ -121,6 +122,7 @@ int main(void)
 		{
 			ssd1306_SetCursor(0, 0);
 			ssd1306_WriteString("NO:", Font_11x18, White);
+			ssd1306_WriteString("0x", Font_11x18, White);
 			ssd1306_WriteString(temp, Font_11x18, White);
 			ssd1306_UpdateScreen();
 			HAL_Delay(10);
@@ -138,11 +140,13 @@ int main(void)
 
 	AT24CXX_Read_Buffer(0x00,compare_buffer,256);
 
+	ssd1306_Fill(Black);
+
 
 	/*********************compare write_buffer****************************/
 	for(uint16_t i=0;i<=255;i++)
 	{
-		itoa(i, temp, 10);
+		itoa(i, temp, 10);//int string base 10
 		if(write_buffer[i]!=compare_buffer[i])
 		{
 			ssd1306_SetCursor(0, 30);

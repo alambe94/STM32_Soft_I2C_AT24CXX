@@ -5,39 +5,39 @@ Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
   0 .isr_vector   0000010c  08000000  08000000  00010000  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  1 .text         00001c3c  0800010c  0800010c  0001010c  2**2
+  1 .text         00001c70  0800010c  0800010c  0001010c  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       00000dcc  08001d48  08001d48  00011d48  2**2
+  2 .rodata       00000dd0  08001d7c  08001d7c  00011d7c  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .init_array   00000004  08002b14  08002b14  00012b14  2**2
+  3 .init_array   00000004  08002b4c  08002b4c  00012b4c  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  4 .fini_array   00000004  08002b18  08002b18  00012b18  2**2
+  4 .fini_array   00000004  08002b50  08002b50  00012b50  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  5 .data         00000014  20000000  08002b1c  00020000  2**2
+  5 .data         00000014  20000000  08002b54  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .bss          00000628  20000014  08002b30  00020014  2**2
+  6 .bss          00000628  20000014  08002b68  00020014  2**2
                   ALLOC
-  7 ._user_heap_stack 00000600  2000063c  08002b30  0002063c  2**0
+  7 ._user_heap_stack 00000600  2000063c  08002b68  0002063c  2**0
                   ALLOC
   8 .ARM.attributes 00000029  00000000  00000000  00020014  2**0
                   CONTENTS, READONLY
-  9 .debug_info   0000edf5  00000000  00000000  0002003d  2**0
+  9 .debug_info   0000ee2c  00000000  00000000  0002003d  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_abbrev 0000219a  00000000  00000000  0002ee32  2**0
+ 10 .debug_abbrev 0000219a  00000000  00000000  0002ee69  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000025d2  00000000  00000000  00030fcc  2**0
+ 11 .debug_loc    000025d2  00000000  00000000  00031003  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_aranges 00000480  00000000  00000000  000335a0  2**3
+ 12 .debug_aranges 00000480  00000000  00000000  000335d8  2**3
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_ranges 00000b48  00000000  00000000  00033a20  2**3
+ 13 .debug_ranges 00000b48  00000000  00000000  00033a58  2**3
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_line   000033a6  00000000  00000000  00034568  2**0
+ 14 .debug_line   000033ab  00000000  00000000  000345a0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_str    000018ae  00000000  00000000  0003790e  2**0
+ 15 .debug_str    000018ae  00000000  00000000  0003794b  2**0
                   CONTENTS, READONLY, DEBUGGING
- 16 .comment      0000007c  00000000  00000000  000391bc  2**0
+ 16 .comment      0000007c  00000000  00000000  000391f9  2**0
                   CONTENTS, READONLY
- 17 .debug_frame  00000b80  00000000  00000000  00039238  2**2
+ 17 .debug_frame  00000b80  00000000  00000000  00039278  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -56,7 +56,7 @@ Disassembly of section .text:
  8000122:	bd10      	pop	{r4, pc}
  8000124:	20000014 	.word	0x20000014
  8000128:	00000000 	.word	0x00000000
- 800012c:	08001d30 	.word	0x08001d30
+ 800012c:	08001d64 	.word	0x08001d64
 
 08000130 <frame_dummy>:
  8000130:	b508      	push	{r3, lr}
@@ -68,7 +68,7 @@ Disassembly of section .text:
  800013e:	bd08      	pop	{r3, pc}
  8000140:	00000000 	.word	0x00000000
  8000144:	20000018 	.word	0x20000018
- 8000148:	08001d30 	.word	0x08001d30
+ 8000148:	08001d64 	.word	0x08001d64
 
 0800014c <HAL_InitTick>:
   *       implementation  in user file.
@@ -142,7 +142,7 @@ __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
  80001a6:	2000      	movs	r0, #0
  80001a8:	f7ff ffd0 	bl	800014c <HAL_InitTick>
   HAL_MspInit();
- 80001ac:	f001 fc8c 	bl	8001ac8 <HAL_MspInit>
+ 80001ac:	f001 fca6 	bl	8001afc <HAL_MspInit>
 }
  80001b0:	2000      	movs	r0, #0
  80001b2:	bd08      	pop	{r3, pc}
@@ -1636,10 +1636,10 @@ __attribute__((always_inline)) __STATIC_INLINE void __NOP(void)
  8000a66:	bf00      	nop
  8000a68:	40022000 	.word	0x40022000
  8000a6c:	40021000 	.word	0x40021000
- 8000a70:	08001d48 	.word	0x08001d48
+ 8000a70:	08001d7c 	.word	0x08001d7c
  8000a74:	003d0900 	.word	0x003d0900
  8000a78:	007a1200 	.word	0x007a1200
- 8000a7c:	08002adc 	.word	0x08002adc
+ 8000a7c:	08002b14 	.word	0x08002b14
  8000a80:	20000010 	.word	0x20000010
 
 08000a84 <HAL_RCC_GetSysClockFreq>:
@@ -1702,7 +1702,7 @@ __attribute__((always_inline)) __STATIC_INLINE void __NOP(void)
 }
  8000ae0:	b006      	add	sp, #24
  8000ae2:	bd70      	pop	{r4, r5, r6, pc}
- 8000ae4:	08001d48 	.word	0x08001d48
+ 8000ae4:	08001d7c 	.word	0x08001d7c
  8000ae8:	40021000 	.word	0x40021000
  8000aec:	003d0900 	.word	0x003d0900
  8000af0:	007a1200 	.word	0x007a1200
@@ -1729,7 +1729,7 @@ uint8_t AT24CXX_Read_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
  8000b06:	4616      	mov	r6, r2
 
 	if (Soft_I2C_Start() == Soft_I2C_ERR)/*generate star condition*/
- 8000b08:	f000 fa18 	bl	8000f3c <Soft_I2C_Start>
+ 8000b08:	f000 fa26 	bl	8000f58 <Soft_I2C_Start>
  8000b0c:	2801      	cmp	r0, #1
  8000b0e:	d025      	beq.n	8000b5c <AT24CXX_Read_Buffer+0x5c>
 	{
@@ -1739,7 +1739,7 @@ uint8_t AT24CXX_Read_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
 
 	if (Soft_I2C_Send_Byte(AT24CXX_EEPROM_ADDR + 0) == Soft_I2C_ERR)/*Send device address + write bit */
  8000b10:	20a6      	movs	r0, #166	; 0xa6
- 8000b12:	f000 faa3 	bl	800105c <Soft_I2C_Send_Byte>
+ 8000b12:	f000 fab1 	bl	8001078 <Soft_I2C_Send_Byte>
  8000b16:	2801      	cmp	r0, #1
  8000b18:	d01e      	beq.n	8000b58 <AT24CXX_Read_Buffer+0x58>
 		if (Soft_I2C_Send_Byte((Address >> 8)) == Soft_I2C_ERR)
@@ -1749,7 +1749,7 @@ uint8_t AT24CXX_Read_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
 	}
 	if (Soft_I2C_Send_Byte(Address) == Soft_I2C_ERR)/*send register address to write*/
  8000b1a:	b2e8      	uxtb	r0, r5
- 8000b1c:	f000 fa9e 	bl	800105c <Soft_I2C_Send_Byte>
+ 8000b1c:	f000 faac 	bl	8001078 <Soft_I2C_Send_Byte>
  8000b20:	2801      	cmp	r0, #1
  8000b22:	d019      	beq.n	8000b58 <AT24CXX_Read_Buffer+0x58>
 	{
@@ -1757,7 +1757,7 @@ uint8_t AT24CXX_Read_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
 	}
 
 	if (Soft_I2C_Start() == Soft_I2C_ERR) //repeated start
- 8000b24:	f000 fa0a 	bl	8000f3c <Soft_I2C_Start>
+ 8000b24:	f000 fa18 	bl	8000f58 <Soft_I2C_Start>
  8000b28:	2801      	cmp	r0, #1
  8000b2a:	d017      	beq.n	8000b5c <AT24CXX_Read_Buffer+0x5c>
 	{
@@ -1767,7 +1767,7 @@ uint8_t AT24CXX_Read_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
 
 	if (Soft_I2C_Send_Byte(AT24CXX_EEPROM_ADDR + 1) == Soft_I2C_ERR) //read bit
  8000b2c:	20a7      	movs	r0, #167	; 0xa7
- 8000b2e:	f000 fa95 	bl	800105c <Soft_I2C_Send_Byte>
+ 8000b2e:	f000 faa3 	bl	8001078 <Soft_I2C_Send_Byte>
  8000b32:	2801      	cmp	r0, #1
  8000b34:	d010      	beq.n	8000b58 <AT24CXX_Read_Buffer+0x58>
 	{
@@ -1782,7 +1782,7 @@ uint8_t AT24CXX_Read_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
  8000b3e:	3c01      	subs	r4, #1
 	{
 		*buf++ = Soft_I2C_Receive_Byte();
- 8000b40:	f000 fb00 	bl	8001144 <Soft_I2C_Receive_Byte>
+ 8000b40:	f000 fb0e 	bl	8001160 <Soft_I2C_Receive_Byte>
  8000b44:	f804 0f01 	strb.w	r0, [r4, #1]!
 
 		if (len == 0)
@@ -1790,14 +1790,14 @@ uint8_t AT24CXX_Read_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
  8000b4a:	d10b      	bne.n	8000b64 <AT24CXX_Read_Buffer+0x64>
 		{
 			Soft_I2C_NACK();
- 8000b4c:	f000 fa64 	bl	8001018 <Soft_I2C_NACK>
+ 8000b4c:	f000 fa72 	bl	8001034 <Soft_I2C_NACK>
 		{
 			Soft_I2C_ACK();
 		}
 	}
 
 	Soft_I2C_Stop();
- 8000b50:	f000 fa1e 	bl	8000f90 <Soft_I2C_Stop>
+ 8000b50:	f000 fa2c 	bl	8000fac <Soft_I2C_Stop>
 
 	return AT24CXX_OK;
  8000b54:	2000      	movs	r0, #0
@@ -1808,18 +1808,18 @@ uint8_t AT24CXX_Read_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
  8000b58:	2001      	movs	r0, #1
  8000b5a:	bd70      	pop	{r4, r5, r6, pc}
 		Soft_I2C_Stop();
- 8000b5c:	f000 fa18 	bl	8000f90 <Soft_I2C_Stop>
+ 8000b5c:	f000 fa26 	bl	8000fac <Soft_I2C_Stop>
 		return AT24CXX_ERR;
  8000b60:	2001      	movs	r0, #1
  8000b62:	bd70      	pop	{r4, r5, r6, pc}
 			Soft_I2C_ACK();
- 8000b64:	f000 fa36 	bl	8000fd4 <Soft_I2C_ACK>
+ 8000b64:	f000 fa44 	bl	8000ff0 <Soft_I2C_ACK>
  8000b68:	e7ea      	b.n	8000b40 <AT24CXX_Read_Buffer+0x40>
  8000b6a:	bf00      	nop
 
 08000b6c <AT24CXX_Write_Buffer>:
 
-/*this function can write any number of bytes in arbitary location*/
+/*this function can write any number of bytes from arbitrary location*/
 uint8_t AT24CXX_Write_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
 {
  8000b6c:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
@@ -1840,17 +1840,17 @@ uint8_t AT24CXX_Write_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
  8000b86:	4616      	mov	r6, r2
  8000b88:	4680      	mov	r8, r0
 	if (Soft_I2C_Start() == Soft_I2C_ERR)/*generate star condition*/
- 8000b8a:	f000 f9d7 	bl	8000f3c <Soft_I2C_Start>
+ 8000b8a:	f000 f9e5 	bl	8000f58 <Soft_I2C_Start>
  8000b8e:	2801      	cmp	r0, #1
  8000b90:	d078      	beq.n	8000c84 <AT24CXX_Write_Buffer+0x118>
 	if (Soft_I2C_Send_Byte(AT24CXX_EEPROM_ADDR + 0) == Soft_I2C_ERR)/*Send device address + write bit */
  8000b92:	20a6      	movs	r0, #166	; 0xa6
- 8000b94:	f000 fa62 	bl	800105c <Soft_I2C_Send_Byte>
+ 8000b94:	f000 fa70 	bl	8001078 <Soft_I2C_Send_Byte>
  8000b98:	2801      	cmp	r0, #1
  8000b9a:	d06f      	beq.n	8000c7c <AT24CXX_Write_Buffer+0x110>
 	if (Soft_I2C_Send_Byte(Address) == Soft_I2C_ERR)/*send register address to write*/
  8000b9c:	fa5f f088 	uxtb.w	r0, r8
- 8000ba0:	f000 fa5c 	bl	800105c <Soft_I2C_Send_Byte>
+ 8000ba0:	f000 fa6a 	bl	8001078 <Soft_I2C_Send_Byte>
  8000ba4:	2801      	cmp	r0, #1
  8000ba6:	d069      	beq.n	8000c7c <AT24CXX_Write_Buffer+0x110>
  8000ba8:	4654      	mov	r4, sl
@@ -1858,7 +1858,7 @@ uint8_t AT24CXX_Write_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
  8000bae:	e005      	b.n	8000bbc <AT24CXX_Write_Buffer+0x50>
 		if (Soft_I2C_Send_Byte(*buf++) == Soft_I2C_ERR)/*write data to address*/
  8000bb0:	f814 0b01 	ldrb.w	r0, [r4], #1
- 8000bb4:	f000 fa52 	bl	800105c <Soft_I2C_Send_Byte>
+ 8000bb4:	f000 fa60 	bl	8001078 <Soft_I2C_Send_Byte>
  8000bb8:	2801      	cmp	r0, #1
  8000bba:	d05f      	beq.n	8000c7c <AT24CXX_Write_Buffer+0x110>
 	while (len--)
@@ -1875,7 +1875,7 @@ uint8_t AT24CXX_Write_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
  8000bc8:	9301      	str	r3, [sp, #4]
  8000bca:	fa1f f78b 	uxth.w	r7, fp
 	Soft_I2C_Stop();
- 8000bce:	f000 f9df 	bl	8000f90 <Soft_I2C_Stop>
+ 8000bce:	f000 f9ed 	bl	8000fac <Soft_I2C_Stop>
 	HAL_Delay(5);/*Memory Programming Time approx 5ms*//*3ms for BL24CXX */
  8000bd2:	2005      	movs	r0, #5
  8000bd4:	f7ff fb02 	bl	80001dc <HAL_Delay>
@@ -1887,18 +1887,18 @@ uint8_t AT24CXX_Write_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
  8000bde:	44c8      	add	r8, r9
  8000be0:	fa1f f888 	uxth.w	r8, r8
 	if (Soft_I2C_Start() == Soft_I2C_ERR)/*generate star condition*/
- 8000be4:	f000 f9aa 	bl	8000f3c <Soft_I2C_Start>
+ 8000be4:	f000 f9b8 	bl	8000f58 <Soft_I2C_Start>
  8000be8:	2801      	cmp	r0, #1
  8000bea:	d04b      	beq.n	8000c84 <AT24CXX_Write_Buffer+0x118>
 	if (Soft_I2C_Send_Byte(AT24CXX_EEPROM_ADDR + 0) == Soft_I2C_ERR)/*Send device address + write bit */
  8000bec:	20a6      	movs	r0, #166	; 0xa6
- 8000bee:	f000 fa35 	bl	800105c <Soft_I2C_Send_Byte>
+ 8000bee:	f000 fa43 	bl	8001078 <Soft_I2C_Send_Byte>
  8000bf2:	2801      	cmp	r0, #1
  8000bf4:	d042      	beq.n	8000c7c <AT24CXX_Write_Buffer+0x110>
 	if (Soft_I2C_Send_Byte(Address) == Soft_I2C_ERR)/*send register address to write*/
  8000bf6:	eb08 00c5 	add.w	r0, r8, r5, lsl #3
  8000bfa:	b2c0      	uxtb	r0, r0
- 8000bfc:	f000 fa2e 	bl	800105c <Soft_I2C_Send_Byte>
+ 8000bfc:	f000 fa3c 	bl	8001078 <Soft_I2C_Send_Byte>
  8000c00:	2801      	cmp	r0, #1
  8000c02:	d03b      	beq.n	8000c7c <AT24CXX_Write_Buffer+0x110>
 	{
@@ -1907,14 +1907,14 @@ uint8_t AT24CXX_Write_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
  8000c06:	3408      	adds	r4, #8
 		if (Soft_I2C_Send_Byte(*buf++) == Soft_I2C_ERR)/*write data to address*/
  8000c08:	f816 0b01 	ldrb.w	r0, [r6], #1
- 8000c0c:	f000 fa26 	bl	800105c <Soft_I2C_Send_Byte>
+ 8000c0c:	f000 fa34 	bl	8001078 <Soft_I2C_Send_Byte>
  8000c10:	2801      	cmp	r0, #1
  8000c12:	d033      	beq.n	8000c7c <AT24CXX_Write_Buffer+0x110>
 	while (len--)
  8000c14:	42a6      	cmp	r6, r4
  8000c16:	d1f7      	bne.n	8000c08 <AT24CXX_Write_Buffer+0x9c>
 	Soft_I2C_Stop();
- 8000c18:	f000 f9ba 	bl	8000f90 <Soft_I2C_Stop>
+ 8000c18:	f000 f9c8 	bl	8000fac <Soft_I2C_Stop>
  8000c1c:	3501      	adds	r5, #1
 	HAL_Delay(5);/*Memory Programming Time approx 5ms*//*3ms for BL24CXX */
  8000c1e:	2005      	movs	r0, #5
@@ -1940,19 +1940,19 @@ uint8_t AT24CXX_Write_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
 	if (len == 0u)
  8000c34:	b36c      	cbz	r4, 8000c92 <AT24CXX_Write_Buffer+0x126>
 	if (Soft_I2C_Start() == Soft_I2C_ERR)/*generate star condition*/
- 8000c36:	f000 f981 	bl	8000f3c <Soft_I2C_Start>
+ 8000c36:	f000 f98f 	bl	8000f58 <Soft_I2C_Start>
  8000c3a:	2801      	cmp	r0, #1
  8000c3c:	d022      	beq.n	8000c84 <AT24CXX_Write_Buffer+0x118>
 	if (Soft_I2C_Send_Byte(AT24CXX_EEPROM_ADDR + 0) == Soft_I2C_ERR)/*Send device address + write bit */
  8000c3e:	20a6      	movs	r0, #166	; 0xa6
- 8000c40:	f000 fa0c 	bl	800105c <Soft_I2C_Send_Byte>
+ 8000c40:	f000 fa1a 	bl	8001078 <Soft_I2C_Send_Byte>
  8000c44:	2801      	cmp	r0, #1
  8000c46:	d019      	beq.n	8000c7c <AT24CXX_Write_Buffer+0x110>
 	if (AT24CXX_Write_Page(
  8000c48:	eb05 0008 	add.w	r0, r5, r8
 	if (Soft_I2C_Send_Byte(Address) == Soft_I2C_ERR)/*send register address to write*/
  8000c4c:	b2c0      	uxtb	r0, r0
- 8000c4e:	f000 fa05 	bl	800105c <Soft_I2C_Send_Byte>
+ 8000c4e:	f000 fa13 	bl	8001078 <Soft_I2C_Send_Byte>
  8000c52:	2801      	cmp	r0, #1
  8000c54:	d012      	beq.n	8000c7c <AT24CXX_Write_Buffer+0x110>
 			(buf + byte_counter + (page_counter * AT24CXX_PAGE_LENGTH)),
@@ -1971,7 +1971,7 @@ uint8_t AT24CXX_Write_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
  8000c6e:	d012      	beq.n	8000c96 <AT24CXX_Write_Buffer+0x12a>
 		if (Soft_I2C_Send_Byte(*buf++) == Soft_I2C_ERR)/*write data to address*/
  8000c70:	f819 0f01 	ldrb.w	r0, [r9, #1]!
- 8000c74:	f000 f9f2 	bl	800105c <Soft_I2C_Send_Byte>
+ 8000c74:	f000 fa00 	bl	8001078 <Soft_I2C_Send_Byte>
  8000c78:	2801      	cmp	r0, #1
  8000c7a:	d1f7      	bne.n	8000c6c <AT24CXX_Write_Buffer+0x100>
 		return AT24CXX_ERR;
@@ -1985,7 +1985,7 @@ uint8_t AT24CXX_Write_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
  8000c7e:	b003      	add	sp, #12
  8000c80:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
 		Soft_I2C_Stop();
- 8000c84:	f000 f984 	bl	8000f90 <Soft_I2C_Stop>
+ 8000c84:	f000 f992 	bl	8000fac <Soft_I2C_Stop>
 		return AT24CXX_ERR;
  8000c88:	2001      	movs	r0, #1
 }
@@ -1997,7 +1997,7 @@ uint8_t AT24CXX_Write_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
  8000c92:	2000      	movs	r0, #0
  8000c94:	e7f9      	b.n	8000c8a <AT24CXX_Write_Buffer+0x11e>
 	Soft_I2C_Stop();
- 8000c96:	f000 f97b 	bl	8000f90 <Soft_I2C_Stop>
+ 8000c96:	f000 f989 	bl	8000fac <Soft_I2C_Stop>
 	HAL_Delay(5);/*Memory Programming Time approx 5ms*//*3ms for BL24CXX */
  8000c9a:	2005      	movs	r0, #5
  8000c9c:	f7ff fa9e 	bl	80001dc <HAL_Delay>
@@ -2167,2258 +2167,2287 @@ void SystemClock_Config(void)
  8000d72:	2500      	movs	r5, #0
 	SystemClock_Config();
  8000d74:	f7ff ffbe 	bl	8000cf4 <SystemClock_Config>
- 8000d78:	4c41      	ldr	r4, [pc, #260]	; (8000e80 <main+0x118>)
+ 8000d78:	4c47      	ldr	r4, [pc, #284]	; (8000e98 <main+0x130>)
 	MX_GPIO_Init();
  8000d7a:	f7ff ff99 	bl	8000cb0 <MX_GPIO_Init>
 			ssd1306_WriteString("NO:", Font_11x18, White);
- 8000d7e:	4e41      	ldr	r6, [pc, #260]	; (8000e84 <main+0x11c>)
+ 8000d7e:	4f47      	ldr	r7, [pc, #284]	; (8000e9c <main+0x134>)
 	Soft_I2C_Init();
- 8000d80:	f000 f890 	bl	8000ea4 <Soft_I2C_Init>
-			ssd1306_WriteString("At:", Font_11x18, White);
- 8000d84:	4f40      	ldr	r7, [pc, #256]	; (8000e88 <main+0x120>)
+ 8000d80:	f000 f89e 	bl	8000ec0 <Soft_I2C_Init>
+			ssd1306_WriteString("0x", Font_11x18, White);
+ 8000d84:	4e46      	ldr	r6, [pc, #280]	; (8000ea0 <main+0x138>)
 	ssd1306_Init();
- 8000d86:	f000 fbb7 	bl	80014f8 <ssd1306_Init>
- 8000d8a:	e017      	b.n	8000dbc <main+0x54>
-			ssd1306_SetCursor(0, 30);
- 8000d8c:	211e      	movs	r1, #30
- 8000d8e:	f000 fe95 	bl	8001abc <ssd1306_SetCursor>
+ 8000d86:	f000 fbd1 	bl	800152c <ssd1306_Init>
 			ssd1306_WriteString("At:", Font_11x18, White);
- 8000d92:	e894 0006 	ldmia.w	r4, {r1, r2}
- 8000d96:	2301      	movs	r3, #1
- 8000d98:	4638      	mov	r0, r7
+ 8000d8a:	f8df 8124 	ldr.w	r8, [pc, #292]	; 8000eb0 <main+0x148>
+ 8000d8e:	e01d      	b.n	8000dcc <main+0x64>
+			ssd1306_SetCursor(0, 30);
+ 8000d90:	211e      	movs	r1, #30
+ 8000d92:	f000 fead 	bl	8001af0 <ssd1306_SetCursor>
+			ssd1306_WriteString("At:", Font_11x18, White);
+ 8000d96:	e894 0006 	ldmia.w	r4, {r1, r2}
+ 8000d9a:	2301      	movs	r3, #1
+ 8000d9c:	4640      	mov	r0, r8
 			ssd1306_WriteString("NO:", Font_11x18, White);
- 8000d9a:	f000 fe73 	bl	8001a84 <ssd1306_WriteString>
+ 8000d9e:	f000 fe8b 	bl	8001ab8 <ssd1306_WriteString>
+			ssd1306_WriteString("0x", Font_11x18, White);
+ 8000da2:	e894 0006 	ldmia.w	r4, {r1, r2}
+ 8000da6:	2301      	movs	r3, #1
+ 8000da8:	4630      	mov	r0, r6
+ 8000daa:	f000 fe85 	bl	8001ab8 <ssd1306_WriteString>
 			ssd1306_WriteString(temp, Font_11x18, White);
- 8000d9e:	e894 0006 	ldmia.w	r4, {r1, r2}
- 8000da2:	2301      	movs	r3, #1
- 8000da4:	4668      	mov	r0, sp
- 8000da6:	f000 fe6d 	bl	8001a84 <ssd1306_WriteString>
- 8000daa:	3502      	adds	r5, #2
+ 8000dae:	e894 0006 	ldmia.w	r4, {r1, r2}
+ 8000db2:	2301      	movs	r3, #1
+ 8000db4:	4668      	mov	r0, sp
+ 8000db6:	f000 fe7f 	bl	8001ab8 <ssd1306_WriteString>
+ 8000dba:	3502      	adds	r5, #2
 			ssd1306_UpdateScreen();
- 8000dac:	f000 fb52 	bl	8001454 <ssd1306_UpdateScreen>
+ 8000dbc:	f000 fb64 	bl	8001488 <ssd1306_UpdateScreen>
 			HAL_Delay(10);
- 8000db0:	200a      	movs	r0, #10
- 8000db2:	f7ff fa13 	bl	80001dc <HAL_Delay>
+ 8000dc0:	200a      	movs	r0, #10
+ 8000dc2:	f7ff fa0b 	bl	80001dc <HAL_Delay>
 	for (uint16_t i = 0; i < 128; i++)
- 8000db6:	f5b5 7f80 	cmp.w	r5, #256	; 0x100
- 8000dba:	d012      	beq.n	8000de2 <main+0x7a>
-		itoa(i<<1 ,temp, 16);
- 8000dbc:	2210      	movs	r2, #16
- 8000dbe:	4669      	mov	r1, sp
- 8000dc0:	4628      	mov	r0, r5
- 8000dc2:	f000 ff6b 	bl	8001c9c <itoa>
+ 8000dc6:	f5b5 7f80 	cmp.w	r5, #256	; 0x100
+ 8000dca:	d012      	beq.n	8000df2 <main+0x8a>
+		itoa(i<<1 ,temp, 16);//int string base 16 (hex)
+ 8000dcc:	2210      	movs	r2, #16
+ 8000dce:	4669      	mov	r1, sp
+ 8000dd0:	4628      	mov	r0, r5
+ 8000dd2:	f000 ff7d 	bl	8001cd0 <itoa>
 		if(Soft_I2C_Scan(i<<1)==Soft_I2C_OK)
- 8000dc6:	b2e8      	uxtb	r0, r5
- 8000dc8:	f000 fadc 	bl	8001384 <Soft_I2C_Scan>
- 8000dcc:	2800      	cmp	r0, #0
- 8000dce:	d0dd      	beq.n	8000d8c <main+0x24>
+ 8000dd6:	b2e8      	uxtb	r0, r5
+ 8000dd8:	f000 fae2 	bl	80013a0 <Soft_I2C_Scan>
+ 8000ddc:	2800      	cmp	r0, #0
+ 8000dde:	d0d7      	beq.n	8000d90 <main+0x28>
 			ssd1306_SetCursor(0, 0);
- 8000dd0:	2100      	movs	r1, #0
- 8000dd2:	4608      	mov	r0, r1
- 8000dd4:	f000 fe72 	bl	8001abc <ssd1306_SetCursor>
+ 8000de0:	2100      	movs	r1, #0
+ 8000de2:	4608      	mov	r0, r1
+ 8000de4:	f000 fe84 	bl	8001af0 <ssd1306_SetCursor>
 			ssd1306_WriteString("NO:", Font_11x18, White);
- 8000dd8:	e894 0006 	ldmia.w	r4, {r1, r2}
- 8000ddc:	2301      	movs	r3, #1
- 8000dde:	4630      	mov	r0, r6
- 8000de0:	e7db      	b.n	8000d9a <main+0x32>
- 8000de2:	4e2a      	ldr	r6, [pc, #168]	; (8000e8c <main+0x124>)
+ 8000de8:	e894 0006 	ldmia.w	r4, {r1, r2}
+ 8000dec:	2301      	movs	r3, #1
+ 8000dee:	4638      	mov	r0, r7
+ 8000df0:	e7d5      	b.n	8000d9e <main+0x36>
+ 8000df2:	4e2c      	ldr	r6, [pc, #176]	; (8000ea4 <main+0x13c>)
 	ssd1306_Init();
- 8000de4:	2500      	movs	r5, #0
- 8000de6:	4633      	mov	r3, r6
+ 8000df4:	2500      	movs	r5, #0
+ 8000df6:	4633      	mov	r3, r6
 		write_buffer[i]=i;
- 8000de8:	f803 5f01 	strb.w	r5, [r3, #1]!
- 8000dec:	3501      	adds	r5, #1
+ 8000df8:	f803 5f01 	strb.w	r5, [r3, #1]!
+ 8000dfc:	3501      	adds	r5, #1
 	for (uint16_t i = 0; i <= 255; i++)
- 8000dee:	f5b5 7f80 	cmp.w	r5, #256	; 0x100
- 8000df2:	d1f9      	bne.n	8000de8 <main+0x80>
- 8000df4:	4f26      	ldr	r7, [pc, #152]	; (8000e90 <main+0x128>)
+ 8000dfe:	f5b5 7f80 	cmp.w	r5, #256	; 0x100
+ 8000e02:	d1f9      	bne.n	8000df8 <main+0x90>
 	AT24CXX_Write_Buffer(0x00,write_buffer,256);
- 8000df6:	462a      	mov	r2, r5
- 8000df8:	4926      	ldr	r1, [pc, #152]	; (8000e94 <main+0x12c>)
- 8000dfa:	2000      	movs	r0, #0
- 8000dfc:	f7ff feb6 	bl	8000b6c <AT24CXX_Write_Buffer>
+ 8000e04:	462a      	mov	r2, r5
+ 8000e06:	4928      	ldr	r1, [pc, #160]	; (8000ea8 <main+0x140>)
+ 8000e08:	2000      	movs	r0, #0
+ 8000e0a:	f7ff feaf 	bl	8000b6c <AT24CXX_Write_Buffer>
 	AT24CXX_Read_Buffer(0x00,compare_buffer,256);
- 8000e00:	462a      	mov	r2, r5
- 8000e02:	4639      	mov	r1, r7
- 8000e04:	2000      	movs	r0, #0
- 8000e06:	f7ff fe7b 	bl	8000b00 <AT24CXX_Read_Buffer>
- 8000e0a:	463d      	mov	r5, r7
+ 8000e0e:	4927      	ldr	r1, [pc, #156]	; (8000eac <main+0x144>)
+ 8000e10:	462a      	mov	r2, r5
+ 8000e12:	460f      	mov	r7, r1
+ 8000e14:	2000      	movs	r0, #0
+ 8000e16:	f7ff fe73 	bl	8000b00 <AT24CXX_Read_Buffer>
+	ssd1306_Fill(Black);
+ 8000e1a:	2000      	movs	r0, #0
+ 8000e1c:	463d      	mov	r5, r7
+ 8000e1e:	f000 fb27 	bl	8001470 <ssd1306_Fill>
 			ssd1306_WriteString("OK:", Font_11x18, White);
- 8000e0c:	f8df a088 	ldr.w	sl, [pc, #136]	; 8000e98 <main+0x130>
+ 8000e22:	f8df a090 	ldr.w	sl, [pc, #144]	; 8000eb4 <main+0x14c>
 			ssd1306_WriteString("Error:", Font_11x18, White);
- 8000e10:	f8df 9088 	ldr.w	r9, [pc, #136]	; 8000e9c <main+0x134>
- 8000e14:	f507 7880 	add.w	r8, r7, #256	; 0x100
-		itoa(i, temp, 10);
- 8000e18:	220a      	movs	r2, #10
- 8000e1a:	4669      	mov	r1, sp
- 8000e1c:	1be8      	subs	r0, r5, r7
- 8000e1e:	f000 ff3d 	bl	8001c9c <itoa>
+ 8000e26:	f8df 9090 	ldr.w	r9, [pc, #144]	; 8000eb8 <main+0x150>
+ 8000e2a:	f507 7880 	add.w	r8, r7, #256	; 0x100
+		itoa(i, temp, 10);//int string base 10
+ 8000e2e:	220a      	movs	r2, #10
+ 8000e30:	4669      	mov	r1, sp
+ 8000e32:	1be8      	subs	r0, r5, r7
+ 8000e34:	f000 ff4c 	bl	8001cd0 <itoa>
 		if(write_buffer[i]!=compare_buffer[i])
- 8000e22:	f815 3b01 	ldrb.w	r3, [r5], #1
- 8000e26:	f816 2f01 	ldrb.w	r2, [r6, #1]!
+ 8000e38:	f815 3b01 	ldrb.w	r3, [r5], #1
+ 8000e3c:	f816 2f01 	ldrb.w	r2, [r6, #1]!
 			ssd1306_SetCursor(0, 30);
- 8000e2a:	211e      	movs	r1, #30
+ 8000e40:	211e      	movs	r1, #30
 		if(write_buffer[i]!=compare_buffer[i])
- 8000e2c:	429a      	cmp	r2, r3
+ 8000e42:	429a      	cmp	r2, r3
 			ssd1306_SetCursor(0, 30);
- 8000e2e:	f04f 0000 	mov.w	r0, #0
+ 8000e44:	f04f 0000 	mov.w	r0, #0
 		if(write_buffer[i]!=compare_buffer[i])
- 8000e32:	d012      	beq.n	8000e5a <main+0xf2>
+ 8000e48:	d012      	beq.n	8000e70 <main+0x108>
 			ssd1306_SetCursor(0, 30);
- 8000e34:	f000 fe42 	bl	8001abc <ssd1306_SetCursor>
+ 8000e4a:	f000 fe51 	bl	8001af0 <ssd1306_SetCursor>
 			ssd1306_WriteString("Error:", Font_11x18, White);
- 8000e38:	e894 0006 	ldmia.w	r4, {r1, r2}
- 8000e3c:	2301      	movs	r3, #1
- 8000e3e:	4648      	mov	r0, r9
- 8000e40:	f000 fe20 	bl	8001a84 <ssd1306_WriteString>
+ 8000e4e:	e894 0006 	ldmia.w	r4, {r1, r2}
+ 8000e52:	2301      	movs	r3, #1
+ 8000e54:	4648      	mov	r0, r9
+ 8000e56:	f000 fe2f 	bl	8001ab8 <ssd1306_WriteString>
 			ssd1306_WriteString(temp, Font_11x18, White);
- 8000e44:	e894 0006 	ldmia.w	r4, {r1, r2}
- 8000e48:	2301      	movs	r3, #1
- 8000e4a:	4668      	mov	r0, sp
- 8000e4c:	f000 fe1a 	bl	8001a84 <ssd1306_WriteString>
+ 8000e5a:	e894 0006 	ldmia.w	r4, {r1, r2}
+ 8000e5e:	2301      	movs	r3, #1
+ 8000e60:	4668      	mov	r0, sp
+ 8000e62:	f000 fe29 	bl	8001ab8 <ssd1306_WriteString>
 			ssd1306_UpdateScreen();
- 8000e50:	f000 fb00 	bl	8001454 <ssd1306_UpdateScreen>
+ 8000e66:	f000 fb0f 	bl	8001488 <ssd1306_UpdateScreen>
 	for(uint16_t i=0;i<=255;i++)
- 8000e54:	4545      	cmp	r5, r8
- 8000e56:	d1df      	bne.n	8000e18 <main+0xb0>
- 8000e58:	e7fe      	b.n	8000e58 <main+0xf0>
+ 8000e6a:	4545      	cmp	r5, r8
+ 8000e6c:	d1df      	bne.n	8000e2e <main+0xc6>
+ 8000e6e:	e7fe      	b.n	8000e6e <main+0x106>
 			ssd1306_SetCursor(0, 30);
- 8000e5a:	f000 fe2f 	bl	8001abc <ssd1306_SetCursor>
+ 8000e70:	f000 fe3e 	bl	8001af0 <ssd1306_SetCursor>
 			ssd1306_WriteString("OK:", Font_11x18, White);
- 8000e5e:	e894 0006 	ldmia.w	r4, {r1, r2}
- 8000e62:	2301      	movs	r3, #1
- 8000e64:	4650      	mov	r0, sl
- 8000e66:	f000 fe0d 	bl	8001a84 <ssd1306_WriteString>
+ 8000e74:	e894 0006 	ldmia.w	r4, {r1, r2}
+ 8000e78:	2301      	movs	r3, #1
+ 8000e7a:	4650      	mov	r0, sl
+ 8000e7c:	f000 fe1c 	bl	8001ab8 <ssd1306_WriteString>
 			ssd1306_WriteString(temp, Font_11x18, White);
- 8000e6a:	e894 0006 	ldmia.w	r4, {r1, r2}
- 8000e6e:	2301      	movs	r3, #1
- 8000e70:	4668      	mov	r0, sp
- 8000e72:	f000 fe07 	bl	8001a84 <ssd1306_WriteString>
+ 8000e80:	e894 0006 	ldmia.w	r4, {r1, r2}
+ 8000e84:	2301      	movs	r3, #1
+ 8000e86:	4668      	mov	r0, sp
+ 8000e88:	f000 fe16 	bl	8001ab8 <ssd1306_WriteString>
 			ssd1306_UpdateScreen();
- 8000e76:	f000 faed 	bl	8001454 <ssd1306_UpdateScreen>
+ 8000e8c:	f000 fafc 	bl	8001488 <ssd1306_UpdateScreen>
 	for(uint16_t i=0;i<=255;i++)
- 8000e7a:	4545      	cmp	r5, r8
- 8000e7c:	d1cc      	bne.n	8000e18 <main+0xb0>
- 8000e7e:	e7eb      	b.n	8000e58 <main+0xf0>
- 8000e80:	20000008 	.word	0x20000008
- 8000e84:	08002ab8 	.word	0x08002ab8
- 8000e88:	08002ab4 	.word	0x08002ab4
- 8000e8c:	2000043b 	.word	0x2000043b
- 8000e90:	2000053c 	.word	0x2000053c
- 8000e94:	2000043c 	.word	0x2000043c
- 8000e98:	08002ac4 	.word	0x08002ac4
- 8000e9c:	08002abc 	.word	0x08002abc
+ 8000e90:	4545      	cmp	r5, r8
+ 8000e92:	d1cc      	bne.n	8000e2e <main+0xc6>
+ 8000e94:	e7eb      	b.n	8000e6e <main+0x106>
+ 8000e96:	bf00      	nop
+ 8000e98:	20000008 	.word	0x20000008
+ 8000e9c:	08002af0 	.word	0x08002af0
+ 8000ea0:	08002aec 	.word	0x08002aec
+ 8000ea4:	2000043b 	.word	0x2000043b
+ 8000ea8:	2000043c 	.word	0x2000043c
+ 8000eac:	2000053c 	.word	0x2000053c
+ 8000eb0:	08002ae8 	.word	0x08002ae8
+ 8000eb4:	08002afc 	.word	0x08002afc
+ 8000eb8:	08002af4 	.word	0x08002af4
 
-08000ea0 <_Error_Handler>:
+08000ebc <_Error_Handler>:
  * @param  file: The file name as string.
  * @param  line: The line in file as a number.
  * @retval None
  */
 void _Error_Handler(char *file, int line)
 {
- 8000ea0:	e7fe      	b.n	8000ea0 <_Error_Handler>
- 8000ea2:	bf00      	nop
+ 8000ebc:	e7fe      	b.n	8000ebc <_Error_Handler>
+ 8000ebe:	bf00      	nop
 
-08000ea4 <Soft_I2C_Init>:
+08000ec0 <Soft_I2C_Init>:
 void Soft_I2C_Init(void)
 {
 	GPIO_InitTypeDef GPIO_Init;
 
 	/* GPIO Ports Clock Enable */
 	__HAL_RCC_GPIOC_CLK_ENABLE()
- 8000ea4:	4b23      	ldr	r3, [pc, #140]	; (8000f34 <Soft_I2C_Init+0x90>)
+ 8000ec0:	4b23      	ldr	r3, [pc, #140]	; (8000f50 <Soft_I2C_Init+0x90>)
 {
- 8000ea6:	b570      	push	{r4, r5, r6, lr}
+ 8000ec2:	b570      	push	{r4, r5, r6, lr}
 	__HAL_RCC_GPIOC_CLK_ENABLE()
- 8000ea8:	699a      	ldr	r2, [r3, #24]
+ 8000ec4:	699a      	ldr	r2, [r3, #24]
 {
- 8000eaa:	b088      	sub	sp, #32
+ 8000ec6:	b088      	sub	sp, #32
 	__HAL_RCC_GPIOC_CLK_ENABLE()
- 8000eac:	f042 0210 	orr.w	r2, r2, #16
- 8000eb0:	619a      	str	r2, [r3, #24]
- 8000eb2:	6999      	ldr	r1, [r3, #24]
+ 8000ec8:	f042 0210 	orr.w	r2, r2, #16
+ 8000ecc:	619a      	str	r2, [r3, #24]
+ 8000ece:	6999      	ldr	r1, [r3, #24]
 	;
 	__HAL_RCC_GPIOA_CLK_ENABLE()
 	;
 	__HAL_RCC_GPIOB_CLK_ENABLE()
 	;
 	SDA_High();
- 8000eb4:	4c20      	ldr	r4, [pc, #128]	; (8000f38 <Soft_I2C_Init+0x94>)
+ 8000ed0:	4c20      	ldr	r4, [pc, #128]	; (8000f54 <Soft_I2C_Init+0x94>)
 	__HAL_RCC_GPIOC_CLK_ENABLE()
- 8000eb6:	f001 0110 	and.w	r1, r1, #16
- 8000eba:	9100      	str	r1, [sp, #0]
- 8000ebc:	9900      	ldr	r1, [sp, #0]
+ 8000ed2:	f001 0110 	and.w	r1, r1, #16
+ 8000ed6:	9100      	str	r1, [sp, #0]
+ 8000ed8:	9900      	ldr	r1, [sp, #0]
 	__HAL_RCC_GPIOD_CLK_ENABLE()
- 8000ebe:	699d      	ldr	r5, [r3, #24]
+ 8000eda:	699d      	ldr	r5, [r3, #24]
 	SDA_High();
- 8000ec0:	4620      	mov	r0, r4
+ 8000edc:	4620      	mov	r0, r4
 	__HAL_RCC_GPIOD_CLK_ENABLE()
- 8000ec2:	f045 0520 	orr.w	r5, r5, #32
- 8000ec6:	619d      	str	r5, [r3, #24]
- 8000ec8:	699e      	ldr	r6, [r3, #24]
+ 8000ede:	f045 0520 	orr.w	r5, r5, #32
+ 8000ee2:	619d      	str	r5, [r3, #24]
+ 8000ee4:	699e      	ldr	r6, [r3, #24]
 	SDA_High();
- 8000eca:	2201      	movs	r2, #1
+ 8000ee6:	2201      	movs	r2, #1
 	__HAL_RCC_GPIOD_CLK_ENABLE()
- 8000ecc:	f006 0620 	and.w	r6, r6, #32
- 8000ed0:	9601      	str	r6, [sp, #4]
- 8000ed2:	9e01      	ldr	r6, [sp, #4]
+ 8000ee8:	f006 0620 	and.w	r6, r6, #32
+ 8000eec:	9601      	str	r6, [sp, #4]
+ 8000eee:	9e01      	ldr	r6, [sp, #4]
 	__HAL_RCC_GPIOA_CLK_ENABLE()
- 8000ed4:	699e      	ldr	r6, [r3, #24]
+ 8000ef0:	699e      	ldr	r6, [r3, #24]
 	SDA_High();
- 8000ed6:	2180      	movs	r1, #128	; 0x80
+ 8000ef2:	2180      	movs	r1, #128	; 0x80
 	__HAL_RCC_GPIOA_CLK_ENABLE()
- 8000ed8:	f046 0604 	orr.w	r6, r6, #4
- 8000edc:	619e      	str	r6, [r3, #24]
- 8000ede:	699e      	ldr	r6, [r3, #24]
+ 8000ef4:	f046 0604 	orr.w	r6, r6, #4
+ 8000ef8:	619e      	str	r6, [r3, #24]
+ 8000efa:	699e      	ldr	r6, [r3, #24]
 
 	GPIO_Init.Mode = GPIO_MODE_OUTPUT_OD;
 	GPIO_Init.Pull = GPIO_PULLUP;
 	GPIO_Init.Speed = GPIO_SPEED_FREQ_MEDIUM;
 
 	GPIO_Init.Pin = Soft_I2C_SDA_Pin;
- 8000ee0:	ad08      	add	r5, sp, #32
+ 8000efc:	ad08      	add	r5, sp, #32
 	__HAL_RCC_GPIOA_CLK_ENABLE()
- 8000ee2:	f006 0604 	and.w	r6, r6, #4
- 8000ee6:	9602      	str	r6, [sp, #8]
- 8000ee8:	9e02      	ldr	r6, [sp, #8]
+ 8000efe:	f006 0604 	and.w	r6, r6, #4
+ 8000f02:	9602      	str	r6, [sp, #8]
+ 8000f04:	9e02      	ldr	r6, [sp, #8]
 	__HAL_RCC_GPIOB_CLK_ENABLE()
- 8000eea:	699e      	ldr	r6, [r3, #24]
- 8000eec:	f046 0608 	orr.w	r6, r6, #8
- 8000ef0:	619e      	str	r6, [r3, #24]
- 8000ef2:	699b      	ldr	r3, [r3, #24]
- 8000ef4:	f003 0308 	and.w	r3, r3, #8
- 8000ef8:	9303      	str	r3, [sp, #12]
- 8000efa:	9b03      	ldr	r3, [sp, #12]
+ 8000f06:	699e      	ldr	r6, [r3, #24]
+ 8000f08:	f046 0608 	orr.w	r6, r6, #8
+ 8000f0c:	619e      	str	r6, [r3, #24]
+ 8000f0e:	699b      	ldr	r3, [r3, #24]
+ 8000f10:	f003 0308 	and.w	r3, r3, #8
+ 8000f14:	9303      	str	r3, [sp, #12]
+ 8000f16:	9b03      	ldr	r3, [sp, #12]
 	SDA_High();
- 8000efc:	f7ff faf8 	bl	80004f0 <HAL_GPIO_WritePin>
+ 8000f18:	f7ff faea 	bl	80004f0 <HAL_GPIO_WritePin>
 	SCL_High();
- 8000f00:	4620      	mov	r0, r4
- 8000f02:	2201      	movs	r2, #1
- 8000f04:	2140      	movs	r1, #64	; 0x40
- 8000f06:	f7ff faf3 	bl	80004f0 <HAL_GPIO_WritePin>
+ 8000f1c:	4620      	mov	r0, r4
+ 8000f1e:	2201      	movs	r2, #1
+ 8000f20:	2140      	movs	r1, #64	; 0x40
+ 8000f22:	f7ff fae5 	bl	80004f0 <HAL_GPIO_WritePin>
 	GPIO_Init.Pin = Soft_I2C_SDA_Pin;
- 8000f0a:	2180      	movs	r1, #128	; 0x80
+ 8000f26:	2180      	movs	r1, #128	; 0x80
 	GPIO_Init.Mode = GPIO_MODE_OUTPUT_OD;
- 8000f0c:	2211      	movs	r2, #17
+ 8000f28:	2211      	movs	r2, #17
 	GPIO_Init.Pull = GPIO_PULLUP;
- 8000f0e:	2301      	movs	r3, #1
+ 8000f2a:	2301      	movs	r3, #1
 	GPIO_Init.Pin = Soft_I2C_SDA_Pin;
- 8000f10:	f845 1d10 	str.w	r1, [r5, #-16]!
+ 8000f2c:	f845 1d10 	str.w	r1, [r5, #-16]!
 	HAL_GPIO_Init(Soft_I2C_SDA_Port, &GPIO_Init);
- 8000f14:	4629      	mov	r1, r5
- 8000f16:	4620      	mov	r0, r4
+ 8000f30:	4629      	mov	r1, r5
+ 8000f32:	4620      	mov	r0, r4
 	GPIO_Init.Mode = GPIO_MODE_OUTPUT_OD;
- 8000f18:	9205      	str	r2, [sp, #20]
+ 8000f34:	9205      	str	r2, [sp, #20]
 	GPIO_Init.Pull = GPIO_PULLUP;
- 8000f1a:	9306      	str	r3, [sp, #24]
+ 8000f36:	9306      	str	r3, [sp, #24]
 	GPIO_Init.Speed = GPIO_SPEED_FREQ_MEDIUM;
- 8000f1c:	9307      	str	r3, [sp, #28]
+ 8000f38:	9307      	str	r3, [sp, #28]
 	HAL_GPIO_Init(Soft_I2C_SDA_Port, &GPIO_Init);
- 8000f1e:	f7ff f9e1 	bl	80002e4 <HAL_GPIO_Init>
+ 8000f3a:	f7ff f9d3 	bl	80002e4 <HAL_GPIO_Init>
 
 	GPIO_Init.Pin = Soft_I2C_SCL_Pin;
- 8000f22:	2340      	movs	r3, #64	; 0x40
+ 8000f3e:	2340      	movs	r3, #64	; 0x40
 	HAL_GPIO_Init(Soft_I2C_SCL_Port, &GPIO_Init);
- 8000f24:	4629      	mov	r1, r5
- 8000f26:	4620      	mov	r0, r4
+ 8000f40:	4629      	mov	r1, r5
+ 8000f42:	4620      	mov	r0, r4
 	GPIO_Init.Pin = Soft_I2C_SCL_Pin;
- 8000f28:	9304      	str	r3, [sp, #16]
+ 8000f44:	9304      	str	r3, [sp, #16]
 	HAL_GPIO_Init(Soft_I2C_SCL_Port, &GPIO_Init);
- 8000f2a:	f7ff f9db 	bl	80002e4 <HAL_GPIO_Init>
+ 8000f46:	f7ff f9cd 	bl	80002e4 <HAL_GPIO_Init>
 }
- 8000f2e:	b008      	add	sp, #32
- 8000f30:	bd70      	pop	{r4, r5, r6, pc}
- 8000f32:	bf00      	nop
- 8000f34:	40021000 	.word	0x40021000
- 8000f38:	40010c00 	.word	0x40010c00
+ 8000f4a:	b008      	add	sp, #32
+ 8000f4c:	bd70      	pop	{r4, r5, r6, pc}
+ 8000f4e:	bf00      	nop
+ 8000f50:	40021000 	.word	0x40021000
+ 8000f54:	40010c00 	.word	0x40010c00
 
-08000f3c <Soft_I2C_Start>:
+08000f58 <Soft_I2C_Start>:
 
 uint8_t Soft_I2C_Start(void)
 {
- 8000f3c:	b510      	push	{r4, lr}
+ 8000f58:	b510      	push	{r4, lr}
 	SDA_High();
- 8000f3e:	2201      	movs	r2, #1
- 8000f40:	2180      	movs	r1, #128	; 0x80
- 8000f42:	4812      	ldr	r0, [pc, #72]	; (8000f8c <Soft_I2C_Start+0x50>)
- 8000f44:	f7ff fad4 	bl	80004f0 <HAL_GPIO_WritePin>
+ 8000f5a:	2201      	movs	r2, #1
+ 8000f5c:	2180      	movs	r1, #128	; 0x80
+ 8000f5e:	4812      	ldr	r0, [pc, #72]	; (8000fa8 <Soft_I2C_Start+0x50>)
+ 8000f60:	f7ff fac6 	bl	80004f0 <HAL_GPIO_WritePin>
 
 void Soft_I2C_Delay()
 {
 	//approx 275khz scl clock on 72Mhz
 
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 8000f48:	f7ff fd9c 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+ 8000f64:	f7ff fd8e 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
 	SCL_High();
- 8000f4c:	2140      	movs	r1, #64	; 0x40
- 8000f4e:	2201      	movs	r2, #1
- 8000f50:	480e      	ldr	r0, [pc, #56]	; (8000f8c <Soft_I2C_Start+0x50>)
- 8000f52:	f7ff facd 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 8000f56:	f7ff fd95 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	if (!SDA_Read())
- 8000f5a:	2180      	movs	r1, #128	; 0x80
- 8000f5c:	480b      	ldr	r0, [pc, #44]	; (8000f8c <Soft_I2C_Start+0x50>)
- 8000f5e:	f7ff fac1 	bl	80004e4 <HAL_GPIO_ReadPin>
- 8000f62:	b908      	cbnz	r0, 8000f68 <Soft_I2C_Start+0x2c>
-		return Soft_I2C_ERR;
- 8000f64:	2001      	movs	r0, #1
- 8000f66:	bd10      	pop	{r4, pc}
-	SDA_Low();
- 8000f68:	2200      	movs	r2, #0
- 8000f6a:	2180      	movs	r1, #128	; 0x80
- 8000f6c:	4807      	ldr	r0, [pc, #28]	; (8000f8c <Soft_I2C_Start+0x50>)
+ 8000f68:	2140      	movs	r1, #64	; 0x40
+ 8000f6a:	2201      	movs	r2, #1
+ 8000f6c:	480e      	ldr	r0, [pc, #56]	; (8000fa8 <Soft_I2C_Start+0x50>)
  8000f6e:	f7ff fabf 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8000f72:	f7ff fd87 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	if (SDA_Read())
+	if (!SDA_Read())
  8000f76:	2180      	movs	r1, #128	; 0x80
- 8000f78:	4804      	ldr	r0, [pc, #16]	; (8000f8c <Soft_I2C_Start+0x50>)
+ 8000f78:	480b      	ldr	r0, [pc, #44]	; (8000fa8 <Soft_I2C_Start+0x50>)
  8000f7a:	f7ff fab3 	bl	80004e4 <HAL_GPIO_ReadPin>
- 8000f7e:	4604      	mov	r4, r0
- 8000f80:	2800      	cmp	r0, #0
- 8000f82:	d1ef      	bne.n	8000f64 <Soft_I2C_Start+0x28>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 8000f84:	f7ff fd7e 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	return Soft_I2C_OK;
- 8000f88:	4620      	mov	r0, r4
-}
- 8000f8a:	bd10      	pop	{r4, pc}
- 8000f8c:	40010c00 	.word	0x40010c00
-
-08000f90 <Soft_I2C_Stop>:
-{
- 8000f90:	b510      	push	{r4, lr}
-	SCL_Low();
- 8000f92:	4c0f      	ldr	r4, [pc, #60]	; (8000fd0 <Soft_I2C_Stop+0x40>)
- 8000f94:	2200      	movs	r2, #0
- 8000f96:	4620      	mov	r0, r4
- 8000f98:	2140      	movs	r1, #64	; 0x40
- 8000f9a:	f7ff faa9 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 8000f9e:	f7ff fd71 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+ 8000f7e:	b908      	cbnz	r0, 8000f84 <Soft_I2C_Start+0x2c>
+		return Soft_I2C_ERR;
+ 8000f80:	2001      	movs	r0, #1
+ 8000f82:	bd10      	pop	{r4, pc}
 	SDA_Low();
- 8000fa2:	4620      	mov	r0, r4
- 8000fa4:	2200      	movs	r2, #0
- 8000fa6:	2180      	movs	r1, #128	; 0x80
- 8000fa8:	f7ff faa2 	bl	80004f0 <HAL_GPIO_WritePin>
+ 8000f84:	2200      	movs	r2, #0
+ 8000f86:	2180      	movs	r1, #128	; 0x80
+ 8000f88:	4807      	ldr	r0, [pc, #28]	; (8000fa8 <Soft_I2C_Start+0x50>)
+ 8000f8a:	f7ff fab1 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 8000fac:	f7ff fd6a 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SCL_High();
- 8000fb0:	4620      	mov	r0, r4
- 8000fb2:	2201      	movs	r2, #1
+ 8000f8e:	f7ff fd79 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	if (SDA_Read())
+ 8000f92:	2180      	movs	r1, #128	; 0x80
+ 8000f94:	4804      	ldr	r0, [pc, #16]	; (8000fa8 <Soft_I2C_Start+0x50>)
+ 8000f96:	f7ff faa5 	bl	80004e4 <HAL_GPIO_ReadPin>
+ 8000f9a:	4604      	mov	r4, r0
+ 8000f9c:	2800      	cmp	r0, #0
+ 8000f9e:	d1ef      	bne.n	8000f80 <Soft_I2C_Start+0x28>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 8000fa0:	f7ff fd70 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	return Soft_I2C_OK;
+ 8000fa4:	4620      	mov	r0, r4
+}
+ 8000fa6:	bd10      	pop	{r4, pc}
+ 8000fa8:	40010c00 	.word	0x40010c00
+
+08000fac <Soft_I2C_Stop>:
+{
+ 8000fac:	b510      	push	{r4, lr}
+	SCL_Low();
+ 8000fae:	4c0f      	ldr	r4, [pc, #60]	; (8000fec <Soft_I2C_Stop+0x40>)
+ 8000fb0:	2200      	movs	r2, #0
+ 8000fb2:	4620      	mov	r0, r4
  8000fb4:	2140      	movs	r1, #64	; 0x40
  8000fb6:	f7ff fa9b 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8000fba:	f7ff fd63 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SDA_High();
+	SDA_Low();
  8000fbe:	4620      	mov	r0, r4
- 8000fc0:	2201      	movs	r2, #1
+ 8000fc0:	2200      	movs	r2, #0
  8000fc2:	2180      	movs	r1, #128	; 0x80
  8000fc4:	f7ff fa94 	bl	80004f0 <HAL_GPIO_WritePin>
-}
- 8000fc8:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 8000fcc:	f7ff bd5a 	b.w	8000a84 <HAL_RCC_GetSysClockFreq>
- 8000fd0:	40010c00 	.word	0x40010c00
-
-08000fd4 <Soft_I2C_ACK>:
-{
- 8000fd4:	b510      	push	{r4, lr}
-	SCL_Low();
- 8000fd6:	4c0f      	ldr	r4, [pc, #60]	; (8001014 <Soft_I2C_ACK+0x40>)
- 8000fd8:	2200      	movs	r2, #0
- 8000fda:	4620      	mov	r0, r4
- 8000fdc:	2140      	movs	r1, #64	; 0x40
- 8000fde:	f7ff fa87 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 8000fe2:	f7ff fd4f 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SDA_Low();
- 8000fe6:	4620      	mov	r0, r4
- 8000fe8:	2200      	movs	r2, #0
- 8000fea:	2180      	movs	r1, #128	; 0x80
- 8000fec:	f7ff fa80 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 8000ff0:	f7ff fd48 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+ 8000fc8:	f7ff fd5c 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
 	SCL_High();
- 8000ff4:	4620      	mov	r0, r4
- 8000ff6:	2201      	movs	r2, #1
+ 8000fcc:	4620      	mov	r0, r4
+ 8000fce:	2201      	movs	r2, #1
+ 8000fd0:	2140      	movs	r1, #64	; 0x40
+ 8000fd2:	f7ff fa8d 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 8000fd6:	f7ff fd55 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	SDA_High();
+ 8000fda:	4620      	mov	r0, r4
+ 8000fdc:	2201      	movs	r2, #1
+ 8000fde:	2180      	movs	r1, #128	; 0x80
+ 8000fe0:	f7ff fa86 	bl	80004f0 <HAL_GPIO_WritePin>
+}
+ 8000fe4:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 8000fe8:	f7ff bd4c 	b.w	8000a84 <HAL_RCC_GetSysClockFreq>
+ 8000fec:	40010c00 	.word	0x40010c00
+
+08000ff0 <Soft_I2C_ACK>:
+{
+ 8000ff0:	b510      	push	{r4, lr}
+	SCL_Low();
+ 8000ff2:	4c0f      	ldr	r4, [pc, #60]	; (8001030 <Soft_I2C_ACK+0x40>)
+ 8000ff4:	2200      	movs	r2, #0
+ 8000ff6:	4620      	mov	r0, r4
  8000ff8:	2140      	movs	r1, #64	; 0x40
  8000ffa:	f7ff fa79 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8000ffe:	f7ff fd41 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SCL_Low();
+	SDA_Low();
  8001002:	4620      	mov	r0, r4
  8001004:	2200      	movs	r2, #0
- 8001006:	2140      	movs	r1, #64	; 0x40
+ 8001006:	2180      	movs	r1, #128	; 0x80
  8001008:	f7ff fa72 	bl	80004f0 <HAL_GPIO_WritePin>
-}
- 800100c:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 8001010:	f7ff bd38 	b.w	8000a84 <HAL_RCC_GetSysClockFreq>
- 8001014:	40010c00 	.word	0x40010c00
-
-08001018 <Soft_I2C_NACK>:
-{
- 8001018:	b510      	push	{r4, lr}
-	SCL_Low();
- 800101a:	4c0f      	ldr	r4, [pc, #60]	; (8001058 <Soft_I2C_NACK+0x40>)
- 800101c:	2200      	movs	r2, #0
- 800101e:	4620      	mov	r0, r4
- 8001020:	2140      	movs	r1, #64	; 0x40
- 8001022:	f7ff fa65 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 8001026:	f7ff fd2d 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SDA_High();
- 800102a:	4620      	mov	r0, r4
- 800102c:	2201      	movs	r2, #1
- 800102e:	2180      	movs	r1, #128	; 0x80
- 8001030:	f7ff fa5e 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 8001034:	f7ff fd26 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+ 800100c:	f7ff fd3a 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
 	SCL_High();
- 8001038:	4620      	mov	r0, r4
- 800103a:	2201      	movs	r2, #1
+ 8001010:	4620      	mov	r0, r4
+ 8001012:	2201      	movs	r2, #1
+ 8001014:	2140      	movs	r1, #64	; 0x40
+ 8001016:	f7ff fa6b 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 800101a:	f7ff fd33 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	SCL_Low();
+ 800101e:	4620      	mov	r0, r4
+ 8001020:	2200      	movs	r2, #0
+ 8001022:	2140      	movs	r1, #64	; 0x40
+ 8001024:	f7ff fa64 	bl	80004f0 <HAL_GPIO_WritePin>
+}
+ 8001028:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 800102c:	f7ff bd2a 	b.w	8000a84 <HAL_RCC_GetSysClockFreq>
+ 8001030:	40010c00 	.word	0x40010c00
+
+08001034 <Soft_I2C_NACK>:
+{
+ 8001034:	b510      	push	{r4, lr}
+	SCL_Low();
+ 8001036:	4c0f      	ldr	r4, [pc, #60]	; (8001074 <Soft_I2C_NACK+0x40>)
+ 8001038:	2200      	movs	r2, #0
+ 800103a:	4620      	mov	r0, r4
  800103c:	2140      	movs	r1, #64	; 0x40
  800103e:	f7ff fa57 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001042:	f7ff fd1f 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SCL_Low();
+	SDA_High();
  8001046:	4620      	mov	r0, r4
- 8001048:	2200      	movs	r2, #0
- 800104a:	2140      	movs	r1, #64	; 0x40
+ 8001048:	2201      	movs	r2, #1
+ 800104a:	2180      	movs	r1, #128	; 0x80
  800104c:	f7ff fa50 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 8001050:	f7ff fd18 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	SCL_High();
+ 8001054:	4620      	mov	r0, r4
+ 8001056:	2201      	movs	r2, #1
+ 8001058:	2140      	movs	r1, #64	; 0x40
+ 800105a:	f7ff fa49 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 800105e:	f7ff fd11 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	SCL_Low();
+ 8001062:	4620      	mov	r0, r4
+ 8001064:	2200      	movs	r2, #0
+ 8001066:	2140      	movs	r1, #64	; 0x40
+ 8001068:	f7ff fa42 	bl	80004f0 <HAL_GPIO_WritePin>
 }
- 8001050:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
+ 800106c:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 8001054:	f7ff bd16 	b.w	8000a84 <HAL_RCC_GetSysClockFreq>
- 8001058:	40010c00 	.word	0x40010c00
+ 8001070:	f7ff bd08 	b.w	8000a84 <HAL_RCC_GetSysClockFreq>
+ 8001074:	40010c00 	.word	0x40010c00
 
-0800105c <Soft_I2C_Send_Byte>:
+08001078 <Soft_I2C_Send_Byte>:
 {
- 800105c:	b570      	push	{r4, r5, r6, lr}
+ 8001078:	b570      	push	{r4, r5, r6, lr}
 	SCL_Low();
- 800105e:	2200      	movs	r2, #0
- 8001060:	2140      	movs	r1, #64	; 0x40
+ 800107a:	2200      	movs	r2, #0
+ 800107c:	2140      	movs	r1, #64	; 0x40
 {
- 8001062:	4604      	mov	r4, r0
+ 800107e:	4604      	mov	r4, r0
 	SCL_Low();
- 8001064:	4836      	ldr	r0, [pc, #216]	; (8001140 <Soft_I2C_Send_Byte+0xe4>)
- 8001066:	f7ff fa43 	bl	80004f0 <HAL_GPIO_WritePin>
+ 8001080:	4836      	ldr	r0, [pc, #216]	; (800115c <Soft_I2C_Send_Byte+0xe4>)
+ 8001082:	f7ff fa35 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 800106a:	2508      	movs	r5, #8
- 800106c:	f7ff fd0a 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+ 8001086:	2508      	movs	r5, #8
+ 8001088:	f7ff fcfc 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
 			SDA_Low();
- 8001070:	4e33      	ldr	r6, [pc, #204]	; (8001140 <Soft_I2C_Send_Byte+0xe4>)
+ 800108c:	4e33      	ldr	r6, [pc, #204]	; (800115c <Soft_I2C_Send_Byte+0xe4>)
 		if (byte & 0x80)
- 8001072:	0623      	lsls	r3, r4, #24
+ 800108e:	0623      	lsls	r3, r4, #24
 			SDA_High();
- 8001074:	bf4c      	ite	mi
- 8001076:	2201      	movmi	r2, #1
+ 8001090:	bf4c      	ite	mi
+ 8001092:	2201      	movmi	r2, #1
 			SDA_Low();
- 8001078:	2200      	movpl	r2, #0
- 800107a:	2180      	movs	r1, #128	; 0x80
- 800107c:	4630      	mov	r0, r6
- 800107e:	f7ff fa37 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 8001082:	f7ff fcff 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-		SCL_High();
- 8001086:	2201      	movs	r2, #1
- 8001088:	2140      	movs	r1, #64	; 0x40
- 800108a:	4630      	mov	r0, r6
- 800108c:	f7ff fa30 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 8001090:	f7ff fcf8 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-		SCL_Low();
- 8001094:	2200      	movs	r2, #0
- 8001096:	2140      	movs	r1, #64	; 0x40
+ 8001094:	2200      	movpl	r2, #0
+ 8001096:	2180      	movs	r1, #128	; 0x80
  8001098:	4630      	mov	r0, r6
  800109a:	f7ff fa29 	bl	80004f0 <HAL_GPIO_WritePin>
- 800109e:	1e6b      	subs	r3, r5, #1
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 800109e:	f7ff fcf1 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+		SCL_High();
+ 80010a2:	2201      	movs	r2, #1
+ 80010a4:	2140      	movs	r1, #64	; 0x40
+ 80010a6:	4630      	mov	r0, r6
+ 80010a8:	f7ff fa22 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 80010ac:	f7ff fcea 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+		SCL_Low();
+ 80010b0:	2200      	movs	r2, #0
+ 80010b2:	2140      	movs	r1, #64	; 0x40
+ 80010b4:	4630      	mov	r0, r6
+ 80010b6:	f7ff fa1b 	bl	80004f0 <HAL_GPIO_WritePin>
+ 80010ba:	1e6b      	subs	r3, r5, #1
 		byte <<= 1;
- 80010a0:	0064      	lsls	r4, r4, #1
+ 80010bc:	0064      	lsls	r4, r4, #1
 	while (count--)
- 80010a2:	f013 05ff 	ands.w	r5, r3, #255	; 0xff
+ 80010be:	f013 05ff 	ands.w	r5, r3, #255	; 0xff
 		byte <<= 1;
- 80010a6:	b2e4      	uxtb	r4, r4
+ 80010c2:	b2e4      	uxtb	r4, r4
 	while (count--)
- 80010a8:	d1e3      	bne.n	8001072 <Soft_I2C_Send_Byte+0x16>
+ 80010c4:	d1e3      	bne.n	800108e <Soft_I2C_Send_Byte+0x16>
 	SCL_Low();
- 80010aa:	2200      	movs	r2, #0
- 80010ac:	2140      	movs	r1, #64	; 0x40
- 80010ae:	4824      	ldr	r0, [pc, #144]	; (8001140 <Soft_I2C_Send_Byte+0xe4>)
- 80010b0:	f7ff fa1e 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 80010b4:	f7ff fce6 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SDA_High();
- 80010b8:	2201      	movs	r2, #1
- 80010ba:	2180      	movs	r1, #128	; 0x80
- 80010bc:	4820      	ldr	r0, [pc, #128]	; (8001140 <Soft_I2C_Send_Byte+0xe4>)
- 80010be:	f7ff fa17 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 80010c2:	f7ff fcdf 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SCL_High();
- 80010c6:	2201      	movs	r2, #1
+ 80010c6:	2200      	movs	r2, #0
  80010c8:	2140      	movs	r1, #64	; 0x40
- 80010ca:	481d      	ldr	r0, [pc, #116]	; (8001140 <Soft_I2C_Send_Byte+0xe4>)
+ 80010ca:	4824      	ldr	r0, [pc, #144]	; (800115c <Soft_I2C_Send_Byte+0xe4>)
  80010cc:	f7ff fa10 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 80010d0:	f241 3488 	movw	r4, #5000	; 0x1388
- 80010d4:	f7ff fcd6 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	while (SDA_Read())
- 80010d8:	4e19      	ldr	r6, [pc, #100]	; (8001140 <Soft_I2C_Send_Byte+0xe4>)
- 80010da:	e000      	b.n	80010de <Soft_I2C_Send_Byte+0x82>
-		if (timeOut == 0)
- 80010dc:	b18c      	cbz	r4, 8001102 <Soft_I2C_Send_Byte+0xa6>
-	while (SDA_Read())
- 80010de:	2180      	movs	r1, #128	; 0x80
- 80010e0:	4630      	mov	r0, r6
- 80010e2:	f7ff f9ff 	bl	80004e4 <HAL_GPIO_ReadPin>
- 80010e6:	3c01      	subs	r4, #1
- 80010e8:	4605      	mov	r5, r0
- 80010ea:	b2a4      	uxth	r4, r4
- 80010ec:	2800      	cmp	r0, #0
- 80010ee:	d1f5      	bne.n	80010dc <Soft_I2C_Send_Byte+0x80>
-	SCL_Low();
- 80010f0:	4602      	mov	r2, r0
- 80010f2:	2140      	movs	r1, #64	; 0x40
- 80010f4:	4812      	ldr	r0, [pc, #72]	; (8001140 <Soft_I2C_Send_Byte+0xe4>)
- 80010f6:	f7ff f9fb 	bl	80004f0 <HAL_GPIO_WritePin>
+ 80010d0:	f7ff fcd8 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	SDA_High();
+ 80010d4:	2201      	movs	r2, #1
+ 80010d6:	2180      	movs	r1, #128	; 0x80
+ 80010d8:	4820      	ldr	r0, [pc, #128]	; (800115c <Soft_I2C_Send_Byte+0xe4>)
+ 80010da:	f7ff fa09 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 80010fa:	f7ff fcc3 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	return Soft_I2C_OK;
- 80010fe:	4628      	mov	r0, r5
-}
- 8001100:	bd70      	pop	{r4, r5, r6, pc}
-	SCL_Low();
- 8001102:	4622      	mov	r2, r4
- 8001104:	2140      	movs	r1, #64	; 0x40
- 8001106:	480e      	ldr	r0, [pc, #56]	; (8001140 <Soft_I2C_Send_Byte+0xe4>)
- 8001108:	f7ff f9f2 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 800110c:	f7ff fcba 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SDA_Low();
- 8001110:	4622      	mov	r2, r4
- 8001112:	2180      	movs	r1, #128	; 0x80
- 8001114:	480a      	ldr	r0, [pc, #40]	; (8001140 <Soft_I2C_Send_Byte+0xe4>)
- 8001116:	f7ff f9eb 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 800111a:	f7ff fcb3 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+ 80010de:	f7ff fcd1 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
 	SCL_High();
- 800111e:	2201      	movs	r2, #1
+ 80010e2:	2201      	movs	r2, #1
+ 80010e4:	2140      	movs	r1, #64	; 0x40
+ 80010e6:	481d      	ldr	r0, [pc, #116]	; (800115c <Soft_I2C_Send_Byte+0xe4>)
+ 80010e8:	f7ff fa02 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 80010ec:	f241 3488 	movw	r4, #5000	; 0x1388
+ 80010f0:	f7ff fcc8 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	while (SDA_Read())
+ 80010f4:	4e19      	ldr	r6, [pc, #100]	; (800115c <Soft_I2C_Send_Byte+0xe4>)
+ 80010f6:	e000      	b.n	80010fa <Soft_I2C_Send_Byte+0x82>
+		if (timeOut == 0)
+ 80010f8:	b18c      	cbz	r4, 800111e <Soft_I2C_Send_Byte+0xa6>
+	while (SDA_Read())
+ 80010fa:	2180      	movs	r1, #128	; 0x80
+ 80010fc:	4630      	mov	r0, r6
+ 80010fe:	f7ff f9f1 	bl	80004e4 <HAL_GPIO_ReadPin>
+ 8001102:	3c01      	subs	r4, #1
+ 8001104:	4605      	mov	r5, r0
+ 8001106:	b2a4      	uxth	r4, r4
+ 8001108:	2800      	cmp	r0, #0
+ 800110a:	d1f5      	bne.n	80010f8 <Soft_I2C_Send_Byte+0x80>
+	SCL_Low();
+ 800110c:	4602      	mov	r2, r0
+ 800110e:	2140      	movs	r1, #64	; 0x40
+ 8001110:	4812      	ldr	r0, [pc, #72]	; (800115c <Soft_I2C_Send_Byte+0xe4>)
+ 8001112:	f7ff f9ed 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 8001116:	f7ff fcb5 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	return Soft_I2C_OK;
+ 800111a:	4628      	mov	r0, r5
+}
+ 800111c:	bd70      	pop	{r4, r5, r6, pc}
+	SCL_Low();
+ 800111e:	4622      	mov	r2, r4
  8001120:	2140      	movs	r1, #64	; 0x40
- 8001122:	4807      	ldr	r0, [pc, #28]	; (8001140 <Soft_I2C_Send_Byte+0xe4>)
+ 8001122:	480e      	ldr	r0, [pc, #56]	; (800115c <Soft_I2C_Send_Byte+0xe4>)
  8001124:	f7ff f9e4 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001128:	f7ff fcac 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SDA_High();
- 800112c:	2201      	movs	r2, #1
+	SDA_Low();
+ 800112c:	4622      	mov	r2, r4
  800112e:	2180      	movs	r1, #128	; 0x80
- 8001130:	4803      	ldr	r0, [pc, #12]	; (8001140 <Soft_I2C_Send_Byte+0xe4>)
+ 8001130:	480a      	ldr	r0, [pc, #40]	; (800115c <Soft_I2C_Send_Byte+0xe4>)
  8001132:	f7ff f9dd 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001136:	f7ff fca5 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	SCL_High();
+ 800113a:	2201      	movs	r2, #1
+ 800113c:	2140      	movs	r1, #64	; 0x40
+ 800113e:	4807      	ldr	r0, [pc, #28]	; (800115c <Soft_I2C_Send_Byte+0xe4>)
+ 8001140:	f7ff f9d6 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 8001144:	f7ff fc9e 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	SDA_High();
+ 8001148:	2201      	movs	r2, #1
+ 800114a:	2180      	movs	r1, #128	; 0x80
+ 800114c:	4803      	ldr	r0, [pc, #12]	; (800115c <Soft_I2C_Send_Byte+0xe4>)
+ 800114e:	f7ff f9cf 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 8001152:	f7ff fc97 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
 		return Soft_I2C_ERR;
- 800113a:	2001      	movs	r0, #1
- 800113c:	bd70      	pop	{r4, r5, r6, pc}
- 800113e:	bf00      	nop
- 8001140:	40010c00 	.word	0x40010c00
+ 8001156:	2001      	movs	r0, #1
+ 8001158:	bd70      	pop	{r4, r5, r6, pc}
+ 800115a:	bf00      	nop
+ 800115c:	40010c00 	.word	0x40010c00
 
-08001144 <Soft_I2C_Receive_Byte>:
+08001160 <Soft_I2C_Receive_Byte>:
 {
- 8001144:	b570      	push	{r4, r5, r6, lr}
+ 8001160:	b570      	push	{r4, r5, r6, lr}
 	SDA_High();
- 8001146:	2201      	movs	r2, #1
- 8001148:	2180      	movs	r1, #128	; 0x80
- 800114a:	4814      	ldr	r0, [pc, #80]	; (800119c <Soft_I2C_Receive_Byte+0x58>)
- 800114c:	f7ff f9d0 	bl	80004f0 <HAL_GPIO_WritePin>
- 8001150:	2408      	movs	r4, #8
+ 8001162:	2201      	movs	r2, #1
+ 8001164:	2180      	movs	r1, #128	; 0x80
+ 8001166:	4814      	ldr	r0, [pc, #80]	; (80011b8 <Soft_I2C_Receive_Byte+0x58>)
+ 8001168:	f7ff f9c2 	bl	80004f0 <HAL_GPIO_WritePin>
+ 800116c:	2408      	movs	r4, #8
 	uint8_t ReceivedByte = 0;
- 8001152:	2500      	movs	r5, #0
+ 800116e:	2500      	movs	r5, #0
 		SCL_Low();
- 8001154:	4e11      	ldr	r6, [pc, #68]	; (800119c <Soft_I2C_Receive_Byte+0x58>)
- 8001156:	2200      	movs	r2, #0
- 8001158:	2140      	movs	r1, #64	; 0x40
- 800115a:	4630      	mov	r0, r6
- 800115c:	f7ff f9c8 	bl	80004f0 <HAL_GPIO_WritePin>
+ 8001170:	4e11      	ldr	r6, [pc, #68]	; (80011b8 <Soft_I2C_Receive_Byte+0x58>)
+ 8001172:	2200      	movs	r2, #0
+ 8001174:	2140      	movs	r1, #64	; 0x40
+ 8001176:	4630      	mov	r0, r6
+ 8001178:	f7ff f9ba 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 8001160:	f7ff fc90 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+ 800117c:	f7ff fc82 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
 		SCL_High();
- 8001164:	2201      	movs	r2, #1
- 8001166:	2140      	movs	r1, #64	; 0x40
- 8001168:	4630      	mov	r0, r6
- 800116a:	f7ff f9c1 	bl	80004f0 <HAL_GPIO_WritePin>
+ 8001180:	2201      	movs	r2, #1
+ 8001182:	2140      	movs	r1, #64	; 0x40
+ 8001184:	4630      	mov	r0, r6
+ 8001186:	f7ff f9b3 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 800116e:	f7ff fc89 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+ 800118a:	f7ff fc7b 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
 		if (SDA_Read())
- 8001172:	2180      	movs	r1, #128	; 0x80
- 8001174:	4630      	mov	r0, r6
- 8001176:	f7ff f9b5 	bl	80004e4 <HAL_GPIO_ReadPin>
+ 800118e:	2180      	movs	r1, #128	; 0x80
+ 8001190:	4630      	mov	r0, r6
+ 8001192:	f7ff f9a7 	bl	80004e4 <HAL_GPIO_ReadPin>
 		ReceivedByte <<= 1;
- 800117a:	006d      	lsls	r5, r5, #1
- 800117c:	b2ed      	uxtb	r5, r5
- 800117e:	1e62      	subs	r2, r4, #1
+ 8001196:	006d      	lsls	r5, r5, #1
+ 8001198:	b2ed      	uxtb	r5, r5
+ 800119a:	1e62      	subs	r2, r4, #1
 		if (SDA_Read())
- 8001180:	b108      	cbz	r0, 8001186 <Soft_I2C_Receive_Byte+0x42>
+ 800119c:	b108      	cbz	r0, 80011a2 <Soft_I2C_Receive_Byte+0x42>
 			ReceivedByte |= 0x01;
- 8001182:	f045 0501 	orr.w	r5, r5, #1
+ 800119e:	f045 0501 	orr.w	r5, r5, #1
 	while (i--)
- 8001186:	f012 04ff 	ands.w	r4, r2, #255	; 0xff
- 800118a:	d1e4      	bne.n	8001156 <Soft_I2C_Receive_Byte+0x12>
+ 80011a2:	f012 04ff 	ands.w	r4, r2, #255	; 0xff
+ 80011a6:	d1e4      	bne.n	8001172 <Soft_I2C_Receive_Byte+0x12>
 	SCL_Low();
- 800118c:	4622      	mov	r2, r4
- 800118e:	2140      	movs	r1, #64	; 0x40
- 8001190:	4802      	ldr	r0, [pc, #8]	; (800119c <Soft_I2C_Receive_Byte+0x58>)
- 8001192:	f7ff f9ad 	bl	80004f0 <HAL_GPIO_WritePin>
-}
- 8001196:	4628      	mov	r0, r5
- 8001198:	bd70      	pop	{r4, r5, r6, pc}
- 800119a:	bf00      	nop
- 800119c:	40010c00 	.word	0x40010c00
-
-080011a0 <Soft_I2C_Write_Byte>:
-{
- 80011a0:	b570      	push	{r4, r5, r6, lr}
- 80011a2:	4604      	mov	r4, r0
- 80011a4:	460e      	mov	r6, r1
-	SDA_High();
- 80011a6:	4837      	ldr	r0, [pc, #220]	; (8001284 <Soft_I2C_Write_Byte+0xe4>)
- 80011a8:	2180      	movs	r1, #128	; 0x80
-{
- 80011aa:	4615      	mov	r5, r2
-	SDA_High();
- 80011ac:	2201      	movs	r2, #1
+ 80011a8:	4622      	mov	r2, r4
+ 80011aa:	2140      	movs	r1, #64	; 0x40
+ 80011ac:	4802      	ldr	r0, [pc, #8]	; (80011b8 <Soft_I2C_Receive_Byte+0x58>)
  80011ae:	f7ff f99f 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 80011b2:	f7ff fc67 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SCL_High();
- 80011b6:	2140      	movs	r1, #64	; 0x40
- 80011b8:	2201      	movs	r2, #1
- 80011ba:	4832      	ldr	r0, [pc, #200]	; (8001284 <Soft_I2C_Write_Byte+0xe4>)
- 80011bc:	f7ff f998 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 80011c0:	f7ff fc60 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	if (!SDA_Read())
+}
+ 80011b2:	4628      	mov	r0, r5
+ 80011b4:	bd70      	pop	{r4, r5, r6, pc}
+ 80011b6:	bf00      	nop
+ 80011b8:	40010c00 	.word	0x40010c00
+
+080011bc <Soft_I2C_Write_Byte>:
+{
+ 80011bc:	b570      	push	{r4, r5, r6, lr}
+ 80011be:	4604      	mov	r4, r0
+ 80011c0:	460e      	mov	r6, r1
+	SDA_High();
+ 80011c2:	4837      	ldr	r0, [pc, #220]	; (80012a0 <Soft_I2C_Write_Byte+0xe4>)
  80011c4:	2180      	movs	r1, #128	; 0x80
- 80011c6:	482f      	ldr	r0, [pc, #188]	; (8001284 <Soft_I2C_Write_Byte+0xe4>)
- 80011c8:	f7ff f98c 	bl	80004e4 <HAL_GPIO_ReadPin>
- 80011cc:	b9e8      	cbnz	r0, 800120a <Soft_I2C_Write_Byte+0x6a>
-	SCL_Low();
- 80011ce:	2200      	movs	r2, #0
- 80011d0:	2140      	movs	r1, #64	; 0x40
- 80011d2:	482c      	ldr	r0, [pc, #176]	; (8001284 <Soft_I2C_Write_Byte+0xe4>)
- 80011d4:	f7ff f98c 	bl	80004f0 <HAL_GPIO_WritePin>
+{
+ 80011c6:	4615      	mov	r5, r2
+	SDA_High();
+ 80011c8:	2201      	movs	r2, #1
+ 80011ca:	f7ff f991 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 80011d8:	f7ff fc54 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SDA_Low();
- 80011dc:	2200      	movs	r2, #0
- 80011de:	2180      	movs	r1, #128	; 0x80
- 80011e0:	4828      	ldr	r0, [pc, #160]	; (8001284 <Soft_I2C_Write_Byte+0xe4>)
- 80011e2:	f7ff f985 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 80011e6:	f7ff fc4d 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+ 80011ce:	f7ff fc59 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
 	SCL_High();
- 80011ea:	2201      	movs	r2, #1
+ 80011d2:	2140      	movs	r1, #64	; 0x40
+ 80011d4:	2201      	movs	r2, #1
+ 80011d6:	4832      	ldr	r0, [pc, #200]	; (80012a0 <Soft_I2C_Write_Byte+0xe4>)
+ 80011d8:	f7ff f98a 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 80011dc:	f7ff fc52 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	if (!SDA_Read())
+ 80011e0:	2180      	movs	r1, #128	; 0x80
+ 80011e2:	482f      	ldr	r0, [pc, #188]	; (80012a0 <Soft_I2C_Write_Byte+0xe4>)
+ 80011e4:	f7ff f97e 	bl	80004e4 <HAL_GPIO_ReadPin>
+ 80011e8:	b9e8      	cbnz	r0, 8001226 <Soft_I2C_Write_Byte+0x6a>
+	SCL_Low();
+ 80011ea:	2200      	movs	r2, #0
  80011ec:	2140      	movs	r1, #64	; 0x40
- 80011ee:	4825      	ldr	r0, [pc, #148]	; (8001284 <Soft_I2C_Write_Byte+0xe4>)
+ 80011ee:	482c      	ldr	r0, [pc, #176]	; (80012a0 <Soft_I2C_Write_Byte+0xe4>)
  80011f0:	f7ff f97e 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80011f4:	f7ff fc46 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SDA_High();
- 80011f8:	2201      	movs	r2, #1
+	SDA_Low();
+ 80011f8:	2200      	movs	r2, #0
  80011fa:	2180      	movs	r1, #128	; 0x80
- 80011fc:	4821      	ldr	r0, [pc, #132]	; (8001284 <Soft_I2C_Write_Byte+0xe4>)
+ 80011fc:	4828      	ldr	r0, [pc, #160]	; (80012a0 <Soft_I2C_Write_Byte+0xe4>)
  80011fe:	f7ff f977 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001202:	f7ff fc3f 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-		return Soft_I2C_ERR;
- 8001206:	2001      	movs	r0, #1
-}
- 8001208:	bd70      	pop	{r4, r5, r6, pc}
-	SDA_Low();
- 800120a:	2180      	movs	r1, #128	; 0x80
- 800120c:	2200      	movs	r2, #0
- 800120e:	481d      	ldr	r0, [pc, #116]	; (8001284 <Soft_I2C_Write_Byte+0xe4>)
- 8001210:	f7ff f96e 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 8001214:	f7ff fc36 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	if (SDA_Read())
- 8001218:	2180      	movs	r1, #128	; 0x80
- 800121a:	481a      	ldr	r0, [pc, #104]	; (8001284 <Soft_I2C_Write_Byte+0xe4>)
- 800121c:	f7ff f962 	bl	80004e4 <HAL_GPIO_ReadPin>
- 8001220:	2800      	cmp	r0, #0
- 8001222:	d1d4      	bne.n	80011ce <Soft_I2C_Write_Byte+0x2e>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 8001224:	f7ff fc2e 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	if (Soft_I2C_Send_Byte(slaveAddr) == Soft_I2C_ERR)
- 8001228:	4620      	mov	r0, r4
- 800122a:	f7ff ff17 	bl	800105c <Soft_I2C_Send_Byte>
- 800122e:	2801      	cmp	r0, #1
- 8001230:	d0e9      	beq.n	8001206 <Soft_I2C_Write_Byte+0x66>
-	if (Soft_I2C_Send_Byte(regAddr) == Soft_I2C_ERR)
- 8001232:	4630      	mov	r0, r6
- 8001234:	f7ff ff12 	bl	800105c <Soft_I2C_Send_Byte>
- 8001238:	2801      	cmp	r0, #1
- 800123a:	d0e4      	beq.n	8001206 <Soft_I2C_Write_Byte+0x66>
-	if (byte)
- 800123c:	b125      	cbz	r5, 8001248 <Soft_I2C_Write_Byte+0xa8>
-		if (Soft_I2C_Send_Byte(*byte) == Soft_I2C_ERR)
- 800123e:	7828      	ldrb	r0, [r5, #0]
- 8001240:	f7ff ff0c 	bl	800105c <Soft_I2C_Send_Byte>
- 8001244:	2801      	cmp	r0, #1
- 8001246:	d0de      	beq.n	8001206 <Soft_I2C_Write_Byte+0x66>
-	SCL_Low();
- 8001248:	2200      	movs	r2, #0
- 800124a:	2140      	movs	r1, #64	; 0x40
- 800124c:	480d      	ldr	r0, [pc, #52]	; (8001284 <Soft_I2C_Write_Byte+0xe4>)
- 800124e:	f7ff f94f 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 8001252:	f7ff fc17 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SDA_Low();
- 8001256:	2200      	movs	r2, #0
- 8001258:	2180      	movs	r1, #128	; 0x80
- 800125a:	480a      	ldr	r0, [pc, #40]	; (8001284 <Soft_I2C_Write_Byte+0xe4>)
- 800125c:	f7ff f948 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 8001260:	f7ff fc10 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
 	SCL_High();
- 8001264:	2201      	movs	r2, #1
+ 8001206:	2201      	movs	r2, #1
+ 8001208:	2140      	movs	r1, #64	; 0x40
+ 800120a:	4825      	ldr	r0, [pc, #148]	; (80012a0 <Soft_I2C_Write_Byte+0xe4>)
+ 800120c:	f7ff f970 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 8001210:	f7ff fc38 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	SDA_High();
+ 8001214:	2201      	movs	r2, #1
+ 8001216:	2180      	movs	r1, #128	; 0x80
+ 8001218:	4821      	ldr	r0, [pc, #132]	; (80012a0 <Soft_I2C_Write_Byte+0xe4>)
+ 800121a:	f7ff f969 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 800121e:	f7ff fc31 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+		return Soft_I2C_ERR;
+ 8001222:	2001      	movs	r0, #1
+}
+ 8001224:	bd70      	pop	{r4, r5, r6, pc}
+	SDA_Low();
+ 8001226:	2180      	movs	r1, #128	; 0x80
+ 8001228:	2200      	movs	r2, #0
+ 800122a:	481d      	ldr	r0, [pc, #116]	; (80012a0 <Soft_I2C_Write_Byte+0xe4>)
+ 800122c:	f7ff f960 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 8001230:	f7ff fc28 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	if (SDA_Read())
+ 8001234:	2180      	movs	r1, #128	; 0x80
+ 8001236:	481a      	ldr	r0, [pc, #104]	; (80012a0 <Soft_I2C_Write_Byte+0xe4>)
+ 8001238:	f7ff f954 	bl	80004e4 <HAL_GPIO_ReadPin>
+ 800123c:	2800      	cmp	r0, #0
+ 800123e:	d1d4      	bne.n	80011ea <Soft_I2C_Write_Byte+0x2e>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 8001240:	f7ff fc20 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	if (Soft_I2C_Send_Byte(slaveAddr) == Soft_I2C_ERR)
+ 8001244:	4620      	mov	r0, r4
+ 8001246:	f7ff ff17 	bl	8001078 <Soft_I2C_Send_Byte>
+ 800124a:	2801      	cmp	r0, #1
+ 800124c:	d0e9      	beq.n	8001222 <Soft_I2C_Write_Byte+0x66>
+	if (Soft_I2C_Send_Byte(regAddr) == Soft_I2C_ERR)
+ 800124e:	4630      	mov	r0, r6
+ 8001250:	f7ff ff12 	bl	8001078 <Soft_I2C_Send_Byte>
+ 8001254:	2801      	cmp	r0, #1
+ 8001256:	d0e4      	beq.n	8001222 <Soft_I2C_Write_Byte+0x66>
+	if (byte)
+ 8001258:	b125      	cbz	r5, 8001264 <Soft_I2C_Write_Byte+0xa8>
+		if (Soft_I2C_Send_Byte(*byte) == Soft_I2C_ERR)
+ 800125a:	7828      	ldrb	r0, [r5, #0]
+ 800125c:	f7ff ff0c 	bl	8001078 <Soft_I2C_Send_Byte>
+ 8001260:	2801      	cmp	r0, #1
+ 8001262:	d0de      	beq.n	8001222 <Soft_I2C_Write_Byte+0x66>
+	SCL_Low();
+ 8001264:	2200      	movs	r2, #0
  8001266:	2140      	movs	r1, #64	; 0x40
- 8001268:	4806      	ldr	r0, [pc, #24]	; (8001284 <Soft_I2C_Write_Byte+0xe4>)
+ 8001268:	480d      	ldr	r0, [pc, #52]	; (80012a0 <Soft_I2C_Write_Byte+0xe4>)
  800126a:	f7ff f941 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  800126e:	f7ff fc09 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SDA_High();
- 8001272:	2201      	movs	r2, #1
+	SDA_Low();
+ 8001272:	2200      	movs	r2, #0
  8001274:	2180      	movs	r1, #128	; 0x80
- 8001276:	4803      	ldr	r0, [pc, #12]	; (8001284 <Soft_I2C_Write_Byte+0xe4>)
+ 8001276:	480a      	ldr	r0, [pc, #40]	; (80012a0 <Soft_I2C_Write_Byte+0xe4>)
  8001278:	f7ff f93a 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  800127c:	f7ff fc02 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	return Soft_I2C_OK;
- 8001280:	2000      	movs	r0, #0
- 8001282:	bd70      	pop	{r4, r5, r6, pc}
- 8001284:	40010c00 	.word	0x40010c00
-
-08001288 <Soft_I2C_Write_Bytes>:
-{
- 8001288:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 800128a:	4605      	mov	r5, r0
- 800128c:	460f      	mov	r7, r1
+	SCL_High();
+ 8001280:	2201      	movs	r2, #1
+ 8001282:	2140      	movs	r1, #64	; 0x40
+ 8001284:	4806      	ldr	r0, [pc, #24]	; (80012a0 <Soft_I2C_Write_Byte+0xe4>)
+ 8001286:	f7ff f933 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 800128a:	f7ff fbfb 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
 	SDA_High();
- 800128e:	483c      	ldr	r0, [pc, #240]	; (8001380 <Soft_I2C_Write_Bytes+0xf8>)
+ 800128e:	2201      	movs	r2, #1
  8001290:	2180      	movs	r1, #128	; 0x80
-{
- 8001292:	4614      	mov	r4, r2
-	SDA_High();
- 8001294:	2201      	movs	r2, #1
-{
- 8001296:	461e      	mov	r6, r3
-	SDA_High();
- 8001298:	f7ff f92a 	bl	80004f0 <HAL_GPIO_WritePin>
+ 8001292:	4803      	ldr	r0, [pc, #12]	; (80012a0 <Soft_I2C_Write_Byte+0xe4>)
+ 8001294:	f7ff f92c 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 800129c:	f7ff fbf2 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+ 8001298:	f7ff fbf4 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	return Soft_I2C_OK;
+ 800129c:	2000      	movs	r0, #0
+ 800129e:	bd70      	pop	{r4, r5, r6, pc}
+ 80012a0:	40010c00 	.word	0x40010c00
+
+080012a4 <Soft_I2C_Write_Bytes>:
+{
+ 80012a4:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 80012a6:	4605      	mov	r5, r0
+ 80012a8:	460f      	mov	r7, r1
+	SDA_High();
+ 80012aa:	483c      	ldr	r0, [pc, #240]	; (800139c <Soft_I2C_Write_Bytes+0xf8>)
+ 80012ac:	2180      	movs	r1, #128	; 0x80
+{
+ 80012ae:	4614      	mov	r4, r2
+	SDA_High();
+ 80012b0:	2201      	movs	r2, #1
+{
+ 80012b2:	461e      	mov	r6, r3
+	SDA_High();
+ 80012b4:	f7ff f91c 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 80012b8:	f7ff fbe4 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
 	SCL_High();
- 80012a0:	2140      	movs	r1, #64	; 0x40
- 80012a2:	2201      	movs	r2, #1
- 80012a4:	4836      	ldr	r0, [pc, #216]	; (8001380 <Soft_I2C_Write_Bytes+0xf8>)
- 80012a6:	f7ff f923 	bl	80004f0 <HAL_GPIO_WritePin>
+ 80012bc:	2140      	movs	r1, #64	; 0x40
+ 80012be:	2201      	movs	r2, #1
+ 80012c0:	4836      	ldr	r0, [pc, #216]	; (800139c <Soft_I2C_Write_Bytes+0xf8>)
+ 80012c2:	f7ff f915 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 80012aa:	f7ff fbeb 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+ 80012c6:	f7ff fbdd 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
 	if (!SDA_Read())
- 80012ae:	2180      	movs	r1, #128	; 0x80
- 80012b0:	4833      	ldr	r0, [pc, #204]	; (8001380 <Soft_I2C_Write_Bytes+0xf8>)
- 80012b2:	f7ff f917 	bl	80004e4 <HAL_GPIO_ReadPin>
- 80012b6:	b9e8      	cbnz	r0, 80012f4 <Soft_I2C_Write_Bytes+0x6c>
+ 80012ca:	2180      	movs	r1, #128	; 0x80
+ 80012cc:	4833      	ldr	r0, [pc, #204]	; (800139c <Soft_I2C_Write_Bytes+0xf8>)
+ 80012ce:	f7ff f909 	bl	80004e4 <HAL_GPIO_ReadPin>
+ 80012d2:	b9e8      	cbnz	r0, 8001310 <Soft_I2C_Write_Bytes+0x6c>
 	SCL_Low();
- 80012b8:	2200      	movs	r2, #0
- 80012ba:	2140      	movs	r1, #64	; 0x40
- 80012bc:	4830      	ldr	r0, [pc, #192]	; (8001380 <Soft_I2C_Write_Bytes+0xf8>)
- 80012be:	f7ff f917 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 80012c2:	f7ff fbdf 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SDA_Low();
- 80012c6:	2200      	movs	r2, #0
- 80012c8:	2180      	movs	r1, #128	; 0x80
- 80012ca:	482d      	ldr	r0, [pc, #180]	; (8001380 <Soft_I2C_Write_Bytes+0xf8>)
- 80012cc:	f7ff f910 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 80012d0:	f7ff fbd8 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SCL_High();
- 80012d4:	2201      	movs	r2, #1
+ 80012d4:	2200      	movs	r2, #0
  80012d6:	2140      	movs	r1, #64	; 0x40
- 80012d8:	4829      	ldr	r0, [pc, #164]	; (8001380 <Soft_I2C_Write_Bytes+0xf8>)
+ 80012d8:	4830      	ldr	r0, [pc, #192]	; (800139c <Soft_I2C_Write_Bytes+0xf8>)
  80012da:	f7ff f909 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80012de:	f7ff fbd1 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SDA_High();
- 80012e2:	2201      	movs	r2, #1
+	SDA_Low();
+ 80012e2:	2200      	movs	r2, #0
  80012e4:	2180      	movs	r1, #128	; 0x80
- 80012e6:	4826      	ldr	r0, [pc, #152]	; (8001380 <Soft_I2C_Write_Bytes+0xf8>)
+ 80012e6:	482d      	ldr	r0, [pc, #180]	; (800139c <Soft_I2C_Write_Bytes+0xf8>)
  80012e8:	f7ff f902 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80012ec:	f7ff fbca 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-		return Soft_I2C_ERR;
- 80012f0:	2001      	movs	r0, #1
-}
- 80012f2:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
-	SDA_Low();
- 80012f4:	2180      	movs	r1, #128	; 0x80
- 80012f6:	2200      	movs	r2, #0
- 80012f8:	4821      	ldr	r0, [pc, #132]	; (8001380 <Soft_I2C_Write_Bytes+0xf8>)
- 80012fa:	f7ff f8f9 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 80012fe:	f7ff fbc1 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	if (SDA_Read())
- 8001302:	2180      	movs	r1, #128	; 0x80
- 8001304:	481e      	ldr	r0, [pc, #120]	; (8001380 <Soft_I2C_Write_Bytes+0xf8>)
- 8001306:	f7ff f8ed 	bl	80004e4 <HAL_GPIO_ReadPin>
- 800130a:	2800      	cmp	r0, #0
- 800130c:	d1d4      	bne.n	80012b8 <Soft_I2C_Write_Bytes+0x30>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 800130e:	f7ff fbb9 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	if (Soft_I2C_Send_Byte(slaveAddr) == Soft_I2C_ERR)
- 8001312:	4628      	mov	r0, r5
- 8001314:	f7ff fea2 	bl	800105c <Soft_I2C_Send_Byte>
- 8001318:	2801      	cmp	r0, #1
- 800131a:	d0e9      	beq.n	80012f0 <Soft_I2C_Write_Bytes+0x68>
-	if (Soft_I2C_Send_Byte(regAddr) == Soft_I2C_ERR)
- 800131c:	4638      	mov	r0, r7
- 800131e:	f7ff fe9d 	bl	800105c <Soft_I2C_Send_Byte>
- 8001322:	2801      	cmp	r0, #1
- 8001324:	d0e4      	beq.n	80012f0 <Soft_I2C_Write_Bytes+0x68>
-	while (num--)
- 8001326:	1e75      	subs	r5, r6, #1
- 8001328:	b2ed      	uxtb	r5, r5
- 800132a:	b15e      	cbz	r6, 8001344 <Soft_I2C_Write_Bytes+0xbc>
- 800132c:	4425      	add	r5, r4
- 800132e:	3c01      	subs	r4, #1
-		if (Soft_I2C_Send_Byte(*buf++) == Soft_I2C_ERR)
- 8001330:	f814 0f01 	ldrb.w	r0, [r4, #1]!
- 8001334:	f7ff fe92 	bl	800105c <Soft_I2C_Send_Byte>
- 8001338:	2801      	cmp	r0, #1
- 800133a:	d0d9      	beq.n	80012f0 <Soft_I2C_Write_Bytes+0x68>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 800133c:	f7ff fba2 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	while (num--)
- 8001340:	42a5      	cmp	r5, r4
- 8001342:	d1f5      	bne.n	8001330 <Soft_I2C_Write_Bytes+0xa8>
-	SCL_Low();
- 8001344:	2200      	movs	r2, #0
- 8001346:	2140      	movs	r1, #64	; 0x40
- 8001348:	480d      	ldr	r0, [pc, #52]	; (8001380 <Soft_I2C_Write_Bytes+0xf8>)
- 800134a:	f7ff f8d1 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 800134e:	f7ff fb99 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SDA_Low();
- 8001352:	2200      	movs	r2, #0
- 8001354:	2180      	movs	r1, #128	; 0x80
- 8001356:	480a      	ldr	r0, [pc, #40]	; (8001380 <Soft_I2C_Write_Bytes+0xf8>)
- 8001358:	f7ff f8ca 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 800135c:	f7ff fb92 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
 	SCL_High();
- 8001360:	2201      	movs	r2, #1
+ 80012f0:	2201      	movs	r2, #1
+ 80012f2:	2140      	movs	r1, #64	; 0x40
+ 80012f4:	4829      	ldr	r0, [pc, #164]	; (800139c <Soft_I2C_Write_Bytes+0xf8>)
+ 80012f6:	f7ff f8fb 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 80012fa:	f7ff fbc3 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	SDA_High();
+ 80012fe:	2201      	movs	r2, #1
+ 8001300:	2180      	movs	r1, #128	; 0x80
+ 8001302:	4826      	ldr	r0, [pc, #152]	; (800139c <Soft_I2C_Write_Bytes+0xf8>)
+ 8001304:	f7ff f8f4 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 8001308:	f7ff fbbc 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+		return Soft_I2C_ERR;
+ 800130c:	2001      	movs	r0, #1
+}
+ 800130e:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+	SDA_Low();
+ 8001310:	2180      	movs	r1, #128	; 0x80
+ 8001312:	2200      	movs	r2, #0
+ 8001314:	4821      	ldr	r0, [pc, #132]	; (800139c <Soft_I2C_Write_Bytes+0xf8>)
+ 8001316:	f7ff f8eb 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 800131a:	f7ff fbb3 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	if (SDA_Read())
+ 800131e:	2180      	movs	r1, #128	; 0x80
+ 8001320:	481e      	ldr	r0, [pc, #120]	; (800139c <Soft_I2C_Write_Bytes+0xf8>)
+ 8001322:	f7ff f8df 	bl	80004e4 <HAL_GPIO_ReadPin>
+ 8001326:	2800      	cmp	r0, #0
+ 8001328:	d1d4      	bne.n	80012d4 <Soft_I2C_Write_Bytes+0x30>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 800132a:	f7ff fbab 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	if (Soft_I2C_Send_Byte(slaveAddr) == Soft_I2C_ERR)
+ 800132e:	4628      	mov	r0, r5
+ 8001330:	f7ff fea2 	bl	8001078 <Soft_I2C_Send_Byte>
+ 8001334:	2801      	cmp	r0, #1
+ 8001336:	d0e9      	beq.n	800130c <Soft_I2C_Write_Bytes+0x68>
+	if (Soft_I2C_Send_Byte(regAddr) == Soft_I2C_ERR)
+ 8001338:	4638      	mov	r0, r7
+ 800133a:	f7ff fe9d 	bl	8001078 <Soft_I2C_Send_Byte>
+ 800133e:	2801      	cmp	r0, #1
+ 8001340:	d0e4      	beq.n	800130c <Soft_I2C_Write_Bytes+0x68>
+	while (num--)
+ 8001342:	1e75      	subs	r5, r6, #1
+ 8001344:	b2ed      	uxtb	r5, r5
+ 8001346:	b15e      	cbz	r6, 8001360 <Soft_I2C_Write_Bytes+0xbc>
+ 8001348:	4425      	add	r5, r4
+ 800134a:	3c01      	subs	r4, #1
+		if (Soft_I2C_Send_Byte(*buf++) == Soft_I2C_ERR)
+ 800134c:	f814 0f01 	ldrb.w	r0, [r4, #1]!
+ 8001350:	f7ff fe92 	bl	8001078 <Soft_I2C_Send_Byte>
+ 8001354:	2801      	cmp	r0, #1
+ 8001356:	d0d9      	beq.n	800130c <Soft_I2C_Write_Bytes+0x68>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 8001358:	f7ff fb94 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	while (num--)
+ 800135c:	42a5      	cmp	r5, r4
+ 800135e:	d1f5      	bne.n	800134c <Soft_I2C_Write_Bytes+0xa8>
+	SCL_Low();
+ 8001360:	2200      	movs	r2, #0
  8001362:	2140      	movs	r1, #64	; 0x40
- 8001364:	4806      	ldr	r0, [pc, #24]	; (8001380 <Soft_I2C_Write_Bytes+0xf8>)
+ 8001364:	480d      	ldr	r0, [pc, #52]	; (800139c <Soft_I2C_Write_Bytes+0xf8>)
  8001366:	f7ff f8c3 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  800136a:	f7ff fb8b 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SDA_High();
- 800136e:	2201      	movs	r2, #1
+	SDA_Low();
+ 800136e:	2200      	movs	r2, #0
  8001370:	2180      	movs	r1, #128	; 0x80
- 8001372:	4803      	ldr	r0, [pc, #12]	; (8001380 <Soft_I2C_Write_Bytes+0xf8>)
+ 8001372:	480a      	ldr	r0, [pc, #40]	; (800139c <Soft_I2C_Write_Bytes+0xf8>)
  8001374:	f7ff f8bc 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001378:	f7ff fb84 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	SCL_High();
+ 800137c:	2201      	movs	r2, #1
+ 800137e:	2140      	movs	r1, #64	; 0x40
+ 8001380:	4806      	ldr	r0, [pc, #24]	; (800139c <Soft_I2C_Write_Bytes+0xf8>)
+ 8001382:	f7ff f8b5 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 8001386:	f7ff fb7d 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	SDA_High();
+ 800138a:	2201      	movs	r2, #1
+ 800138c:	2180      	movs	r1, #128	; 0x80
+ 800138e:	4803      	ldr	r0, [pc, #12]	; (800139c <Soft_I2C_Write_Bytes+0xf8>)
+ 8001390:	f7ff f8ae 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 8001394:	f7ff fb76 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
 	return Soft_I2C_OK;
- 800137c:	2000      	movs	r0, #0
- 800137e:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
- 8001380:	40010c00 	.word	0x40010c00
+ 8001398:	2000      	movs	r0, #0
+ 800139a:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+ 800139c:	40010c00 	.word	0x40010c00
 
-08001384 <Soft_I2C_Scan>:
+080013a0 <Soft_I2C_Scan>:
 {
- 8001384:	b538      	push	{r3, r4, r5, lr}
+ 80013a0:	b538      	push	{r3, r4, r5, lr}
 	SDA_High();
- 8001386:	2201      	movs	r2, #1
- 8001388:	2180      	movs	r1, #128	; 0x80
-{
- 800138a:	4605      	mov	r5, r0
-	SDA_High();
- 800138c:	4830      	ldr	r0, [pc, #192]	; (8001450 <Soft_I2C_Scan+0xcc>)
- 800138e:	f7ff f8af 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 8001392:	f7ff fb77 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SCL_High();
- 8001396:	2140      	movs	r1, #64	; 0x40
- 8001398:	2201      	movs	r2, #1
- 800139a:	482d      	ldr	r0, [pc, #180]	; (8001450 <Soft_I2C_Scan+0xcc>)
- 800139c:	f7ff f8a8 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 80013a0:	f7ff fb70 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	if (!SDA_Read())
+ 80013a2:	2201      	movs	r2, #1
  80013a4:	2180      	movs	r1, #128	; 0x80
- 80013a6:	482a      	ldr	r0, [pc, #168]	; (8001450 <Soft_I2C_Scan+0xcc>)
- 80013a8:	f7ff f89c 	bl	80004e4 <HAL_GPIO_ReadPin>
- 80013ac:	b9e8      	cbnz	r0, 80013ea <Soft_I2C_Scan+0x66>
-	SCL_Low();
- 80013ae:	2200      	movs	r2, #0
- 80013b0:	2140      	movs	r1, #64	; 0x40
- 80013b2:	4827      	ldr	r0, [pc, #156]	; (8001450 <Soft_I2C_Scan+0xcc>)
- 80013b4:	f7ff f89c 	bl	80004f0 <HAL_GPIO_WritePin>
+{
+ 80013a6:	4605      	mov	r5, r0
+	SDA_High();
+ 80013a8:	4830      	ldr	r0, [pc, #192]	; (800146c <Soft_I2C_Scan+0xcc>)
+ 80013aa:	f7ff f8a1 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 80013b8:	f7ff fb64 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SDA_Low();
- 80013bc:	2200      	movs	r2, #0
- 80013be:	2180      	movs	r1, #128	; 0x80
- 80013c0:	4823      	ldr	r0, [pc, #140]	; (8001450 <Soft_I2C_Scan+0xcc>)
- 80013c2:	f7ff f895 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 80013c6:	f7ff fb5d 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+ 80013ae:	f7ff fb69 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
 	SCL_High();
- 80013ca:	2201      	movs	r2, #1
+ 80013b2:	2140      	movs	r1, #64	; 0x40
+ 80013b4:	2201      	movs	r2, #1
+ 80013b6:	482d      	ldr	r0, [pc, #180]	; (800146c <Soft_I2C_Scan+0xcc>)
+ 80013b8:	f7ff f89a 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 80013bc:	f7ff fb62 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	if (!SDA_Read())
+ 80013c0:	2180      	movs	r1, #128	; 0x80
+ 80013c2:	482a      	ldr	r0, [pc, #168]	; (800146c <Soft_I2C_Scan+0xcc>)
+ 80013c4:	f7ff f88e 	bl	80004e4 <HAL_GPIO_ReadPin>
+ 80013c8:	b9e8      	cbnz	r0, 8001406 <Soft_I2C_Scan+0x66>
+	SCL_Low();
+ 80013ca:	2200      	movs	r2, #0
  80013cc:	2140      	movs	r1, #64	; 0x40
- 80013ce:	4820      	ldr	r0, [pc, #128]	; (8001450 <Soft_I2C_Scan+0xcc>)
+ 80013ce:	4827      	ldr	r0, [pc, #156]	; (800146c <Soft_I2C_Scan+0xcc>)
  80013d0:	f7ff f88e 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80013d4:	f7ff fb56 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SDA_High();
- 80013d8:	2201      	movs	r2, #1
+	SDA_Low();
+ 80013d8:	2200      	movs	r2, #0
  80013da:	2180      	movs	r1, #128	; 0x80
- 80013dc:	481c      	ldr	r0, [pc, #112]	; (8001450 <Soft_I2C_Scan+0xcc>)
+ 80013dc:	4823      	ldr	r0, [pc, #140]	; (800146c <Soft_I2C_Scan+0xcc>)
  80013de:	f7ff f887 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80013e2:	f7ff fb4f 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-		return Soft_I2C_ERR;
- 80013e6:	2001      	movs	r0, #1
-}
- 80013e8:	bd38      	pop	{r3, r4, r5, pc}
-	SDA_Low();
- 80013ea:	2200      	movs	r2, #0
- 80013ec:	2180      	movs	r1, #128	; 0x80
- 80013ee:	4818      	ldr	r0, [pc, #96]	; (8001450 <Soft_I2C_Scan+0xcc>)
- 80013f0:	f7ff f87e 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 80013f4:	f7ff fb46 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	if (SDA_Read())
- 80013f8:	2180      	movs	r1, #128	; 0x80
- 80013fa:	4815      	ldr	r0, [pc, #84]	; (8001450 <Soft_I2C_Scan+0xcc>)
- 80013fc:	f7ff f872 	bl	80004e4 <HAL_GPIO_ReadPin>
- 8001400:	4604      	mov	r4, r0
- 8001402:	2800      	cmp	r0, #0
- 8001404:	d1d3      	bne.n	80013ae <Soft_I2C_Scan+0x2a>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 8001406:	f7ff fb3d 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	if (Soft_I2C_Send_Byte(slaveAddr) == Soft_I2C_ERR)
- 800140a:	4628      	mov	r0, r5
- 800140c:	f7ff fe26 	bl	800105c <Soft_I2C_Send_Byte>
- 8001410:	2801      	cmp	r0, #1
- 8001412:	d0e9      	beq.n	80013e8 <Soft_I2C_Scan+0x64>
-	SCL_Low();
- 8001414:	4622      	mov	r2, r4
- 8001416:	2140      	movs	r1, #64	; 0x40
- 8001418:	480d      	ldr	r0, [pc, #52]	; (8001450 <Soft_I2C_Scan+0xcc>)
- 800141a:	f7ff f869 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 800141e:	f7ff fb31 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SDA_Low();
- 8001422:	4622      	mov	r2, r4
- 8001424:	2180      	movs	r1, #128	; 0x80
- 8001426:	480a      	ldr	r0, [pc, #40]	; (8001450 <Soft_I2C_Scan+0xcc>)
- 8001428:	f7ff f862 	bl	80004f0 <HAL_GPIO_WritePin>
-	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
- 800142c:	f7ff fb2a 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
 	SCL_High();
- 8001430:	2201      	movs	r2, #1
+ 80013e6:	2201      	movs	r2, #1
+ 80013e8:	2140      	movs	r1, #64	; 0x40
+ 80013ea:	4820      	ldr	r0, [pc, #128]	; (800146c <Soft_I2C_Scan+0xcc>)
+ 80013ec:	f7ff f880 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 80013f0:	f7ff fb48 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	SDA_High();
+ 80013f4:	2201      	movs	r2, #1
+ 80013f6:	2180      	movs	r1, #128	; 0x80
+ 80013f8:	481c      	ldr	r0, [pc, #112]	; (800146c <Soft_I2C_Scan+0xcc>)
+ 80013fa:	f7ff f879 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 80013fe:	f7ff fb41 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+		return Soft_I2C_ERR;
+ 8001402:	2001      	movs	r0, #1
+}
+ 8001404:	bd38      	pop	{r3, r4, r5, pc}
+	SDA_Low();
+ 8001406:	2200      	movs	r2, #0
+ 8001408:	2180      	movs	r1, #128	; 0x80
+ 800140a:	4818      	ldr	r0, [pc, #96]	; (800146c <Soft_I2C_Scan+0xcc>)
+ 800140c:	f7ff f870 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 8001410:	f7ff fb38 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	if (SDA_Read())
+ 8001414:	2180      	movs	r1, #128	; 0x80
+ 8001416:	4815      	ldr	r0, [pc, #84]	; (800146c <Soft_I2C_Scan+0xcc>)
+ 8001418:	f7ff f864 	bl	80004e4 <HAL_GPIO_ReadPin>
+ 800141c:	4604      	mov	r4, r0
+ 800141e:	2800      	cmp	r0, #0
+ 8001420:	d1d3      	bne.n	80013ca <Soft_I2C_Scan+0x2a>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 8001422:	f7ff fb2f 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	if (Soft_I2C_Send_Byte(slaveAddr) == Soft_I2C_ERR)
+ 8001426:	4628      	mov	r0, r5
+ 8001428:	f7ff fe26 	bl	8001078 <Soft_I2C_Send_Byte>
+ 800142c:	2801      	cmp	r0, #1
+ 800142e:	d0e9      	beq.n	8001404 <Soft_I2C_Scan+0x64>
+	SCL_Low();
+ 8001430:	4622      	mov	r2, r4
  8001432:	2140      	movs	r1, #64	; 0x40
- 8001434:	4806      	ldr	r0, [pc, #24]	; (8001450 <Soft_I2C_Scan+0xcc>)
+ 8001434:	480d      	ldr	r0, [pc, #52]	; (800146c <Soft_I2C_Scan+0xcc>)
  8001436:	f7ff f85b 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  800143a:	f7ff fb23 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	SDA_High();
- 800143e:	2201      	movs	r2, #1
+	SDA_Low();
+ 800143e:	4622      	mov	r2, r4
  8001440:	2180      	movs	r1, #128	; 0x80
- 8001442:	4803      	ldr	r0, [pc, #12]	; (8001450 <Soft_I2C_Scan+0xcc>)
+ 8001442:	480a      	ldr	r0, [pc, #40]	; (800146c <Soft_I2C_Scan+0xcc>)
  8001444:	f7ff f854 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001448:	f7ff fb1c 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	SCL_High();
+ 800144c:	2201      	movs	r2, #1
+ 800144e:	2140      	movs	r1, #64	; 0x40
+ 8001450:	4806      	ldr	r0, [pc, #24]	; (800146c <Soft_I2C_Scan+0xcc>)
+ 8001452:	f7ff f84d 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 8001456:	f7ff fb15 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
+	SDA_High();
+ 800145a:	2201      	movs	r2, #1
+ 800145c:	2180      	movs	r1, #128	; 0x80
+ 800145e:	4803      	ldr	r0, [pc, #12]	; (800146c <Soft_I2C_Scan+0xcc>)
+ 8001460:	f7ff f846 	bl	80004f0 <HAL_GPIO_WritePin>
+	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
+ 8001464:	f7ff fb0e 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
 	return Soft_I2C_OK;
- 800144c:	4620      	mov	r0, r4
- 800144e:	bd38      	pop	{r3, r4, r5, pc}
- 8001450:	40010c00 	.word	0x40010c00
+ 8001468:	4620      	mov	r0, r4
+ 800146a:	bd38      	pop	{r3, r4, r5, pc}
+ 800146c:	40010c00 	.word	0x40010c00
 
-08001454 <ssd1306_UpdateScreen>:
+08001470 <ssd1306_Fill>:
+//
+//	We zetten de hele buffer op een bepaalde kleur
+// 	color 	=> de kleur waarin alles moet
+//
+void ssd1306_Fill(SSD1306_COLOR color) 
+{
+ 8001470:	2800      	cmp	r0, #0
+ 8001472:	bf14      	ite	ne
+ 8001474:	21ff      	movne	r1, #255	; 0xff
+ 8001476:	2100      	moveq	r1, #0
+ 8001478:	f44f 6280 	mov.w	r2, #1024	; 0x400
+ 800147c:	4801      	ldr	r0, [pc, #4]	; (8001484 <ssd1306_Fill+0x14>)
+ 800147e:	f000 bc29 	b.w	8001cd4 <memset>
+ 8001482:	bf00      	nop
+ 8001484:	20000038 	.word	0x20000038
+
+08001488 <ssd1306_UpdateScreen>:
 
 //
 //	Alle weizigingen in de buffer naar het scherm sturen
 //
 void ssd1306_UpdateScreen(void) 
 {
- 8001454:	b5f0      	push	{r4, r5, r6, r7, lr}
- 8001456:	24b0      	movs	r4, #176	; 0xb0
- 8001458:	b083      	sub	sp, #12
+ 8001488:	b5f0      	push	{r4, r5, r6, r7, lr}
+ 800148a:	24b0      	movs	r4, #176	; 0xb0
+ 800148c:	b083      	sub	sp, #12
     if(Soft_I2C_Write_Byte(SSD1306_I2C_ADDR,0x00,&command)==Soft_I2C_ERR)
- 800145a:	2600      	movs	r6, #0
- 800145c:	4d24      	ldr	r5, [pc, #144]	; (80014f0 <ssd1306_UpdateScreen+0x9c>)
+ 800148e:	2600      	movs	r6, #0
+ 8001490:	4d24      	ldr	r5, [pc, #144]	; (8001524 <ssd1306_UpdateScreen+0x9c>)
     	_Error_Handler(__FILE__, __LINE__);
- 800145e:	4f25      	ldr	r7, [pc, #148]	; (80014f4 <ssd1306_UpdateScreen+0xa0>)
- 8001460:	e022      	b.n	80014a8 <ssd1306_UpdateScreen+0x54>
+ 8001492:	4f25      	ldr	r7, [pc, #148]	; (8001528 <ssd1306_UpdateScreen+0xa0>)
+ 8001494:	e022      	b.n	80014dc <ssd1306_UpdateScreen+0x54>
     if(Soft_I2C_Write_Byte(SSD1306_I2C_ADDR,0x00,&command)==Soft_I2C_ERR)
- 8001462:	f10d 0206 	add.w	r2, sp, #6
- 8001466:	2100      	movs	r1, #0
- 8001468:	2078      	movs	r0, #120	; 0x78
- 800146a:	f88d 6006 	strb.w	r6, [sp, #6]
- 800146e:	f7ff fe97 	bl	80011a0 <Soft_I2C_Write_Byte>
- 8001472:	2801      	cmp	r0, #1
- 8001474:	d02c      	beq.n	80014d0 <ssd1306_UpdateScreen+0x7c>
- 8001476:	2310      	movs	r3, #16
- 8001478:	f10d 0205 	add.w	r2, sp, #5
- 800147c:	2100      	movs	r1, #0
- 800147e:	2078      	movs	r0, #120	; 0x78
- 8001480:	f88d 3005 	strb.w	r3, [sp, #5]
- 8001484:	f7ff fe8c 	bl	80011a0 <Soft_I2C_Write_Byte>
- 8001488:	2801      	cmp	r0, #1
- 800148a:	d01c      	beq.n	80014c6 <ssd1306_UpdateScreen+0x72>
+ 8001496:	f10d 0206 	add.w	r2, sp, #6
+ 800149a:	2100      	movs	r1, #0
+ 800149c:	2078      	movs	r0, #120	; 0x78
+ 800149e:	f88d 6006 	strb.w	r6, [sp, #6]
+ 80014a2:	f7ff fe8b 	bl	80011bc <Soft_I2C_Write_Byte>
+ 80014a6:	2801      	cmp	r0, #1
+ 80014a8:	d02c      	beq.n	8001504 <ssd1306_UpdateScreen+0x7c>
+ 80014aa:	2310      	movs	r3, #16
+ 80014ac:	f10d 0205 	add.w	r2, sp, #5
+ 80014b0:	2100      	movs	r1, #0
+ 80014b2:	2078      	movs	r0, #120	; 0x78
+ 80014b4:	f88d 3005 	strb.w	r3, [sp, #5]
+ 80014b8:	f7ff fe80 	bl	80011bc <Soft_I2C_Write_Byte>
+ 80014bc:	2801      	cmp	r0, #1
+ 80014be:	d01c      	beq.n	80014fa <ssd1306_UpdateScreen+0x72>
 		ssd1306_WriteCommand(0xB0 + i);
 		ssd1306_WriteCommand(0x00);
 		ssd1306_WriteCommand(0x10);
 
 		// We schrijven alles map per map weg
 	    if(Soft_I2C_Write_Bytes(SSD1306_I2C_ADDR,0x40,&SSD1306_Buffer[SSD1306_WIDTH * i],SSD1306_WIDTH)==Soft_I2C_ERR)
- 800148c:	462a      	mov	r2, r5
- 800148e:	2380      	movs	r3, #128	; 0x80
- 8001490:	2140      	movs	r1, #64	; 0x40
- 8001492:	2078      	movs	r0, #120	; 0x78
- 8001494:	f7ff fef8 	bl	8001288 <Soft_I2C_Write_Bytes>
- 8001498:	2801      	cmp	r0, #1
- 800149a:	f105 0580 	add.w	r5, r5, #128	; 0x80
- 800149e:	d01c      	beq.n	80014da <ssd1306_UpdateScreen+0x86>
- 80014a0:	3401      	adds	r4, #1
- 80014a2:	b2e4      	uxtb	r4, r4
+ 80014c0:	462a      	mov	r2, r5
+ 80014c2:	2380      	movs	r3, #128	; 0x80
+ 80014c4:	2140      	movs	r1, #64	; 0x40
+ 80014c6:	2078      	movs	r0, #120	; 0x78
+ 80014c8:	f7ff feec 	bl	80012a4 <Soft_I2C_Write_Bytes>
+ 80014cc:	2801      	cmp	r0, #1
+ 80014ce:	f105 0580 	add.w	r5, r5, #128	; 0x80
+ 80014d2:	d01c      	beq.n	800150e <ssd1306_UpdateScreen+0x86>
+ 80014d4:	3401      	adds	r4, #1
+ 80014d6:	b2e4      	uxtb	r4, r4
 	for (i = 0; i < 8; i++) {
- 80014a4:	2cb8      	cmp	r4, #184	; 0xb8
- 80014a6:	d020      	beq.n	80014ea <ssd1306_UpdateScreen+0x96>
+ 80014d8:	2cb8      	cmp	r4, #184	; 0xb8
+ 80014da:	d020      	beq.n	800151e <ssd1306_UpdateScreen+0x96>
     if(Soft_I2C_Write_Byte(SSD1306_I2C_ADDR,0x00,&command)==Soft_I2C_ERR)
- 80014a8:	f10d 0207 	add.w	r2, sp, #7
- 80014ac:	2100      	movs	r1, #0
- 80014ae:	2078      	movs	r0, #120	; 0x78
- 80014b0:	f88d 4007 	strb.w	r4, [sp, #7]
- 80014b4:	f7ff fe74 	bl	80011a0 <Soft_I2C_Write_Byte>
- 80014b8:	2801      	cmp	r0, #1
- 80014ba:	d1d2      	bne.n	8001462 <ssd1306_UpdateScreen+0xe>
+ 80014dc:	f10d 0207 	add.w	r2, sp, #7
+ 80014e0:	2100      	movs	r1, #0
+ 80014e2:	2078      	movs	r0, #120	; 0x78
+ 80014e4:	f88d 4007 	strb.w	r4, [sp, #7]
+ 80014e8:	f7ff fe68 	bl	80011bc <Soft_I2C_Write_Byte>
+ 80014ec:	2801      	cmp	r0, #1
+ 80014ee:	d1d2      	bne.n	8001496 <ssd1306_UpdateScreen+0xe>
     	_Error_Handler(__FILE__, __LINE__);
- 80014bc:	2114      	movs	r1, #20
- 80014be:	4638      	mov	r0, r7
- 80014c0:	f7ff fcee 	bl	8000ea0 <_Error_Handler>
- 80014c4:	e7cd      	b.n	8001462 <ssd1306_UpdateScreen+0xe>
- 80014c6:	2114      	movs	r1, #20
- 80014c8:	4638      	mov	r0, r7
- 80014ca:	f7ff fce9 	bl	8000ea0 <_Error_Handler>
- 80014ce:	e7dd      	b.n	800148c <ssd1306_UpdateScreen+0x38>
- 80014d0:	2114      	movs	r1, #20
- 80014d2:	4638      	mov	r0, r7
- 80014d4:	f7ff fce4 	bl	8000ea0 <_Error_Handler>
- 80014d8:	e7cd      	b.n	8001476 <ssd1306_UpdateScreen+0x22>
- 80014da:	3401      	adds	r4, #1
+ 80014f0:	2114      	movs	r1, #20
+ 80014f2:	4638      	mov	r0, r7
+ 80014f4:	f7ff fce2 	bl	8000ebc <_Error_Handler>
+ 80014f8:	e7cd      	b.n	8001496 <ssd1306_UpdateScreen+0xe>
+ 80014fa:	2114      	movs	r1, #20
+ 80014fc:	4638      	mov	r0, r7
+ 80014fe:	f7ff fcdd 	bl	8000ebc <_Error_Handler>
+ 8001502:	e7dd      	b.n	80014c0 <ssd1306_UpdateScreen+0x38>
+ 8001504:	2114      	movs	r1, #20
+ 8001506:	4638      	mov	r0, r7
+ 8001508:	f7ff fcd8 	bl	8000ebc <_Error_Handler>
+ 800150c:	e7cd      	b.n	80014aa <ssd1306_UpdateScreen+0x22>
+ 800150e:	3401      	adds	r4, #1
 	    {
 	    	_Error_Handler(__FILE__, __LINE__);
- 80014dc:	216d      	movs	r1, #109	; 0x6d
- 80014de:	4638      	mov	r0, r7
- 80014e0:	b2e4      	uxtb	r4, r4
- 80014e2:	f7ff fcdd 	bl	8000ea0 <_Error_Handler>
+ 8001510:	216d      	movs	r1, #109	; 0x6d
+ 8001512:	4638      	mov	r0, r7
+ 8001514:	b2e4      	uxtb	r4, r4
+ 8001516:	f7ff fcd1 	bl	8000ebc <_Error_Handler>
 	for (i = 0; i < 8; i++) {
- 80014e6:	2cb8      	cmp	r4, #184	; 0xb8
- 80014e8:	d1de      	bne.n	80014a8 <ssd1306_UpdateScreen+0x54>
+ 800151a:	2cb8      	cmp	r4, #184	; 0xb8
+ 800151c:	d1de      	bne.n	80014dc <ssd1306_UpdateScreen+0x54>
 	    }
 	}
 }
- 80014ea:	b003      	add	sp, #12
- 80014ec:	bdf0      	pop	{r4, r5, r6, r7, pc}
- 80014ee:	bf00      	nop
- 80014f0:	20000038 	.word	0x20000038
- 80014f4:	08002ac8 	.word	0x08002ac8
+ 800151e:	b003      	add	sp, #12
+ 8001520:	bdf0      	pop	{r4, r5, r6, r7, pc}
+ 8001522:	bf00      	nop
+ 8001524:	20000038 	.word	0x20000038
+ 8001528:	08002b00 	.word	0x08002b00
 
-080014f8 <ssd1306_Init>:
+0800152c <ssd1306_Init>:
 {	
- 80014f8:	23ae      	movs	r3, #174	; 0xae
- 80014fa:	b510      	push	{r4, lr}
- 80014fc:	b088      	sub	sp, #32
- 80014fe:	aa08      	add	r2, sp, #32
- 8001500:	f802 3d01 	strb.w	r3, [r2, #-1]!
+ 800152c:	23ae      	movs	r3, #174	; 0xae
+ 800152e:	b510      	push	{r4, lr}
+ 8001530:	b088      	sub	sp, #32
+ 8001532:	aa08      	add	r2, sp, #32
+ 8001534:	f802 3d01 	strb.w	r3, [r2, #-1]!
     if(Soft_I2C_Write_Byte(SSD1306_I2C_ADDR,0x00,&command)==Soft_I2C_ERR)
- 8001504:	2100      	movs	r1, #0
- 8001506:	2078      	movs	r0, #120	; 0x78
- 8001508:	f7ff fe4a 	bl	80011a0 <Soft_I2C_Write_Byte>
- 800150c:	2801      	cmp	r0, #1
- 800150e:	f000 8131 	beq.w	8001774 <ssd1306_Init+0x27c>
- 8001512:	2320      	movs	r3, #32
- 8001514:	eb0d 0203 	add.w	r2, sp, r3
- 8001518:	f802 3d02 	strb.w	r3, [r2, #-2]!
- 800151c:	2100      	movs	r1, #0
- 800151e:	2078      	movs	r0, #120	; 0x78
- 8001520:	f7ff fe3e 	bl	80011a0 <Soft_I2C_Write_Byte>
- 8001524:	2801      	cmp	r0, #1
- 8001526:	f000 81ac 	beq.w	8001882 <ssd1306_Init+0x38a>
- 800152a:	2310      	movs	r3, #16
- 800152c:	aa08      	add	r2, sp, #32
- 800152e:	f802 3d03 	strb.w	r3, [r2, #-3]!
- 8001532:	2100      	movs	r1, #0
- 8001534:	2078      	movs	r0, #120	; 0x78
- 8001536:	f7ff fe33 	bl	80011a0 <Soft_I2C_Write_Byte>
- 800153a:	2801      	cmp	r0, #1
- 800153c:	f000 819c 	beq.w	8001878 <ssd1306_Init+0x380>
- 8001540:	23b0      	movs	r3, #176	; 0xb0
- 8001542:	aa08      	add	r2, sp, #32
- 8001544:	f802 3d04 	strb.w	r3, [r2, #-4]!
- 8001548:	2100      	movs	r1, #0
- 800154a:	2078      	movs	r0, #120	; 0x78
- 800154c:	f7ff fe28 	bl	80011a0 <Soft_I2C_Write_Byte>
- 8001550:	2801      	cmp	r0, #1
- 8001552:	f000 818c 	beq.w	800186e <ssd1306_Init+0x376>
- 8001556:	23c8      	movs	r3, #200	; 0xc8
- 8001558:	aa08      	add	r2, sp, #32
- 800155a:	f802 3d05 	strb.w	r3, [r2, #-5]!
- 800155e:	2100      	movs	r1, #0
- 8001560:	2078      	movs	r0, #120	; 0x78
- 8001562:	f7ff fe1d 	bl	80011a0 <Soft_I2C_Write_Byte>
- 8001566:	2801      	cmp	r0, #1
- 8001568:	f000 817c 	beq.w	8001864 <ssd1306_Init+0x36c>
- 800156c:	2100      	movs	r1, #0
- 800156e:	aa08      	add	r2, sp, #32
- 8001570:	f802 1d06 	strb.w	r1, [r2, #-6]!
- 8001574:	2078      	movs	r0, #120	; 0x78
- 8001576:	f7ff fe13 	bl	80011a0 <Soft_I2C_Write_Byte>
- 800157a:	2801      	cmp	r0, #1
- 800157c:	f000 816d 	beq.w	800185a <ssd1306_Init+0x362>
- 8001580:	2310      	movs	r3, #16
- 8001582:	aa08      	add	r2, sp, #32
- 8001584:	f802 3d07 	strb.w	r3, [r2, #-7]!
- 8001588:	2100      	movs	r1, #0
- 800158a:	2078      	movs	r0, #120	; 0x78
- 800158c:	f7ff fe08 	bl	80011a0 <Soft_I2C_Write_Byte>
- 8001590:	2801      	cmp	r0, #1
- 8001592:	f000 815d 	beq.w	8001850 <ssd1306_Init+0x358>
- 8001596:	2340      	movs	r3, #64	; 0x40
- 8001598:	aa08      	add	r2, sp, #32
- 800159a:	f802 3d08 	strb.w	r3, [r2, #-8]!
- 800159e:	2100      	movs	r1, #0
- 80015a0:	2078      	movs	r0, #120	; 0x78
- 80015a2:	f7ff fdfd 	bl	80011a0 <Soft_I2C_Write_Byte>
- 80015a6:	2801      	cmp	r0, #1
- 80015a8:	f000 814d 	beq.w	8001846 <ssd1306_Init+0x34e>
- 80015ac:	2381      	movs	r3, #129	; 0x81
- 80015ae:	aa08      	add	r2, sp, #32
- 80015b0:	f802 3d09 	strb.w	r3, [r2, #-9]!
- 80015b4:	2100      	movs	r1, #0
- 80015b6:	2078      	movs	r0, #120	; 0x78
- 80015b8:	f7ff fdf2 	bl	80011a0 <Soft_I2C_Write_Byte>
- 80015bc:	2801      	cmp	r0, #1
- 80015be:	f000 813d 	beq.w	800183c <ssd1306_Init+0x344>
- 80015c2:	23ff      	movs	r3, #255	; 0xff
- 80015c4:	aa08      	add	r2, sp, #32
- 80015c6:	f802 3d0a 	strb.w	r3, [r2, #-10]!
- 80015ca:	2100      	movs	r1, #0
- 80015cc:	2078      	movs	r0, #120	; 0x78
- 80015ce:	f7ff fde7 	bl	80011a0 <Soft_I2C_Write_Byte>
- 80015d2:	2801      	cmp	r0, #1
- 80015d4:	f000 812d 	beq.w	8001832 <ssd1306_Init+0x33a>
- 80015d8:	23a1      	movs	r3, #161	; 0xa1
- 80015da:	aa08      	add	r2, sp, #32
- 80015dc:	f802 3d0b 	strb.w	r3, [r2, #-11]!
- 80015e0:	2100      	movs	r1, #0
- 80015e2:	2078      	movs	r0, #120	; 0x78
- 80015e4:	f7ff fddc 	bl	80011a0 <Soft_I2C_Write_Byte>
- 80015e8:	2801      	cmp	r0, #1
- 80015ea:	f000 811d 	beq.w	8001828 <ssd1306_Init+0x330>
- 80015ee:	23a6      	movs	r3, #166	; 0xa6
- 80015f0:	aa08      	add	r2, sp, #32
- 80015f2:	f802 3d0c 	strb.w	r3, [r2, #-12]!
- 80015f6:	2100      	movs	r1, #0
- 80015f8:	2078      	movs	r0, #120	; 0x78
- 80015fa:	f7ff fdd1 	bl	80011a0 <Soft_I2C_Write_Byte>
- 80015fe:	2801      	cmp	r0, #1
- 8001600:	f000 810d 	beq.w	800181e <ssd1306_Init+0x326>
- 8001604:	23a8      	movs	r3, #168	; 0xa8
- 8001606:	aa08      	add	r2, sp, #32
- 8001608:	f802 3d0d 	strb.w	r3, [r2, #-13]!
- 800160c:	2100      	movs	r1, #0
- 800160e:	2078      	movs	r0, #120	; 0x78
- 8001610:	f7ff fdc6 	bl	80011a0 <Soft_I2C_Write_Byte>
- 8001614:	2801      	cmp	r0, #1
- 8001616:	f000 80fd 	beq.w	8001814 <ssd1306_Init+0x31c>
- 800161a:	233f      	movs	r3, #63	; 0x3f
- 800161c:	aa08      	add	r2, sp, #32
- 800161e:	f802 3d0e 	strb.w	r3, [r2, #-14]!
- 8001622:	2100      	movs	r1, #0
- 8001624:	2078      	movs	r0, #120	; 0x78
- 8001626:	f7ff fdbb 	bl	80011a0 <Soft_I2C_Write_Byte>
- 800162a:	2801      	cmp	r0, #1
- 800162c:	f000 80ed 	beq.w	800180a <ssd1306_Init+0x312>
- 8001630:	23a4      	movs	r3, #164	; 0xa4
- 8001632:	aa08      	add	r2, sp, #32
- 8001634:	f802 3d0f 	strb.w	r3, [r2, #-15]!
- 8001638:	2100      	movs	r1, #0
- 800163a:	2078      	movs	r0, #120	; 0x78
- 800163c:	f7ff fdb0 	bl	80011a0 <Soft_I2C_Write_Byte>
- 8001640:	2801      	cmp	r0, #1
- 8001642:	f000 80dd 	beq.w	8001800 <ssd1306_Init+0x308>
- 8001646:	23d3      	movs	r3, #211	; 0xd3
- 8001648:	aa08      	add	r2, sp, #32
- 800164a:	f802 3d10 	strb.w	r3, [r2, #-16]!
- 800164e:	2100      	movs	r1, #0
- 8001650:	2078      	movs	r0, #120	; 0x78
- 8001652:	f7ff fda5 	bl	80011a0 <Soft_I2C_Write_Byte>
- 8001656:	2801      	cmp	r0, #1
- 8001658:	f000 80cd 	beq.w	80017f6 <ssd1306_Init+0x2fe>
- 800165c:	2100      	movs	r1, #0
- 800165e:	aa08      	add	r2, sp, #32
- 8001660:	f802 1d11 	strb.w	r1, [r2, #-17]!
- 8001664:	2078      	movs	r0, #120	; 0x78
- 8001666:	f7ff fd9b 	bl	80011a0 <Soft_I2C_Write_Byte>
- 800166a:	2801      	cmp	r0, #1
- 800166c:	f000 80be 	beq.w	80017ec <ssd1306_Init+0x2f4>
- 8001670:	23d5      	movs	r3, #213	; 0xd5
- 8001672:	aa08      	add	r2, sp, #32
- 8001674:	f802 3d12 	strb.w	r3, [r2, #-18]!
- 8001678:	2100      	movs	r1, #0
- 800167a:	2078      	movs	r0, #120	; 0x78
- 800167c:	f7ff fd90 	bl	80011a0 <Soft_I2C_Write_Byte>
- 8001680:	2801      	cmp	r0, #1
- 8001682:	f000 80ae 	beq.w	80017e2 <ssd1306_Init+0x2ea>
- 8001686:	23f0      	movs	r3, #240	; 0xf0
- 8001688:	aa08      	add	r2, sp, #32
- 800168a:	f802 3d13 	strb.w	r3, [r2, #-19]!
- 800168e:	2100      	movs	r1, #0
- 8001690:	2078      	movs	r0, #120	; 0x78
- 8001692:	f7ff fd85 	bl	80011a0 <Soft_I2C_Write_Byte>
- 8001696:	2801      	cmp	r0, #1
- 8001698:	f000 809e 	beq.w	80017d8 <ssd1306_Init+0x2e0>
- 800169c:	23d9      	movs	r3, #217	; 0xd9
- 800169e:	aa08      	add	r2, sp, #32
- 80016a0:	f802 3d14 	strb.w	r3, [r2, #-20]!
- 80016a4:	2100      	movs	r1, #0
- 80016a6:	2078      	movs	r0, #120	; 0x78
- 80016a8:	f7ff fd7a 	bl	80011a0 <Soft_I2C_Write_Byte>
- 80016ac:	2801      	cmp	r0, #1
- 80016ae:	f000 808e 	beq.w	80017ce <ssd1306_Init+0x2d6>
- 80016b2:	2322      	movs	r3, #34	; 0x22
- 80016b4:	aa08      	add	r2, sp, #32
- 80016b6:	f802 3d15 	strb.w	r3, [r2, #-21]!
- 80016ba:	2100      	movs	r1, #0
- 80016bc:	2078      	movs	r0, #120	; 0x78
- 80016be:	f7ff fd6f 	bl	80011a0 <Soft_I2C_Write_Byte>
- 80016c2:	2801      	cmp	r0, #1
- 80016c4:	d07e      	beq.n	80017c4 <ssd1306_Init+0x2cc>
- 80016c6:	23da      	movs	r3, #218	; 0xda
- 80016c8:	aa08      	add	r2, sp, #32
- 80016ca:	f802 3d16 	strb.w	r3, [r2, #-22]!
- 80016ce:	2100      	movs	r1, #0
- 80016d0:	2078      	movs	r0, #120	; 0x78
- 80016d2:	f7ff fd65 	bl	80011a0 <Soft_I2C_Write_Byte>
- 80016d6:	2801      	cmp	r0, #1
- 80016d8:	d06f      	beq.n	80017ba <ssd1306_Init+0x2c2>
- 80016da:	2312      	movs	r3, #18
- 80016dc:	aa08      	add	r2, sp, #32
- 80016de:	f802 3d17 	strb.w	r3, [r2, #-23]!
- 80016e2:	2100      	movs	r1, #0
- 80016e4:	2078      	movs	r0, #120	; 0x78
- 80016e6:	f7ff fd5b 	bl	80011a0 <Soft_I2C_Write_Byte>
- 80016ea:	2801      	cmp	r0, #1
- 80016ec:	d060      	beq.n	80017b0 <ssd1306_Init+0x2b8>
- 80016ee:	23db      	movs	r3, #219	; 0xdb
- 80016f0:	aa08      	add	r2, sp, #32
- 80016f2:	f802 3d18 	strb.w	r3, [r2, #-24]!
- 80016f6:	2100      	movs	r1, #0
- 80016f8:	2078      	movs	r0, #120	; 0x78
- 80016fa:	f7ff fd51 	bl	80011a0 <Soft_I2C_Write_Byte>
- 80016fe:	2801      	cmp	r0, #1
- 8001700:	d051      	beq.n	80017a6 <ssd1306_Init+0x2ae>
- 8001702:	2320      	movs	r3, #32
- 8001704:	eb0d 0203 	add.w	r2, sp, r3
- 8001708:	f802 3d19 	strb.w	r3, [r2, #-25]!
- 800170c:	2100      	movs	r1, #0
- 800170e:	2078      	movs	r0, #120	; 0x78
- 8001710:	f7ff fd46 	bl	80011a0 <Soft_I2C_Write_Byte>
- 8001714:	2801      	cmp	r0, #1
- 8001716:	d041      	beq.n	800179c <ssd1306_Init+0x2a4>
- 8001718:	238d      	movs	r3, #141	; 0x8d
- 800171a:	aa08      	add	r2, sp, #32
- 800171c:	f802 3d1a 	strb.w	r3, [r2, #-26]!
- 8001720:	2100      	movs	r1, #0
- 8001722:	2078      	movs	r0, #120	; 0x78
- 8001724:	f7ff fd3c 	bl	80011a0 <Soft_I2C_Write_Byte>
- 8001728:	2801      	cmp	r0, #1
- 800172a:	d032      	beq.n	8001792 <ssd1306_Init+0x29a>
- 800172c:	2414      	movs	r4, #20
- 800172e:	aa08      	add	r2, sp, #32
- 8001730:	f802 4d1b 	strb.w	r4, [r2, #-27]!
- 8001734:	2100      	movs	r1, #0
- 8001736:	2078      	movs	r0, #120	; 0x78
- 8001738:	f7ff fd32 	bl	80011a0 <Soft_I2C_Write_Byte>
- 800173c:	2801      	cmp	r0, #1
- 800173e:	d023      	beq.n	8001788 <ssd1306_Init+0x290>
- 8001740:	23af      	movs	r3, #175	; 0xaf
- 8001742:	aa08      	add	r2, sp, #32
- 8001744:	f802 3d1c 	strb.w	r3, [r2, #-28]!
- 8001748:	2100      	movs	r1, #0
- 800174a:	2078      	movs	r0, #120	; 0x78
- 800174c:	f7ff fd28 	bl	80011a0 <Soft_I2C_Write_Byte>
- 8001750:	2801      	cmp	r0, #1
- 8001752:	d014      	beq.n	800177e <ssd1306_Init+0x286>
- 8001754:	f44f 6280 	mov.w	r2, #1024	; 0x400
- 8001758:	2100      	movs	r1, #0
- 800175a:	484c      	ldr	r0, [pc, #304]	; (800188c <ssd1306_Init+0x394>)
- 800175c:	f000 faa0 	bl	8001ca0 <memset>
+ 8001538:	2100      	movs	r1, #0
+ 800153a:	2078      	movs	r0, #120	; 0x78
+ 800153c:	f7ff fe3e 	bl	80011bc <Soft_I2C_Write_Byte>
+ 8001540:	2801      	cmp	r0, #1
+ 8001542:	f000 8131 	beq.w	80017a8 <ssd1306_Init+0x27c>
+ 8001546:	2320      	movs	r3, #32
+ 8001548:	eb0d 0203 	add.w	r2, sp, r3
+ 800154c:	f802 3d02 	strb.w	r3, [r2, #-2]!
+ 8001550:	2100      	movs	r1, #0
+ 8001552:	2078      	movs	r0, #120	; 0x78
+ 8001554:	f7ff fe32 	bl	80011bc <Soft_I2C_Write_Byte>
+ 8001558:	2801      	cmp	r0, #1
+ 800155a:	f000 81ac 	beq.w	80018b6 <ssd1306_Init+0x38a>
+ 800155e:	2310      	movs	r3, #16
+ 8001560:	aa08      	add	r2, sp, #32
+ 8001562:	f802 3d03 	strb.w	r3, [r2, #-3]!
+ 8001566:	2100      	movs	r1, #0
+ 8001568:	2078      	movs	r0, #120	; 0x78
+ 800156a:	f7ff fe27 	bl	80011bc <Soft_I2C_Write_Byte>
+ 800156e:	2801      	cmp	r0, #1
+ 8001570:	f000 819c 	beq.w	80018ac <ssd1306_Init+0x380>
+ 8001574:	23b0      	movs	r3, #176	; 0xb0
+ 8001576:	aa08      	add	r2, sp, #32
+ 8001578:	f802 3d04 	strb.w	r3, [r2, #-4]!
+ 800157c:	2100      	movs	r1, #0
+ 800157e:	2078      	movs	r0, #120	; 0x78
+ 8001580:	f7ff fe1c 	bl	80011bc <Soft_I2C_Write_Byte>
+ 8001584:	2801      	cmp	r0, #1
+ 8001586:	f000 818c 	beq.w	80018a2 <ssd1306_Init+0x376>
+ 800158a:	23c8      	movs	r3, #200	; 0xc8
+ 800158c:	aa08      	add	r2, sp, #32
+ 800158e:	f802 3d05 	strb.w	r3, [r2, #-5]!
+ 8001592:	2100      	movs	r1, #0
+ 8001594:	2078      	movs	r0, #120	; 0x78
+ 8001596:	f7ff fe11 	bl	80011bc <Soft_I2C_Write_Byte>
+ 800159a:	2801      	cmp	r0, #1
+ 800159c:	f000 817c 	beq.w	8001898 <ssd1306_Init+0x36c>
+ 80015a0:	2100      	movs	r1, #0
+ 80015a2:	aa08      	add	r2, sp, #32
+ 80015a4:	f802 1d06 	strb.w	r1, [r2, #-6]!
+ 80015a8:	2078      	movs	r0, #120	; 0x78
+ 80015aa:	f7ff fe07 	bl	80011bc <Soft_I2C_Write_Byte>
+ 80015ae:	2801      	cmp	r0, #1
+ 80015b0:	f000 816d 	beq.w	800188e <ssd1306_Init+0x362>
+ 80015b4:	2310      	movs	r3, #16
+ 80015b6:	aa08      	add	r2, sp, #32
+ 80015b8:	f802 3d07 	strb.w	r3, [r2, #-7]!
+ 80015bc:	2100      	movs	r1, #0
+ 80015be:	2078      	movs	r0, #120	; 0x78
+ 80015c0:	f7ff fdfc 	bl	80011bc <Soft_I2C_Write_Byte>
+ 80015c4:	2801      	cmp	r0, #1
+ 80015c6:	f000 815d 	beq.w	8001884 <ssd1306_Init+0x358>
+ 80015ca:	2340      	movs	r3, #64	; 0x40
+ 80015cc:	aa08      	add	r2, sp, #32
+ 80015ce:	f802 3d08 	strb.w	r3, [r2, #-8]!
+ 80015d2:	2100      	movs	r1, #0
+ 80015d4:	2078      	movs	r0, #120	; 0x78
+ 80015d6:	f7ff fdf1 	bl	80011bc <Soft_I2C_Write_Byte>
+ 80015da:	2801      	cmp	r0, #1
+ 80015dc:	f000 814d 	beq.w	800187a <ssd1306_Init+0x34e>
+ 80015e0:	2381      	movs	r3, #129	; 0x81
+ 80015e2:	aa08      	add	r2, sp, #32
+ 80015e4:	f802 3d09 	strb.w	r3, [r2, #-9]!
+ 80015e8:	2100      	movs	r1, #0
+ 80015ea:	2078      	movs	r0, #120	; 0x78
+ 80015ec:	f7ff fde6 	bl	80011bc <Soft_I2C_Write_Byte>
+ 80015f0:	2801      	cmp	r0, #1
+ 80015f2:	f000 813d 	beq.w	8001870 <ssd1306_Init+0x344>
+ 80015f6:	23ff      	movs	r3, #255	; 0xff
+ 80015f8:	aa08      	add	r2, sp, #32
+ 80015fa:	f802 3d0a 	strb.w	r3, [r2, #-10]!
+ 80015fe:	2100      	movs	r1, #0
+ 8001600:	2078      	movs	r0, #120	; 0x78
+ 8001602:	f7ff fddb 	bl	80011bc <Soft_I2C_Write_Byte>
+ 8001606:	2801      	cmp	r0, #1
+ 8001608:	f000 812d 	beq.w	8001866 <ssd1306_Init+0x33a>
+ 800160c:	23a1      	movs	r3, #161	; 0xa1
+ 800160e:	aa08      	add	r2, sp, #32
+ 8001610:	f802 3d0b 	strb.w	r3, [r2, #-11]!
+ 8001614:	2100      	movs	r1, #0
+ 8001616:	2078      	movs	r0, #120	; 0x78
+ 8001618:	f7ff fdd0 	bl	80011bc <Soft_I2C_Write_Byte>
+ 800161c:	2801      	cmp	r0, #1
+ 800161e:	f000 811d 	beq.w	800185c <ssd1306_Init+0x330>
+ 8001622:	23a6      	movs	r3, #166	; 0xa6
+ 8001624:	aa08      	add	r2, sp, #32
+ 8001626:	f802 3d0c 	strb.w	r3, [r2, #-12]!
+ 800162a:	2100      	movs	r1, #0
+ 800162c:	2078      	movs	r0, #120	; 0x78
+ 800162e:	f7ff fdc5 	bl	80011bc <Soft_I2C_Write_Byte>
+ 8001632:	2801      	cmp	r0, #1
+ 8001634:	f000 810d 	beq.w	8001852 <ssd1306_Init+0x326>
+ 8001638:	23a8      	movs	r3, #168	; 0xa8
+ 800163a:	aa08      	add	r2, sp, #32
+ 800163c:	f802 3d0d 	strb.w	r3, [r2, #-13]!
+ 8001640:	2100      	movs	r1, #0
+ 8001642:	2078      	movs	r0, #120	; 0x78
+ 8001644:	f7ff fdba 	bl	80011bc <Soft_I2C_Write_Byte>
+ 8001648:	2801      	cmp	r0, #1
+ 800164a:	f000 80fd 	beq.w	8001848 <ssd1306_Init+0x31c>
+ 800164e:	233f      	movs	r3, #63	; 0x3f
+ 8001650:	aa08      	add	r2, sp, #32
+ 8001652:	f802 3d0e 	strb.w	r3, [r2, #-14]!
+ 8001656:	2100      	movs	r1, #0
+ 8001658:	2078      	movs	r0, #120	; 0x78
+ 800165a:	f7ff fdaf 	bl	80011bc <Soft_I2C_Write_Byte>
+ 800165e:	2801      	cmp	r0, #1
+ 8001660:	f000 80ed 	beq.w	800183e <ssd1306_Init+0x312>
+ 8001664:	23a4      	movs	r3, #164	; 0xa4
+ 8001666:	aa08      	add	r2, sp, #32
+ 8001668:	f802 3d0f 	strb.w	r3, [r2, #-15]!
+ 800166c:	2100      	movs	r1, #0
+ 800166e:	2078      	movs	r0, #120	; 0x78
+ 8001670:	f7ff fda4 	bl	80011bc <Soft_I2C_Write_Byte>
+ 8001674:	2801      	cmp	r0, #1
+ 8001676:	f000 80dd 	beq.w	8001834 <ssd1306_Init+0x308>
+ 800167a:	23d3      	movs	r3, #211	; 0xd3
+ 800167c:	aa08      	add	r2, sp, #32
+ 800167e:	f802 3d10 	strb.w	r3, [r2, #-16]!
+ 8001682:	2100      	movs	r1, #0
+ 8001684:	2078      	movs	r0, #120	; 0x78
+ 8001686:	f7ff fd99 	bl	80011bc <Soft_I2C_Write_Byte>
+ 800168a:	2801      	cmp	r0, #1
+ 800168c:	f000 80cd 	beq.w	800182a <ssd1306_Init+0x2fe>
+ 8001690:	2100      	movs	r1, #0
+ 8001692:	aa08      	add	r2, sp, #32
+ 8001694:	f802 1d11 	strb.w	r1, [r2, #-17]!
+ 8001698:	2078      	movs	r0, #120	; 0x78
+ 800169a:	f7ff fd8f 	bl	80011bc <Soft_I2C_Write_Byte>
+ 800169e:	2801      	cmp	r0, #1
+ 80016a0:	f000 80be 	beq.w	8001820 <ssd1306_Init+0x2f4>
+ 80016a4:	23d5      	movs	r3, #213	; 0xd5
+ 80016a6:	aa08      	add	r2, sp, #32
+ 80016a8:	f802 3d12 	strb.w	r3, [r2, #-18]!
+ 80016ac:	2100      	movs	r1, #0
+ 80016ae:	2078      	movs	r0, #120	; 0x78
+ 80016b0:	f7ff fd84 	bl	80011bc <Soft_I2C_Write_Byte>
+ 80016b4:	2801      	cmp	r0, #1
+ 80016b6:	f000 80ae 	beq.w	8001816 <ssd1306_Init+0x2ea>
+ 80016ba:	23f0      	movs	r3, #240	; 0xf0
+ 80016bc:	aa08      	add	r2, sp, #32
+ 80016be:	f802 3d13 	strb.w	r3, [r2, #-19]!
+ 80016c2:	2100      	movs	r1, #0
+ 80016c4:	2078      	movs	r0, #120	; 0x78
+ 80016c6:	f7ff fd79 	bl	80011bc <Soft_I2C_Write_Byte>
+ 80016ca:	2801      	cmp	r0, #1
+ 80016cc:	f000 809e 	beq.w	800180c <ssd1306_Init+0x2e0>
+ 80016d0:	23d9      	movs	r3, #217	; 0xd9
+ 80016d2:	aa08      	add	r2, sp, #32
+ 80016d4:	f802 3d14 	strb.w	r3, [r2, #-20]!
+ 80016d8:	2100      	movs	r1, #0
+ 80016da:	2078      	movs	r0, #120	; 0x78
+ 80016dc:	f7ff fd6e 	bl	80011bc <Soft_I2C_Write_Byte>
+ 80016e0:	2801      	cmp	r0, #1
+ 80016e2:	f000 808e 	beq.w	8001802 <ssd1306_Init+0x2d6>
+ 80016e6:	2322      	movs	r3, #34	; 0x22
+ 80016e8:	aa08      	add	r2, sp, #32
+ 80016ea:	f802 3d15 	strb.w	r3, [r2, #-21]!
+ 80016ee:	2100      	movs	r1, #0
+ 80016f0:	2078      	movs	r0, #120	; 0x78
+ 80016f2:	f7ff fd63 	bl	80011bc <Soft_I2C_Write_Byte>
+ 80016f6:	2801      	cmp	r0, #1
+ 80016f8:	d07e      	beq.n	80017f8 <ssd1306_Init+0x2cc>
+ 80016fa:	23da      	movs	r3, #218	; 0xda
+ 80016fc:	aa08      	add	r2, sp, #32
+ 80016fe:	f802 3d16 	strb.w	r3, [r2, #-22]!
+ 8001702:	2100      	movs	r1, #0
+ 8001704:	2078      	movs	r0, #120	; 0x78
+ 8001706:	f7ff fd59 	bl	80011bc <Soft_I2C_Write_Byte>
+ 800170a:	2801      	cmp	r0, #1
+ 800170c:	d06f      	beq.n	80017ee <ssd1306_Init+0x2c2>
+ 800170e:	2312      	movs	r3, #18
+ 8001710:	aa08      	add	r2, sp, #32
+ 8001712:	f802 3d17 	strb.w	r3, [r2, #-23]!
+ 8001716:	2100      	movs	r1, #0
+ 8001718:	2078      	movs	r0, #120	; 0x78
+ 800171a:	f7ff fd4f 	bl	80011bc <Soft_I2C_Write_Byte>
+ 800171e:	2801      	cmp	r0, #1
+ 8001720:	d060      	beq.n	80017e4 <ssd1306_Init+0x2b8>
+ 8001722:	23db      	movs	r3, #219	; 0xdb
+ 8001724:	aa08      	add	r2, sp, #32
+ 8001726:	f802 3d18 	strb.w	r3, [r2, #-24]!
+ 800172a:	2100      	movs	r1, #0
+ 800172c:	2078      	movs	r0, #120	; 0x78
+ 800172e:	f7ff fd45 	bl	80011bc <Soft_I2C_Write_Byte>
+ 8001732:	2801      	cmp	r0, #1
+ 8001734:	d051      	beq.n	80017da <ssd1306_Init+0x2ae>
+ 8001736:	2320      	movs	r3, #32
+ 8001738:	eb0d 0203 	add.w	r2, sp, r3
+ 800173c:	f802 3d19 	strb.w	r3, [r2, #-25]!
+ 8001740:	2100      	movs	r1, #0
+ 8001742:	2078      	movs	r0, #120	; 0x78
+ 8001744:	f7ff fd3a 	bl	80011bc <Soft_I2C_Write_Byte>
+ 8001748:	2801      	cmp	r0, #1
+ 800174a:	d041      	beq.n	80017d0 <ssd1306_Init+0x2a4>
+ 800174c:	238d      	movs	r3, #141	; 0x8d
+ 800174e:	aa08      	add	r2, sp, #32
+ 8001750:	f802 3d1a 	strb.w	r3, [r2, #-26]!
+ 8001754:	2100      	movs	r1, #0
+ 8001756:	2078      	movs	r0, #120	; 0x78
+ 8001758:	f7ff fd30 	bl	80011bc <Soft_I2C_Write_Byte>
+ 800175c:	2801      	cmp	r0, #1
+ 800175e:	d032      	beq.n	80017c6 <ssd1306_Init+0x29a>
+ 8001760:	2414      	movs	r4, #20
+ 8001762:	aa08      	add	r2, sp, #32
+ 8001764:	f802 4d1b 	strb.w	r4, [r2, #-27]!
+ 8001768:	2100      	movs	r1, #0
+ 800176a:	2078      	movs	r0, #120	; 0x78
+ 800176c:	f7ff fd26 	bl	80011bc <Soft_I2C_Write_Byte>
+ 8001770:	2801      	cmp	r0, #1
+ 8001772:	d023      	beq.n	80017bc <ssd1306_Init+0x290>
+ 8001774:	23af      	movs	r3, #175	; 0xaf
+ 8001776:	aa08      	add	r2, sp, #32
+ 8001778:	f802 3d1c 	strb.w	r3, [r2, #-28]!
+ 800177c:	2100      	movs	r1, #0
+ 800177e:	2078      	movs	r0, #120	; 0x78
+ 8001780:	f7ff fd1c 	bl	80011bc <Soft_I2C_Write_Byte>
+ 8001784:	2801      	cmp	r0, #1
+ 8001786:	d014      	beq.n	80017b2 <ssd1306_Init+0x286>
+ 8001788:	f44f 6280 	mov.w	r2, #1024	; 0x400
+ 800178c:	2100      	movs	r1, #0
+ 800178e:	484c      	ldr	r0, [pc, #304]	; (80018c0 <ssd1306_Init+0x394>)
+ 8001790:	f000 faa0 	bl	8001cd4 <memset>
 	ssd1306_UpdateScreen();
- 8001760:	f7ff fe78 	bl	8001454 <ssd1306_UpdateScreen>
+ 8001794:	f7ff fe78 	bl	8001488 <ssd1306_UpdateScreen>
 	SSD1306.Initialized = 1;
- 8001764:	2201      	movs	r2, #1
+ 8001798:	2201      	movs	r2, #1
 	SSD1306.CurrentX = 0;
- 8001766:	2100      	movs	r1, #0
+ 800179a:	2100      	movs	r1, #0
 }
- 8001768:	4610      	mov	r0, r2
+ 800179c:	4610      	mov	r0, r2
 	SSD1306.CurrentX = 0;
- 800176a:	4b49      	ldr	r3, [pc, #292]	; (8001890 <ssd1306_Init+0x398>)
- 800176c:	6019      	str	r1, [r3, #0]
+ 800179e:	4b49      	ldr	r3, [pc, #292]	; (80018c4 <ssd1306_Init+0x398>)
+ 80017a0:	6019      	str	r1, [r3, #0]
 	SSD1306.Initialized = 1;
- 800176e:	715a      	strb	r2, [r3, #5]
+ 80017a2:	715a      	strb	r2, [r3, #5]
 }
- 8001770:	b008      	add	sp, #32
- 8001772:	bd10      	pop	{r4, pc}
+ 80017a4:	b008      	add	sp, #32
+ 80017a6:	bd10      	pop	{r4, pc}
     	_Error_Handler(__FILE__, __LINE__);
- 8001774:	2114      	movs	r1, #20
- 8001776:	4847      	ldr	r0, [pc, #284]	; (8001894 <ssd1306_Init+0x39c>)
- 8001778:	f7ff fb92 	bl	8000ea0 <_Error_Handler>
- 800177c:	e6c9      	b.n	8001512 <ssd1306_Init+0x1a>
- 800177e:	2114      	movs	r1, #20
- 8001780:	4844      	ldr	r0, [pc, #272]	; (8001894 <ssd1306_Init+0x39c>)
- 8001782:	f7ff fb8d 	bl	8000ea0 <_Error_Handler>
- 8001786:	e7e5      	b.n	8001754 <ssd1306_Init+0x25c>
- 8001788:	4621      	mov	r1, r4
- 800178a:	4842      	ldr	r0, [pc, #264]	; (8001894 <ssd1306_Init+0x39c>)
- 800178c:	f7ff fb88 	bl	8000ea0 <_Error_Handler>
- 8001790:	e7d6      	b.n	8001740 <ssd1306_Init+0x248>
- 8001792:	2114      	movs	r1, #20
- 8001794:	483f      	ldr	r0, [pc, #252]	; (8001894 <ssd1306_Init+0x39c>)
- 8001796:	f7ff fb83 	bl	8000ea0 <_Error_Handler>
- 800179a:	e7c7      	b.n	800172c <ssd1306_Init+0x234>
- 800179c:	2114      	movs	r1, #20
- 800179e:	483d      	ldr	r0, [pc, #244]	; (8001894 <ssd1306_Init+0x39c>)
- 80017a0:	f7ff fb7e 	bl	8000ea0 <_Error_Handler>
- 80017a4:	e7b8      	b.n	8001718 <ssd1306_Init+0x220>
- 80017a6:	2114      	movs	r1, #20
- 80017a8:	483a      	ldr	r0, [pc, #232]	; (8001894 <ssd1306_Init+0x39c>)
- 80017aa:	f7ff fb79 	bl	8000ea0 <_Error_Handler>
- 80017ae:	e7a8      	b.n	8001702 <ssd1306_Init+0x20a>
- 80017b0:	2114      	movs	r1, #20
- 80017b2:	4838      	ldr	r0, [pc, #224]	; (8001894 <ssd1306_Init+0x39c>)
- 80017b4:	f7ff fb74 	bl	8000ea0 <_Error_Handler>
- 80017b8:	e799      	b.n	80016ee <ssd1306_Init+0x1f6>
- 80017ba:	2114      	movs	r1, #20
- 80017bc:	4835      	ldr	r0, [pc, #212]	; (8001894 <ssd1306_Init+0x39c>)
- 80017be:	f7ff fb6f 	bl	8000ea0 <_Error_Handler>
- 80017c2:	e78a      	b.n	80016da <ssd1306_Init+0x1e2>
- 80017c4:	2114      	movs	r1, #20
- 80017c6:	4833      	ldr	r0, [pc, #204]	; (8001894 <ssd1306_Init+0x39c>)
- 80017c8:	f7ff fb6a 	bl	8000ea0 <_Error_Handler>
- 80017cc:	e77b      	b.n	80016c6 <ssd1306_Init+0x1ce>
- 80017ce:	2114      	movs	r1, #20
- 80017d0:	4830      	ldr	r0, [pc, #192]	; (8001894 <ssd1306_Init+0x39c>)
- 80017d2:	f7ff fb65 	bl	8000ea0 <_Error_Handler>
- 80017d6:	e76c      	b.n	80016b2 <ssd1306_Init+0x1ba>
- 80017d8:	2114      	movs	r1, #20
- 80017da:	482e      	ldr	r0, [pc, #184]	; (8001894 <ssd1306_Init+0x39c>)
- 80017dc:	f7ff fb60 	bl	8000ea0 <_Error_Handler>
- 80017e0:	e75c      	b.n	800169c <ssd1306_Init+0x1a4>
- 80017e2:	2114      	movs	r1, #20
- 80017e4:	482b      	ldr	r0, [pc, #172]	; (8001894 <ssd1306_Init+0x39c>)
- 80017e6:	f7ff fb5b 	bl	8000ea0 <_Error_Handler>
- 80017ea:	e74c      	b.n	8001686 <ssd1306_Init+0x18e>
- 80017ec:	2114      	movs	r1, #20
- 80017ee:	4829      	ldr	r0, [pc, #164]	; (8001894 <ssd1306_Init+0x39c>)
- 80017f0:	f7ff fb56 	bl	8000ea0 <_Error_Handler>
- 80017f4:	e73c      	b.n	8001670 <ssd1306_Init+0x178>
- 80017f6:	2114      	movs	r1, #20
- 80017f8:	4826      	ldr	r0, [pc, #152]	; (8001894 <ssd1306_Init+0x39c>)
- 80017fa:	f7ff fb51 	bl	8000ea0 <_Error_Handler>
- 80017fe:	e72d      	b.n	800165c <ssd1306_Init+0x164>
- 8001800:	2114      	movs	r1, #20
- 8001802:	4824      	ldr	r0, [pc, #144]	; (8001894 <ssd1306_Init+0x39c>)
- 8001804:	f7ff fb4c 	bl	8000ea0 <_Error_Handler>
- 8001808:	e71d      	b.n	8001646 <ssd1306_Init+0x14e>
- 800180a:	2114      	movs	r1, #20
- 800180c:	4821      	ldr	r0, [pc, #132]	; (8001894 <ssd1306_Init+0x39c>)
- 800180e:	f7ff fb47 	bl	8000ea0 <_Error_Handler>
- 8001812:	e70d      	b.n	8001630 <ssd1306_Init+0x138>
- 8001814:	2114      	movs	r1, #20
- 8001816:	481f      	ldr	r0, [pc, #124]	; (8001894 <ssd1306_Init+0x39c>)
- 8001818:	f7ff fb42 	bl	8000ea0 <_Error_Handler>
- 800181c:	e6fd      	b.n	800161a <ssd1306_Init+0x122>
- 800181e:	2114      	movs	r1, #20
- 8001820:	481c      	ldr	r0, [pc, #112]	; (8001894 <ssd1306_Init+0x39c>)
- 8001822:	f7ff fb3d 	bl	8000ea0 <_Error_Handler>
- 8001826:	e6ed      	b.n	8001604 <ssd1306_Init+0x10c>
- 8001828:	2114      	movs	r1, #20
- 800182a:	481a      	ldr	r0, [pc, #104]	; (8001894 <ssd1306_Init+0x39c>)
- 800182c:	f7ff fb38 	bl	8000ea0 <_Error_Handler>
- 8001830:	e6dd      	b.n	80015ee <ssd1306_Init+0xf6>
- 8001832:	2114      	movs	r1, #20
- 8001834:	4817      	ldr	r0, [pc, #92]	; (8001894 <ssd1306_Init+0x39c>)
- 8001836:	f7ff fb33 	bl	8000ea0 <_Error_Handler>
- 800183a:	e6cd      	b.n	80015d8 <ssd1306_Init+0xe0>
- 800183c:	2114      	movs	r1, #20
- 800183e:	4815      	ldr	r0, [pc, #84]	; (8001894 <ssd1306_Init+0x39c>)
- 8001840:	f7ff fb2e 	bl	8000ea0 <_Error_Handler>
- 8001844:	e6bd      	b.n	80015c2 <ssd1306_Init+0xca>
- 8001846:	2114      	movs	r1, #20
- 8001848:	4812      	ldr	r0, [pc, #72]	; (8001894 <ssd1306_Init+0x39c>)
- 800184a:	f7ff fb29 	bl	8000ea0 <_Error_Handler>
- 800184e:	e6ad      	b.n	80015ac <ssd1306_Init+0xb4>
- 8001850:	2114      	movs	r1, #20
- 8001852:	4810      	ldr	r0, [pc, #64]	; (8001894 <ssd1306_Init+0x39c>)
- 8001854:	f7ff fb24 	bl	8000ea0 <_Error_Handler>
- 8001858:	e69d      	b.n	8001596 <ssd1306_Init+0x9e>
- 800185a:	2114      	movs	r1, #20
- 800185c:	480d      	ldr	r0, [pc, #52]	; (8001894 <ssd1306_Init+0x39c>)
- 800185e:	f7ff fb1f 	bl	8000ea0 <_Error_Handler>
- 8001862:	e68d      	b.n	8001580 <ssd1306_Init+0x88>
- 8001864:	2114      	movs	r1, #20
- 8001866:	480b      	ldr	r0, [pc, #44]	; (8001894 <ssd1306_Init+0x39c>)
- 8001868:	f7ff fb1a 	bl	8000ea0 <_Error_Handler>
- 800186c:	e67e      	b.n	800156c <ssd1306_Init+0x74>
- 800186e:	2114      	movs	r1, #20
- 8001870:	4808      	ldr	r0, [pc, #32]	; (8001894 <ssd1306_Init+0x39c>)
- 8001872:	f7ff fb15 	bl	8000ea0 <_Error_Handler>
- 8001876:	e66e      	b.n	8001556 <ssd1306_Init+0x5e>
- 8001878:	2114      	movs	r1, #20
- 800187a:	4806      	ldr	r0, [pc, #24]	; (8001894 <ssd1306_Init+0x39c>)
- 800187c:	f7ff fb10 	bl	8000ea0 <_Error_Handler>
- 8001880:	e65e      	b.n	8001540 <ssd1306_Init+0x48>
- 8001882:	2114      	movs	r1, #20
- 8001884:	4803      	ldr	r0, [pc, #12]	; (8001894 <ssd1306_Init+0x39c>)
- 8001886:	f7ff fb0b 	bl	8000ea0 <_Error_Handler>
- 800188a:	e64e      	b.n	800152a <ssd1306_Init+0x32>
- 800188c:	20000038 	.word	0x20000038
- 8001890:	20000030 	.word	0x20000030
- 8001894:	08002ac8 	.word	0x08002ac8
+ 80017a8:	2114      	movs	r1, #20
+ 80017aa:	4847      	ldr	r0, [pc, #284]	; (80018c8 <ssd1306_Init+0x39c>)
+ 80017ac:	f7ff fb86 	bl	8000ebc <_Error_Handler>
+ 80017b0:	e6c9      	b.n	8001546 <ssd1306_Init+0x1a>
+ 80017b2:	2114      	movs	r1, #20
+ 80017b4:	4844      	ldr	r0, [pc, #272]	; (80018c8 <ssd1306_Init+0x39c>)
+ 80017b6:	f7ff fb81 	bl	8000ebc <_Error_Handler>
+ 80017ba:	e7e5      	b.n	8001788 <ssd1306_Init+0x25c>
+ 80017bc:	4621      	mov	r1, r4
+ 80017be:	4842      	ldr	r0, [pc, #264]	; (80018c8 <ssd1306_Init+0x39c>)
+ 80017c0:	f7ff fb7c 	bl	8000ebc <_Error_Handler>
+ 80017c4:	e7d6      	b.n	8001774 <ssd1306_Init+0x248>
+ 80017c6:	2114      	movs	r1, #20
+ 80017c8:	483f      	ldr	r0, [pc, #252]	; (80018c8 <ssd1306_Init+0x39c>)
+ 80017ca:	f7ff fb77 	bl	8000ebc <_Error_Handler>
+ 80017ce:	e7c7      	b.n	8001760 <ssd1306_Init+0x234>
+ 80017d0:	2114      	movs	r1, #20
+ 80017d2:	483d      	ldr	r0, [pc, #244]	; (80018c8 <ssd1306_Init+0x39c>)
+ 80017d4:	f7ff fb72 	bl	8000ebc <_Error_Handler>
+ 80017d8:	e7b8      	b.n	800174c <ssd1306_Init+0x220>
+ 80017da:	2114      	movs	r1, #20
+ 80017dc:	483a      	ldr	r0, [pc, #232]	; (80018c8 <ssd1306_Init+0x39c>)
+ 80017de:	f7ff fb6d 	bl	8000ebc <_Error_Handler>
+ 80017e2:	e7a8      	b.n	8001736 <ssd1306_Init+0x20a>
+ 80017e4:	2114      	movs	r1, #20
+ 80017e6:	4838      	ldr	r0, [pc, #224]	; (80018c8 <ssd1306_Init+0x39c>)
+ 80017e8:	f7ff fb68 	bl	8000ebc <_Error_Handler>
+ 80017ec:	e799      	b.n	8001722 <ssd1306_Init+0x1f6>
+ 80017ee:	2114      	movs	r1, #20
+ 80017f0:	4835      	ldr	r0, [pc, #212]	; (80018c8 <ssd1306_Init+0x39c>)
+ 80017f2:	f7ff fb63 	bl	8000ebc <_Error_Handler>
+ 80017f6:	e78a      	b.n	800170e <ssd1306_Init+0x1e2>
+ 80017f8:	2114      	movs	r1, #20
+ 80017fa:	4833      	ldr	r0, [pc, #204]	; (80018c8 <ssd1306_Init+0x39c>)
+ 80017fc:	f7ff fb5e 	bl	8000ebc <_Error_Handler>
+ 8001800:	e77b      	b.n	80016fa <ssd1306_Init+0x1ce>
+ 8001802:	2114      	movs	r1, #20
+ 8001804:	4830      	ldr	r0, [pc, #192]	; (80018c8 <ssd1306_Init+0x39c>)
+ 8001806:	f7ff fb59 	bl	8000ebc <_Error_Handler>
+ 800180a:	e76c      	b.n	80016e6 <ssd1306_Init+0x1ba>
+ 800180c:	2114      	movs	r1, #20
+ 800180e:	482e      	ldr	r0, [pc, #184]	; (80018c8 <ssd1306_Init+0x39c>)
+ 8001810:	f7ff fb54 	bl	8000ebc <_Error_Handler>
+ 8001814:	e75c      	b.n	80016d0 <ssd1306_Init+0x1a4>
+ 8001816:	2114      	movs	r1, #20
+ 8001818:	482b      	ldr	r0, [pc, #172]	; (80018c8 <ssd1306_Init+0x39c>)
+ 800181a:	f7ff fb4f 	bl	8000ebc <_Error_Handler>
+ 800181e:	e74c      	b.n	80016ba <ssd1306_Init+0x18e>
+ 8001820:	2114      	movs	r1, #20
+ 8001822:	4829      	ldr	r0, [pc, #164]	; (80018c8 <ssd1306_Init+0x39c>)
+ 8001824:	f7ff fb4a 	bl	8000ebc <_Error_Handler>
+ 8001828:	e73c      	b.n	80016a4 <ssd1306_Init+0x178>
+ 800182a:	2114      	movs	r1, #20
+ 800182c:	4826      	ldr	r0, [pc, #152]	; (80018c8 <ssd1306_Init+0x39c>)
+ 800182e:	f7ff fb45 	bl	8000ebc <_Error_Handler>
+ 8001832:	e72d      	b.n	8001690 <ssd1306_Init+0x164>
+ 8001834:	2114      	movs	r1, #20
+ 8001836:	4824      	ldr	r0, [pc, #144]	; (80018c8 <ssd1306_Init+0x39c>)
+ 8001838:	f7ff fb40 	bl	8000ebc <_Error_Handler>
+ 800183c:	e71d      	b.n	800167a <ssd1306_Init+0x14e>
+ 800183e:	2114      	movs	r1, #20
+ 8001840:	4821      	ldr	r0, [pc, #132]	; (80018c8 <ssd1306_Init+0x39c>)
+ 8001842:	f7ff fb3b 	bl	8000ebc <_Error_Handler>
+ 8001846:	e70d      	b.n	8001664 <ssd1306_Init+0x138>
+ 8001848:	2114      	movs	r1, #20
+ 800184a:	481f      	ldr	r0, [pc, #124]	; (80018c8 <ssd1306_Init+0x39c>)
+ 800184c:	f7ff fb36 	bl	8000ebc <_Error_Handler>
+ 8001850:	e6fd      	b.n	800164e <ssd1306_Init+0x122>
+ 8001852:	2114      	movs	r1, #20
+ 8001854:	481c      	ldr	r0, [pc, #112]	; (80018c8 <ssd1306_Init+0x39c>)
+ 8001856:	f7ff fb31 	bl	8000ebc <_Error_Handler>
+ 800185a:	e6ed      	b.n	8001638 <ssd1306_Init+0x10c>
+ 800185c:	2114      	movs	r1, #20
+ 800185e:	481a      	ldr	r0, [pc, #104]	; (80018c8 <ssd1306_Init+0x39c>)
+ 8001860:	f7ff fb2c 	bl	8000ebc <_Error_Handler>
+ 8001864:	e6dd      	b.n	8001622 <ssd1306_Init+0xf6>
+ 8001866:	2114      	movs	r1, #20
+ 8001868:	4817      	ldr	r0, [pc, #92]	; (80018c8 <ssd1306_Init+0x39c>)
+ 800186a:	f7ff fb27 	bl	8000ebc <_Error_Handler>
+ 800186e:	e6cd      	b.n	800160c <ssd1306_Init+0xe0>
+ 8001870:	2114      	movs	r1, #20
+ 8001872:	4815      	ldr	r0, [pc, #84]	; (80018c8 <ssd1306_Init+0x39c>)
+ 8001874:	f7ff fb22 	bl	8000ebc <_Error_Handler>
+ 8001878:	e6bd      	b.n	80015f6 <ssd1306_Init+0xca>
+ 800187a:	2114      	movs	r1, #20
+ 800187c:	4812      	ldr	r0, [pc, #72]	; (80018c8 <ssd1306_Init+0x39c>)
+ 800187e:	f7ff fb1d 	bl	8000ebc <_Error_Handler>
+ 8001882:	e6ad      	b.n	80015e0 <ssd1306_Init+0xb4>
+ 8001884:	2114      	movs	r1, #20
+ 8001886:	4810      	ldr	r0, [pc, #64]	; (80018c8 <ssd1306_Init+0x39c>)
+ 8001888:	f7ff fb18 	bl	8000ebc <_Error_Handler>
+ 800188c:	e69d      	b.n	80015ca <ssd1306_Init+0x9e>
+ 800188e:	2114      	movs	r1, #20
+ 8001890:	480d      	ldr	r0, [pc, #52]	; (80018c8 <ssd1306_Init+0x39c>)
+ 8001892:	f7ff fb13 	bl	8000ebc <_Error_Handler>
+ 8001896:	e68d      	b.n	80015b4 <ssd1306_Init+0x88>
+ 8001898:	2114      	movs	r1, #20
+ 800189a:	480b      	ldr	r0, [pc, #44]	; (80018c8 <ssd1306_Init+0x39c>)
+ 800189c:	f7ff fb0e 	bl	8000ebc <_Error_Handler>
+ 80018a0:	e67e      	b.n	80015a0 <ssd1306_Init+0x74>
+ 80018a2:	2114      	movs	r1, #20
+ 80018a4:	4808      	ldr	r0, [pc, #32]	; (80018c8 <ssd1306_Init+0x39c>)
+ 80018a6:	f7ff fb09 	bl	8000ebc <_Error_Handler>
+ 80018aa:	e66e      	b.n	800158a <ssd1306_Init+0x5e>
+ 80018ac:	2114      	movs	r1, #20
+ 80018ae:	4806      	ldr	r0, [pc, #24]	; (80018c8 <ssd1306_Init+0x39c>)
+ 80018b0:	f7ff fb04 	bl	8000ebc <_Error_Handler>
+ 80018b4:	e65e      	b.n	8001574 <ssd1306_Init+0x48>
+ 80018b6:	2114      	movs	r1, #20
+ 80018b8:	4803      	ldr	r0, [pc, #12]	; (80018c8 <ssd1306_Init+0x39c>)
+ 80018ba:	f7ff faff 	bl	8000ebc <_Error_Handler>
+ 80018be:	e64e      	b.n	800155e <ssd1306_Init+0x32>
+ 80018c0:	20000038 	.word	0x20000038
+ 80018c4:	20000030 	.word	0x20000030
+ 80018c8:	08002b00 	.word	0x08002b00
 
-08001898 <ssd1306_WriteChar>:
+080018cc <ssd1306_WriteChar>:
 //	ch 		=> char om weg te schrijven
 //	Font 	=> Font waarmee we gaan schrijven
 //	color 	=> Black or White
 //
 char ssd1306_WriteChar(char ch, FontDef Font, SSD1306_COLOR color)
 {
- 8001898:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
- 800189c:	b089      	sub	sp, #36	; 0x24
- 800189e:	ac08      	add	r4, sp, #32
- 80018a0:	e904 0006 	stmdb	r4, {r1, r2}
+ 80018cc:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
+ 80018d0:	b089      	sub	sp, #36	; 0x24
+ 80018d2:	ac08      	add	r4, sp, #32
+ 80018d4:	e904 0006 	stmdb	r4, {r1, r2}
 	uint32_t i, b, j;
 	
 	// Kijken of er nog plaats is op deze lijn
 	if (SSD1306_WIDTH <= (SSD1306.CurrentX + Font.FontWidth) ||
- 80018a4:	4a75      	ldr	r2, [pc, #468]	; (8001a7c <ssd1306_WriteChar+0x1e4>)
- 80018a6:	f89d 1018 	ldrb.w	r1, [sp, #24]
- 80018aa:	8814      	ldrh	r4, [r2, #0]
+ 80018d8:	4a75      	ldr	r2, [pc, #468]	; (8001ab0 <ssd1306_WriteChar+0x1e4>)
+ 80018da:	f89d 1018 	ldrb.w	r1, [sp, #24]
+ 80018de:	8814      	ldrh	r4, [r2, #0]
 {
- 80018ac:	9004      	str	r0, [sp, #16]
+ 80018e0:	9004      	str	r0, [sp, #16]
 	if (SSD1306_WIDTH <= (SSD1306.CurrentX + Font.FontWidth) ||
- 80018ae:	1862      	adds	r2, r4, r1
- 80018b0:	2a7f      	cmp	r2, #127	; 0x7f
- 80018b2:	9205      	str	r2, [sp, #20]
- 80018b4:	dc76      	bgt.n	80019a4 <ssd1306_WriteChar+0x10c>
+ 80018e2:	1862      	adds	r2, r4, r1
+ 80018e4:	2a7f      	cmp	r2, #127	; 0x7f
+ 80018e6:	9205      	str	r2, [sp, #20]
+ 80018e8:	dc76      	bgt.n	80019d8 <ssd1306_WriteChar+0x10c>
 		SSD1306_HEIGHT <= (SSD1306.CurrentY + Font.FontHeight))
- 80018b6:	4871      	ldr	r0, [pc, #452]	; (8001a7c <ssd1306_WriteChar+0x1e4>)
- 80018b8:	f89d 2019 	ldrb.w	r2, [sp, #25]
- 80018bc:	8840      	ldrh	r0, [r0, #2]
- 80018be:	9200      	str	r2, [sp, #0]
- 80018c0:	4605      	mov	r5, r0
- 80018c2:	9001      	str	r0, [sp, #4]
- 80018c4:	4610      	mov	r0, r2
- 80018c6:	18aa      	adds	r2, r5, r2
+ 80018ea:	4871      	ldr	r0, [pc, #452]	; (8001ab0 <ssd1306_WriteChar+0x1e4>)
+ 80018ec:	f89d 2019 	ldrb.w	r2, [sp, #25]
+ 80018f0:	8840      	ldrh	r0, [r0, #2]
+ 80018f2:	9200      	str	r2, [sp, #0]
+ 80018f4:	4605      	mov	r5, r0
+ 80018f6:	9001      	str	r0, [sp, #4]
+ 80018f8:	4610      	mov	r0, r2
+ 80018fa:	18aa      	adds	r2, r5, r2
 	if (SSD1306_WIDTH <= (SSD1306.CurrentX + Font.FontWidth) ||
- 80018c8:	2a3f      	cmp	r2, #63	; 0x3f
- 80018ca:	dc6b      	bgt.n	80019a4 <ssd1306_WriteChar+0x10c>
+ 80018fc:	2a3f      	cmp	r2, #63	; 0x3f
+ 80018fe:	dc6b      	bgt.n	80019d8 <ssd1306_WriteChar+0x10c>
 		// Er is geen plaats meer
 		return 0;
 	}
 	
 	// We gaan door het font
 	for (i = 0; i < Font.FontHeight; i++)
- 80018cc:	4602      	mov	r2, r0
- 80018ce:	2800      	cmp	r0, #0
- 80018d0:	d060      	beq.n	8001994 <ssd1306_WriteChar+0xfc>
+ 8001900:	4602      	mov	r2, r0
+ 8001902:	2800      	cmp	r0, #0
+ 8001904:	d060      	beq.n	80019c8 <ssd1306_WriteChar+0xfc>
 			{
 				ssd1306_DrawPixel(SSD1306.CurrentX + j, (SSD1306.CurrentY + i), (SSD1306_COLOR) color);
 			} 
 			else 
 			{
 				ssd1306_DrawPixel(SSD1306.CurrentX + j, (SSD1306.CurrentY + i), (SSD1306_COLOR)!color);
- 80018d2:	2b00      	cmp	r3, #0
+ 8001906:	2b00      	cmp	r3, #0
 		color = (SSD1306_COLOR)!color;
- 80018d4:	f04f 0c00 	mov.w	ip, #0
+ 8001908:	f04f 0c00 	mov.w	ip, #0
 				ssd1306_DrawPixel(SSD1306.CurrentX + j, (SSD1306.CurrentY + i), (SSD1306_COLOR)!color);
- 80018d8:	bf14      	ite	ne
- 80018da:	2200      	movne	r2, #0
- 80018dc:	2201      	moveq	r2, #1
+ 800190c:	bf14      	ite	ne
+ 800190e:	2200      	movne	r2, #0
+ 8001910:	2201      	moveq	r2, #1
 	if (SSD1306.Inverted) 
- 80018de:	4d67      	ldr	r5, [pc, #412]	; (8001a7c <ssd1306_WriteChar+0x1e4>)
+ 8001912:	4d67      	ldr	r5, [pc, #412]	; (8001ab0 <ssd1306_WriteChar+0x1e4>)
 		color = (SSD1306_COLOR)!color;
- 80018e0:	bf08      	it	eq
- 80018e2:	2000      	moveq	r0, #0
+ 8001914:	bf08      	it	eq
+ 8001916:	2000      	moveq	r0, #0
 	if (SSD1306.Inverted) 
- 80018e4:	792d      	ldrb	r5, [r5, #4]
+ 8001918:	792d      	ldrb	r5, [r5, #4]
 		color = (SSD1306_COLOR)!color;
- 80018e6:	bf18      	it	ne
- 80018e8:	2001      	movne	r0, #1
- 80018ea:	4565      	cmp	r5, ip
- 80018ec:	bf14      	ite	ne
- 80018ee:	4613      	movne	r3, r2
- 80018f0:	4610      	moveq	r0, r2
- 80018f2:	9303      	str	r3, [sp, #12]
- 80018f4:	9b04      	ldr	r3, [sp, #16]
- 80018f6:	9a07      	ldr	r2, [sp, #28]
- 80018f8:	f1a3 0920 	sub.w	r9, r3, #32
- 80018fc:	9b00      	ldr	r3, [sp, #0]
+ 800191a:	bf18      	it	ne
+ 800191c:	2001      	movne	r0, #1
+ 800191e:	4565      	cmp	r5, ip
+ 8001920:	bf14      	ite	ne
+ 8001922:	4613      	movne	r3, r2
+ 8001924:	4610      	moveq	r0, r2
+ 8001926:	9303      	str	r3, [sp, #12]
+ 8001928:	9b04      	ldr	r3, [sp, #16]
+ 800192a:	9a07      	ldr	r2, [sp, #28]
+ 800192c:	f1a3 0920 	sub.w	r9, r3, #32
+ 8001930:	9b00      	ldr	r3, [sp, #0]
 		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] |= 1 << (y % 8);
- 80018fe:	f8df e180 	ldr.w	lr, [pc, #384]	; 8001a80 <ssd1306_WriteChar+0x1e8>
- 8001902:	fb03 f909 	mul.w	r9, r3, r9
- 8001906:	9002      	str	r0, [sp, #8]
- 8001908:	b2e3      	uxtb	r3, r4
- 800190a:	eb02 0949 	add.w	r9, r2, r9, lsl #1
+ 8001932:	f8df e180 	ldr.w	lr, [pc, #384]	; 8001ab4 <ssd1306_WriteChar+0x1e8>
+ 8001936:	fb03 f909 	mul.w	r9, r3, r9
+ 800193a:	9002      	str	r0, [sp, #8]
+ 800193c:	b2e3      	uxtb	r3, r4
+ 800193e:	eb02 0949 	add.w	r9, r2, r9, lsl #1
 		b = Font.data[(ch - 32) * Font.FontHeight + i];
- 800190e:	f839 0b02 	ldrh.w	r0, [r9], #2
+ 8001942:	f839 0b02 	ldrh.w	r0, [r9], #2
 		for (j = 0; j < Font.FontWidth; j++)
- 8001912:	2900      	cmp	r1, #0
- 8001914:	d039      	beq.n	800198a <ssd1306_WriteChar+0xf2>
- 8001916:	9a01      	ldr	r2, [sp, #4]
- 8001918:	eb0c 0402 	add.w	r4, ip, r2
+ 8001946:	2900      	cmp	r1, #0
+ 8001948:	d039      	beq.n	80019be <ssd1306_WriteChar+0xf2>
+ 800194a:	9a01      	ldr	r2, [sp, #4]
+ 800194c:	eb0c 0402 	add.w	r4, ip, r2
 		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] &= ~(1 << (y % 8));
- 800191c:	2201      	movs	r2, #1
- 800191e:	b2e4      	uxtb	r4, r4
- 8001920:	f004 0707 	and.w	r7, r4, #7
- 8001924:	fa02 f707 	lsl.w	r7, r2, r7
- 8001928:	b27f      	sxtb	r7, r7
- 800192a:	08e2      	lsrs	r2, r4, #3
- 800192c:	2c3f      	cmp	r4, #63	; 0x3f
- 800192e:	ea6f 0807 	mvn.w	r8, r7
- 8001932:	ea4f 12c2 	mov.w	r2, r2, lsl #7
- 8001936:	d828      	bhi.n	800198a <ssd1306_WriteChar+0xf2>
- 8001938:	9c03      	ldr	r4, [sp, #12]
- 800193a:	2c01      	cmp	r4, #1
- 800193c:	9c02      	ldr	r4, [sp, #8]
- 800193e:	d035      	beq.n	80019ac <ssd1306_WriteChar+0x114>
- 8001940:	2c00      	cmp	r4, #0
- 8001942:	d159      	bne.n	80019f8 <ssd1306_WriteChar+0x160>
- 8001944:	4626      	mov	r6, r4
- 8001946:	e00a      	b.n	800195e <ssd1306_WriteChar+0xc6>
+ 8001950:	2201      	movs	r2, #1
+ 8001952:	b2e4      	uxtb	r4, r4
+ 8001954:	f004 0707 	and.w	r7, r4, #7
+ 8001958:	fa02 f707 	lsl.w	r7, r2, r7
+ 800195c:	b27f      	sxtb	r7, r7
+ 800195e:	08e2      	lsrs	r2, r4, #3
+ 8001960:	2c3f      	cmp	r4, #63	; 0x3f
+ 8001962:	ea6f 0807 	mvn.w	r8, r7
+ 8001966:	ea4f 12c2 	mov.w	r2, r2, lsl #7
+ 800196a:	d828      	bhi.n	80019be <ssd1306_WriteChar+0xf2>
+ 800196c:	9c03      	ldr	r4, [sp, #12]
+ 800196e:	2c01      	cmp	r4, #1
+ 8001970:	9c02      	ldr	r4, [sp, #8]
+ 8001972:	d035      	beq.n	80019e0 <ssd1306_WriteChar+0x114>
+ 8001974:	2c00      	cmp	r4, #0
+ 8001976:	d159      	bne.n	8001a2c <ssd1306_WriteChar+0x160>
+ 8001978:	4626      	mov	r6, r4
+ 800197a:	e00a      	b.n	8001992 <ssd1306_WriteChar+0xc6>
 	if (x >= SSD1306_WIDTH || y >= SSD1306_HEIGHT) 
- 8001948:	0624      	lsls	r4, r4, #24
- 800194a:	d405      	bmi.n	8001958 <ssd1306_WriteChar+0xc0>
+ 800197c:	0624      	lsls	r4, r4, #24
+ 800197e:	d405      	bmi.n	800198c <ssd1306_WriteChar+0xc0>
 		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] &= ~(1 << (y % 8));
- 800194c:	f81e 400a 	ldrb.w	r4, [lr, sl]
- 8001950:	ea08 0404 	and.w	r4, r8, r4
- 8001954:	f80e 400a 	strb.w	r4, [lr, sl]
+ 8001980:	f81e 400a 	ldrb.w	r4, [lr, sl]
+ 8001984:	ea08 0404 	and.w	r4, r8, r4
+ 8001988:	f80e 400a 	strb.w	r4, [lr, sl]
 		for (j = 0; j < Font.FontWidth; j++)
- 8001958:	3601      	adds	r6, #1
- 800195a:	42b1      	cmp	r1, r6
- 800195c:	d015      	beq.n	800198a <ssd1306_WriteChar+0xf2>
- 800195e:	199c      	adds	r4, r3, r6
- 8001960:	4625      	mov	r5, r4
+ 800198c:	3601      	adds	r6, #1
+ 800198e:	42b1      	cmp	r1, r6
+ 8001990:	d015      	beq.n	80019be <ssd1306_WriteChar+0xf2>
+ 8001992:	199c      	adds	r4, r3, r6
+ 8001994:	4625      	mov	r5, r4
 			if ((b << j) & 0x8000) 
- 8001962:	fa00 f706 	lsl.w	r7, r0, r6
- 8001966:	b2e4      	uxtb	r4, r4
- 8001968:	043f      	lsls	r7, r7, #16
+ 8001996:	fa00 f706 	lsl.w	r7, r0, r6
+ 800199a:	b2e4      	uxtb	r4, r4
+ 800199c:	043f      	lsls	r7, r7, #16
 		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] &= ~(1 << (y % 8));
- 800196a:	eb04 0a02 	add.w	sl, r4, r2
- 800196e:	b2ed      	uxtb	r5, r5
+ 800199e:	eb04 0a02 	add.w	sl, r4, r2
+ 80019a2:	b2ed      	uxtb	r5, r5
 			if ((b << j) & 0x8000) 
- 8001970:	d5ea      	bpl.n	8001948 <ssd1306_WriteChar+0xb0>
+ 80019a4:	d5ea      	bpl.n	800197c <ssd1306_WriteChar+0xb0>
 	if (x >= SSD1306_WIDTH || y >= SSD1306_HEIGHT) 
- 8001972:	062f      	lsls	r7, r5, #24
- 8001974:	d4f0      	bmi.n	8001958 <ssd1306_WriteChar+0xc0>
+ 80019a6:	062f      	lsls	r7, r5, #24
+ 80019a8:	d4f0      	bmi.n	800198c <ssd1306_WriteChar+0xc0>
 		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] &= ~(1 << (y % 8));
- 8001976:	4415      	add	r5, r2
- 8001978:	f81e 4005 	ldrb.w	r4, [lr, r5]
+ 80019aa:	4415      	add	r5, r2
+ 80019ac:	f81e 4005 	ldrb.w	r4, [lr, r5]
 		for (j = 0; j < Font.FontWidth; j++)
- 800197c:	3601      	adds	r6, #1
+ 80019b0:	3601      	adds	r6, #1
 		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] &= ~(1 << (y % 8));
- 800197e:	ea08 0404 	and.w	r4, r8, r4
+ 80019b2:	ea08 0404 	and.w	r4, r8, r4
 		for (j = 0; j < Font.FontWidth; j++)
- 8001982:	42b1      	cmp	r1, r6
+ 80019b6:	42b1      	cmp	r1, r6
 		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] &= ~(1 << (y % 8));
- 8001984:	f80e 4005 	strb.w	r4, [lr, r5]
+ 80019b8:	f80e 4005 	strb.w	r4, [lr, r5]
 		for (j = 0; j < Font.FontWidth; j++)
- 8001988:	d1e9      	bne.n	800195e <ssd1306_WriteChar+0xc6>
+ 80019bc:	d1e9      	bne.n	8001992 <ssd1306_WriteChar+0xc6>
 	for (i = 0; i < Font.FontHeight; i++)
- 800198a:	9a00      	ldr	r2, [sp, #0]
- 800198c:	f10c 0c01 	add.w	ip, ip, #1
- 8001990:	4594      	cmp	ip, r2
- 8001992:	d1bc      	bne.n	800190e <ssd1306_WriteChar+0x76>
+ 80019be:	9a00      	ldr	r2, [sp, #0]
+ 80019c0:	f10c 0c01 	add.w	ip, ip, #1
+ 80019c4:	4594      	cmp	ip, r2
+ 80019c6:	d1bc      	bne.n	8001942 <ssd1306_WriteChar+0x76>
 			}
 		}
 	}
 	
 	// De huidige positie is nu verplaatst
 	SSD1306.CurrentX += Font.FontWidth;
- 8001994:	4b39      	ldr	r3, [pc, #228]	; (8001a7c <ssd1306_WriteChar+0x1e4>)
- 8001996:	f8bd 2014 	ldrh.w	r2, [sp, #20]
+ 80019c8:	4b39      	ldr	r3, [pc, #228]	; (8001ab0 <ssd1306_WriteChar+0x1e4>)
+ 80019ca:	f8bd 2014 	ldrh.w	r2, [sp, #20]
 	
 	// We geven het geschreven char terug voor validatie
 	return ch;
- 800199a:	9804      	ldr	r0, [sp, #16]
+ 80019ce:	9804      	ldr	r0, [sp, #16]
 	SSD1306.CurrentX += Font.FontWidth;
- 800199c:	801a      	strh	r2, [r3, #0]
+ 80019d0:	801a      	strh	r2, [r3, #0]
 }
- 800199e:	b009      	add	sp, #36	; 0x24
- 80019a0:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
+ 80019d2:	b009      	add	sp, #36	; 0x24
+ 80019d4:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
 		return 0;
- 80019a4:	2000      	movs	r0, #0
+ 80019d8:	2000      	movs	r0, #0
 }
- 80019a6:	b009      	add	sp, #36	; 0x24
- 80019a8:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
- 80019ac:	2c00      	cmp	r4, #0
- 80019ae:	d144      	bne.n	8001a3a <ssd1306_WriteChar+0x1a2>
+ 80019da:	b009      	add	sp, #36	; 0x24
+ 80019dc:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
+ 80019e0:	2c00      	cmp	r4, #0
+ 80019e2:	d144      	bne.n	8001a6e <ssd1306_WriteChar+0x1a2>
 		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] &= ~(1 << (y % 8));
- 80019b0:	4626      	mov	r6, r4
- 80019b2:	199c      	adds	r4, r3, r6
- 80019b4:	4625      	mov	r5, r4
+ 80019e4:	4626      	mov	r6, r4
+ 80019e6:	199c      	adds	r4, r3, r6
+ 80019e8:	4625      	mov	r5, r4
 			if ((b << j) & 0x8000) 
- 80019b6:	fa00 fa06 	lsl.w	sl, r0, r6
- 80019ba:	b2e4      	uxtb	r4, r4
- 80019bc:	f41a 4f00 	tst.w	sl, #32768	; 0x8000
+ 80019ea:	fa00 fa06 	lsl.w	sl, r0, r6
+ 80019ee:	b2e4      	uxtb	r4, r4
+ 80019f0:	f41a 4f00 	tst.w	sl, #32768	; 0x8000
 		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] |= 1 << (y % 8);
- 80019c0:	eb04 0b02 	add.w	fp, r4, r2
- 80019c4:	b2ed      	uxtb	r5, r5
+ 80019f4:	eb04 0b02 	add.w	fp, r4, r2
+ 80019f8:	b2ed      	uxtb	r5, r5
 			if ((b << j) & 0x8000) 
- 80019c6:	d00a      	beq.n	80019de <ssd1306_WriteChar+0x146>
+ 80019fa:	d00a      	beq.n	8001a12 <ssd1306_WriteChar+0x146>
 	if (x >= SSD1306_WIDTH || y >= SSD1306_HEIGHT) 
- 80019c8:	0625      	lsls	r5, r4, #24
- 80019ca:	d404      	bmi.n	80019d6 <ssd1306_WriteChar+0x13e>
+ 80019fc:	0625      	lsls	r5, r4, #24
+ 80019fe:	d404      	bmi.n	8001a0a <ssd1306_WriteChar+0x13e>
 		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] |= 1 << (y % 8);
- 80019cc:	f81e 400b 	ldrb.w	r4, [lr, fp]
- 80019d0:	433c      	orrs	r4, r7
- 80019d2:	f80e 400b 	strb.w	r4, [lr, fp]
-		for (j = 0; j < Font.FontWidth; j++)
- 80019d6:	3601      	adds	r6, #1
- 80019d8:	42b1      	cmp	r1, r6
- 80019da:	d1ea      	bne.n	80019b2 <ssd1306_WriteChar+0x11a>
- 80019dc:	e7d5      	b.n	800198a <ssd1306_WriteChar+0xf2>
-	if (x >= SSD1306_WIDTH || y >= SSD1306_HEIGHT) 
- 80019de:	062c      	lsls	r4, r5, #24
- 80019e0:	d4f9      	bmi.n	80019d6 <ssd1306_WriteChar+0x13e>
-		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] &= ~(1 << (y % 8));
- 80019e2:	4415      	add	r5, r2
- 80019e4:	f81e 4005 	ldrb.w	r4, [lr, r5]
-		for (j = 0; j < Font.FontWidth; j++)
- 80019e8:	3601      	adds	r6, #1
-		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] &= ~(1 << (y % 8));
- 80019ea:	ea08 0404 	and.w	r4, r8, r4
-		for (j = 0; j < Font.FontWidth; j++)
- 80019ee:	42b1      	cmp	r1, r6
-		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] &= ~(1 << (y % 8));
- 80019f0:	f80e 4005 	strb.w	r4, [lr, r5]
-		for (j = 0; j < Font.FontWidth; j++)
- 80019f4:	d1dd      	bne.n	80019b2 <ssd1306_WriteChar+0x11a>
- 80019f6:	e7c8      	b.n	800198a <ssd1306_WriteChar+0xf2>
-		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] &= ~(1 << (y % 8));
- 80019f8:	2500      	movs	r5, #0
- 80019fa:	e00a      	b.n	8001a12 <ssd1306_WriteChar+0x17a>
-	if (x >= SSD1306_WIDTH || y >= SSD1306_HEIGHT) 
- 80019fc:	0626      	lsls	r6, r4, #24
- 80019fe:	d405      	bmi.n	8001a0c <ssd1306_WriteChar+0x174>
-		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] &= ~(1 << (y % 8));
  8001a00:	f81e 400b 	ldrb.w	r4, [lr, fp]
- 8001a04:	ea08 0404 	and.w	r4, r8, r4
- 8001a08:	f80e 400b 	strb.w	r4, [lr, fp]
+ 8001a04:	433c      	orrs	r4, r7
+ 8001a06:	f80e 400b 	strb.w	r4, [lr, fp]
 		for (j = 0; j < Font.FontWidth; j++)
- 8001a0c:	3501      	adds	r5, #1
- 8001a0e:	42a9      	cmp	r1, r5
- 8001a10:	d0bb      	beq.n	800198a <ssd1306_WriteChar+0xf2>
- 8001a12:	195c      	adds	r4, r3, r5
- 8001a14:	4626      	mov	r6, r4
-			if ((b << j) & 0x8000) 
- 8001a16:	fa00 fa05 	lsl.w	sl, r0, r5
- 8001a1a:	b2e4      	uxtb	r4, r4
- 8001a1c:	f41a 4f00 	tst.w	sl, #32768	; 0x8000
-		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] &= ~(1 << (y % 8));
- 8001a20:	eb04 0b02 	add.w	fp, r4, r2
- 8001a24:	b2f6      	uxtb	r6, r6
-			if ((b << j) & 0x8000) 
- 8001a26:	d1e9      	bne.n	80019fc <ssd1306_WriteChar+0x164>
+ 8001a0a:	3601      	adds	r6, #1
+ 8001a0c:	42b1      	cmp	r1, r6
+ 8001a0e:	d1ea      	bne.n	80019e6 <ssd1306_WriteChar+0x11a>
+ 8001a10:	e7d5      	b.n	80019be <ssd1306_WriteChar+0xf2>
 	if (x >= SSD1306_WIDTH || y >= SSD1306_HEIGHT) 
- 8001a28:	0634      	lsls	r4, r6, #24
- 8001a2a:	d4ef      	bmi.n	8001a0c <ssd1306_WriteChar+0x174>
-		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] |= 1 << (y % 8);
- 8001a2c:	4416      	add	r6, r2
- 8001a2e:	f81e 4006 	ldrb.w	r4, [lr, r6]
- 8001a32:	433c      	orrs	r4, r7
- 8001a34:	f80e 4006 	strb.w	r4, [lr, r6]
- 8001a38:	e7e8      	b.n	8001a0c <ssd1306_WriteChar+0x174>
+ 8001a12:	062c      	lsls	r4, r5, #24
+ 8001a14:	d4f9      	bmi.n	8001a0a <ssd1306_WriteChar+0x13e>
 		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] &= ~(1 << (y % 8));
- 8001a3a:	2500      	movs	r5, #0
- 8001a3c:	e009      	b.n	8001a52 <ssd1306_WriteChar+0x1ba>
-	if (x >= SSD1306_WIDTH || y >= SSD1306_HEIGHT) 
- 8001a3e:	0626      	lsls	r6, r4, #24
- 8001a40:	d404      	bmi.n	8001a4c <ssd1306_WriteChar+0x1b4>
-		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] |= 1 << (y % 8);
- 8001a42:	f81e 400a 	ldrb.w	r4, [lr, sl]
- 8001a46:	433c      	orrs	r4, r7
- 8001a48:	f80e 400a 	strb.w	r4, [lr, sl]
+ 8001a16:	4415      	add	r5, r2
+ 8001a18:	f81e 4005 	ldrb.w	r4, [lr, r5]
 		for (j = 0; j < Font.FontWidth; j++)
- 8001a4c:	3501      	adds	r5, #1
- 8001a4e:	42a9      	cmp	r1, r5
- 8001a50:	d09b      	beq.n	800198a <ssd1306_WriteChar+0xf2>
- 8001a52:	195c      	adds	r4, r3, r5
- 8001a54:	4626      	mov	r6, r4
-			if ((b << j) & 0x8000) 
- 8001a56:	fa00 f805 	lsl.w	r8, r0, r5
- 8001a5a:	b2e4      	uxtb	r4, r4
- 8001a5c:	f418 4f00 	tst.w	r8, #32768	; 0x8000
-		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] |= 1 << (y % 8);
- 8001a60:	eb04 0a02 	add.w	sl, r4, r2
- 8001a64:	b2f6      	uxtb	r6, r6
-			if ((b << j) & 0x8000) 
- 8001a66:	d0ea      	beq.n	8001a3e <ssd1306_WriteChar+0x1a6>
+ 8001a1c:	3601      	adds	r6, #1
+		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] &= ~(1 << (y % 8));
+ 8001a1e:	ea08 0404 	and.w	r4, r8, r4
+		for (j = 0; j < Font.FontWidth; j++)
+ 8001a22:	42b1      	cmp	r1, r6
+		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] &= ~(1 << (y % 8));
+ 8001a24:	f80e 4005 	strb.w	r4, [lr, r5]
+		for (j = 0; j < Font.FontWidth; j++)
+ 8001a28:	d1dd      	bne.n	80019e6 <ssd1306_WriteChar+0x11a>
+ 8001a2a:	e7c8      	b.n	80019be <ssd1306_WriteChar+0xf2>
+		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] &= ~(1 << (y % 8));
+ 8001a2c:	2500      	movs	r5, #0
+ 8001a2e:	e00a      	b.n	8001a46 <ssd1306_WriteChar+0x17a>
 	if (x >= SSD1306_WIDTH || y >= SSD1306_HEIGHT) 
- 8001a68:	0634      	lsls	r4, r6, #24
- 8001a6a:	d4ef      	bmi.n	8001a4c <ssd1306_WriteChar+0x1b4>
+ 8001a30:	0626      	lsls	r6, r4, #24
+ 8001a32:	d405      	bmi.n	8001a40 <ssd1306_WriteChar+0x174>
+		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] &= ~(1 << (y % 8));
+ 8001a34:	f81e 400b 	ldrb.w	r4, [lr, fp]
+ 8001a38:	ea08 0404 	and.w	r4, r8, r4
+ 8001a3c:	f80e 400b 	strb.w	r4, [lr, fp]
+		for (j = 0; j < Font.FontWidth; j++)
+ 8001a40:	3501      	adds	r5, #1
+ 8001a42:	42a9      	cmp	r1, r5
+ 8001a44:	d0bb      	beq.n	80019be <ssd1306_WriteChar+0xf2>
+ 8001a46:	195c      	adds	r4, r3, r5
+ 8001a48:	4626      	mov	r6, r4
+			if ((b << j) & 0x8000) 
+ 8001a4a:	fa00 fa05 	lsl.w	sl, r0, r5
+ 8001a4e:	b2e4      	uxtb	r4, r4
+ 8001a50:	f41a 4f00 	tst.w	sl, #32768	; 0x8000
+		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] &= ~(1 << (y % 8));
+ 8001a54:	eb04 0b02 	add.w	fp, r4, r2
+ 8001a58:	b2f6      	uxtb	r6, r6
+			if ((b << j) & 0x8000) 
+ 8001a5a:	d1e9      	bne.n	8001a30 <ssd1306_WriteChar+0x164>
+	if (x >= SSD1306_WIDTH || y >= SSD1306_HEIGHT) 
+ 8001a5c:	0634      	lsls	r4, r6, #24
+ 8001a5e:	d4ef      	bmi.n	8001a40 <ssd1306_WriteChar+0x174>
 		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] |= 1 << (y % 8);
- 8001a6c:	4416      	add	r6, r2
- 8001a6e:	f81e 4006 	ldrb.w	r4, [lr, r6]
- 8001a72:	433c      	orrs	r4, r7
- 8001a74:	f80e 4006 	strb.w	r4, [lr, r6]
- 8001a78:	e7e8      	b.n	8001a4c <ssd1306_WriteChar+0x1b4>
- 8001a7a:	bf00      	nop
- 8001a7c:	20000030 	.word	0x20000030
- 8001a80:	20000038 	.word	0x20000038
+ 8001a60:	4416      	add	r6, r2
+ 8001a62:	f81e 4006 	ldrb.w	r4, [lr, r6]
+ 8001a66:	433c      	orrs	r4, r7
+ 8001a68:	f80e 4006 	strb.w	r4, [lr, r6]
+ 8001a6c:	e7e8      	b.n	8001a40 <ssd1306_WriteChar+0x174>
+		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] &= ~(1 << (y % 8));
+ 8001a6e:	2500      	movs	r5, #0
+ 8001a70:	e009      	b.n	8001a86 <ssd1306_WriteChar+0x1ba>
+	if (x >= SSD1306_WIDTH || y >= SSD1306_HEIGHT) 
+ 8001a72:	0626      	lsls	r6, r4, #24
+ 8001a74:	d404      	bmi.n	8001a80 <ssd1306_WriteChar+0x1b4>
+		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] |= 1 << (y % 8);
+ 8001a76:	f81e 400a 	ldrb.w	r4, [lr, sl]
+ 8001a7a:	433c      	orrs	r4, r7
+ 8001a7c:	f80e 400a 	strb.w	r4, [lr, sl]
+		for (j = 0; j < Font.FontWidth; j++)
+ 8001a80:	3501      	adds	r5, #1
+ 8001a82:	42a9      	cmp	r1, r5
+ 8001a84:	d09b      	beq.n	80019be <ssd1306_WriteChar+0xf2>
+ 8001a86:	195c      	adds	r4, r3, r5
+ 8001a88:	4626      	mov	r6, r4
+			if ((b << j) & 0x8000) 
+ 8001a8a:	fa00 f805 	lsl.w	r8, r0, r5
+ 8001a8e:	b2e4      	uxtb	r4, r4
+ 8001a90:	f418 4f00 	tst.w	r8, #32768	; 0x8000
+		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] |= 1 << (y % 8);
+ 8001a94:	eb04 0a02 	add.w	sl, r4, r2
+ 8001a98:	b2f6      	uxtb	r6, r6
+			if ((b << j) & 0x8000) 
+ 8001a9a:	d0ea      	beq.n	8001a72 <ssd1306_WriteChar+0x1a6>
+	if (x >= SSD1306_WIDTH || y >= SSD1306_HEIGHT) 
+ 8001a9c:	0634      	lsls	r4, r6, #24
+ 8001a9e:	d4ef      	bmi.n	8001a80 <ssd1306_WriteChar+0x1b4>
+		SSD1306_Buffer[x + (y / 8) * SSD1306_WIDTH] |= 1 << (y % 8);
+ 8001aa0:	4416      	add	r6, r2
+ 8001aa2:	f81e 4006 	ldrb.w	r4, [lr, r6]
+ 8001aa6:	433c      	orrs	r4, r7
+ 8001aa8:	f80e 4006 	strb.w	r4, [lr, r6]
+ 8001aac:	e7e8      	b.n	8001a80 <ssd1306_WriteChar+0x1b4>
+ 8001aae:	bf00      	nop
+ 8001ab0:	20000030 	.word	0x20000030
+ 8001ab4:	20000038 	.word	0x20000038
 
-08001a84 <ssd1306_WriteString>:
+08001ab8 <ssd1306_WriteString>:
 // 	str => string om op het scherm te schrijven
 //	Font => Het font dat gebruikt moet worden
 //	color => Black or White
 //
 char ssd1306_WriteString(char* str, FontDef Font, SSD1306_COLOR color)
 {
- 8001a84:	b570      	push	{r4, r5, r6, lr}
- 8001a86:	4604      	mov	r4, r0
+ 8001ab8:	b570      	push	{r4, r5, r6, lr}
+ 8001aba:	4604      	mov	r4, r0
 	// We schrijven alle char tot een nulbyte
 	while (*str) 
- 8001a88:	7800      	ldrb	r0, [r0, #0]
+ 8001abc:	7800      	ldrb	r0, [r0, #0]
 {
- 8001a8a:	b082      	sub	sp, #8
- 8001a8c:	e88d 0006 	stmia.w	sp, {r1, r2}
+ 8001abe:	b082      	sub	sp, #8
+ 8001ac0:	e88d 0006 	stmia.w	sp, {r1, r2}
 	while (*str) 
- 8001a90:	b180      	cbz	r0, 8001ab4 <ssd1306_WriteString+0x30>
- 8001a92:	466d      	mov	r5, sp
- 8001a94:	461e      	mov	r6, r3
- 8001a96:	e002      	b.n	8001a9e <ssd1306_WriteString+0x1a>
- 8001a98:	f814 0f01 	ldrb.w	r0, [r4, #1]!
- 8001a9c:	b150      	cbz	r0, 8001ab4 <ssd1306_WriteString+0x30>
+ 8001ac4:	b180      	cbz	r0, 8001ae8 <ssd1306_WriteString+0x30>
+ 8001ac6:	466d      	mov	r5, sp
+ 8001ac8:	461e      	mov	r6, r3
+ 8001aca:	e002      	b.n	8001ad2 <ssd1306_WriteString+0x1a>
+ 8001acc:	f814 0f01 	ldrb.w	r0, [r4, #1]!
+ 8001ad0:	b150      	cbz	r0, 8001ae8 <ssd1306_WriteString+0x30>
 	{
 		if (ssd1306_WriteChar(*str, Font, color) != *str)
- 8001a9e:	e895 0006 	ldmia.w	r5, {r1, r2}
- 8001aa2:	4633      	mov	r3, r6
- 8001aa4:	f7ff fef8 	bl	8001898 <ssd1306_WriteChar>
- 8001aa8:	7823      	ldrb	r3, [r4, #0]
- 8001aaa:	4298      	cmp	r0, r3
- 8001aac:	d0f4      	beq.n	8001a98 <ssd1306_WriteString+0x14>
+ 8001ad2:	e895 0006 	ldmia.w	r5, {r1, r2}
+ 8001ad6:	4633      	mov	r3, r6
+ 8001ad8:	f7ff fef8 	bl	80018cc <ssd1306_WriteChar>
+ 8001adc:	7823      	ldrb	r3, [r4, #0]
+ 8001ade:	4298      	cmp	r0, r3
+ 8001ae0:	d0f4      	beq.n	8001acc <ssd1306_WriteString+0x14>
 		str++;
 	}
 	
 	// Alles gelukt, we sturen dus 0 terug
 	return *str;
 }
- 8001aae:	4618      	mov	r0, r3
- 8001ab0:	b002      	add	sp, #8
- 8001ab2:	bd70      	pop	{r4, r5, r6, pc}
+ 8001ae2:	4618      	mov	r0, r3
+ 8001ae4:	b002      	add	sp, #8
+ 8001ae6:	bd70      	pop	{r4, r5, r6, pc}
 {
- 8001ab4:	2300      	movs	r3, #0
+ 8001ae8:	2300      	movs	r3, #0
 }
- 8001ab6:	4618      	mov	r0, r3
- 8001ab8:	b002      	add	sp, #8
- 8001aba:	bd70      	pop	{r4, r5, r6, pc}
+ 8001aea:	4618      	mov	r0, r3
+ 8001aec:	b002      	add	sp, #8
+ 8001aee:	bd70      	pop	{r4, r5, r6, pc}
 
-08001abc <ssd1306_SetCursor>:
+08001af0 <ssd1306_SetCursor>:
 //	Zet de cursor op een coordinaat
 //
 void ssd1306_SetCursor(uint8_t x, uint8_t y) 
 {
 	/* Set write pointers */
 	SSD1306.CurrentX = x;
- 8001abc:	4b01      	ldr	r3, [pc, #4]	; (8001ac4 <ssd1306_SetCursor+0x8>)
- 8001abe:	8018      	strh	r0, [r3, #0]
+ 8001af0:	4b01      	ldr	r3, [pc, #4]	; (8001af8 <ssd1306_SetCursor+0x8>)
+ 8001af2:	8018      	strh	r0, [r3, #0]
 	SSD1306.CurrentY = y;
- 8001ac0:	8059      	strh	r1, [r3, #2]
- 8001ac2:	4770      	bx	lr
- 8001ac4:	20000030 	.word	0x20000030
+ 8001af4:	8059      	strh	r1, [r3, #2]
+ 8001af6:	4770      	bx	lr
+ 8001af8:	20000030 	.word	0x20000030
 
-08001ac8 <HAL_MspInit>:
+08001afc <HAL_MspInit>:
 {
   /* USER CODE BEGIN MspInit 0 */
 
   /* USER CODE END MspInit 0 */
 
   __HAL_RCC_AFIO_CLK_ENABLE();
- 8001ac8:	4b21      	ldr	r3, [pc, #132]	; (8001b50 <HAL_MspInit+0x88>)
+ 8001afc:	4b21      	ldr	r3, [pc, #132]	; (8001b84 <HAL_MspInit+0x88>)
 {
- 8001aca:	b500      	push	{lr}
+ 8001afe:	b500      	push	{lr}
   __HAL_RCC_AFIO_CLK_ENABLE();
- 8001acc:	699a      	ldr	r2, [r3, #24]
+ 8001b00:	699a      	ldr	r2, [r3, #24]
 {
- 8001ace:	b083      	sub	sp, #12
+ 8001b02:	b083      	sub	sp, #12
   __HAL_RCC_AFIO_CLK_ENABLE();
- 8001ad0:	f042 0201 	orr.w	r2, r2, #1
- 8001ad4:	619a      	str	r2, [r3, #24]
- 8001ad6:	699b      	ldr	r3, [r3, #24]
+ 8001b04:	f042 0201 	orr.w	r2, r2, #1
+ 8001b08:	619a      	str	r2, [r3, #24]
+ 8001b0a:	699b      	ldr	r3, [r3, #24]
 
   HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
- 8001ad8:	2003      	movs	r0, #3
+ 8001b0c:	2003      	movs	r0, #3
   __HAL_RCC_AFIO_CLK_ENABLE();
- 8001ada:	f003 0301 	and.w	r3, r3, #1
- 8001ade:	9301      	str	r3, [sp, #4]
- 8001ae0:	9b01      	ldr	r3, [sp, #4]
+ 8001b0e:	f003 0301 	and.w	r3, r3, #1
+ 8001b12:	9301      	str	r3, [sp, #4]
+ 8001b14:	9b01      	ldr	r3, [sp, #4]
   HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
- 8001ae2:	f7fe fb8d 	bl	8000200 <HAL_NVIC_SetPriorityGrouping>
+ 8001b16:	f7fe fb73 	bl	8000200 <HAL_NVIC_SetPriorityGrouping>
 
   /* System interrupt init*/
   /* MemoryManagement_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(MemoryManagement_IRQn, 0, 0);
- 8001ae6:	2200      	movs	r2, #0
- 8001ae8:	f06f 000b 	mvn.w	r0, #11
- 8001aec:	4611      	mov	r1, r2
- 8001aee:	f7fe fb99 	bl	8000224 <HAL_NVIC_SetPriority>
+ 8001b1a:	2200      	movs	r2, #0
+ 8001b1c:	f06f 000b 	mvn.w	r0, #11
+ 8001b20:	4611      	mov	r1, r2
+ 8001b22:	f7fe fb7f 	bl	8000224 <HAL_NVIC_SetPriority>
   /* BusFault_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(BusFault_IRQn, 0, 0);
- 8001af2:	2200      	movs	r2, #0
- 8001af4:	f06f 000a 	mvn.w	r0, #10
- 8001af8:	4611      	mov	r1, r2
- 8001afa:	f7fe fb93 	bl	8000224 <HAL_NVIC_SetPriority>
+ 8001b26:	2200      	movs	r2, #0
+ 8001b28:	f06f 000a 	mvn.w	r0, #10
+ 8001b2c:	4611      	mov	r1, r2
+ 8001b2e:	f7fe fb79 	bl	8000224 <HAL_NVIC_SetPriority>
   /* UsageFault_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(UsageFault_IRQn, 0, 0);
- 8001afe:	2200      	movs	r2, #0
- 8001b00:	f06f 0009 	mvn.w	r0, #9
- 8001b04:	4611      	mov	r1, r2
- 8001b06:	f7fe fb8d 	bl	8000224 <HAL_NVIC_SetPriority>
+ 8001b32:	2200      	movs	r2, #0
+ 8001b34:	f06f 0009 	mvn.w	r0, #9
+ 8001b38:	4611      	mov	r1, r2
+ 8001b3a:	f7fe fb73 	bl	8000224 <HAL_NVIC_SetPriority>
   /* SVCall_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(SVCall_IRQn, 0, 0);
- 8001b0a:	2200      	movs	r2, #0
- 8001b0c:	f06f 0004 	mvn.w	r0, #4
- 8001b10:	4611      	mov	r1, r2
- 8001b12:	f7fe fb87 	bl	8000224 <HAL_NVIC_SetPriority>
+ 8001b3e:	2200      	movs	r2, #0
+ 8001b40:	f06f 0004 	mvn.w	r0, #4
+ 8001b44:	4611      	mov	r1, r2
+ 8001b46:	f7fe fb6d 	bl	8000224 <HAL_NVIC_SetPriority>
   /* DebugMonitor_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DebugMonitor_IRQn, 0, 0);
- 8001b16:	2200      	movs	r2, #0
- 8001b18:	f06f 0003 	mvn.w	r0, #3
- 8001b1c:	4611      	mov	r1, r2
- 8001b1e:	f7fe fb81 	bl	8000224 <HAL_NVIC_SetPriority>
+ 8001b4a:	2200      	movs	r2, #0
+ 8001b4c:	f06f 0003 	mvn.w	r0, #3
+ 8001b50:	4611      	mov	r1, r2
+ 8001b52:	f7fe fb67 	bl	8000224 <HAL_NVIC_SetPriority>
   /* PendSV_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(PendSV_IRQn, 0, 0);
- 8001b22:	2200      	movs	r2, #0
- 8001b24:	f06f 0001 	mvn.w	r0, #1
- 8001b28:	4611      	mov	r1, r2
- 8001b2a:	f7fe fb7b 	bl	8000224 <HAL_NVIC_SetPriority>
+ 8001b56:	2200      	movs	r2, #0
+ 8001b58:	f06f 0001 	mvn.w	r0, #1
+ 8001b5c:	4611      	mov	r1, r2
+ 8001b5e:	f7fe fb61 	bl	8000224 <HAL_NVIC_SetPriority>
   /* SysTick_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
- 8001b2e:	2200      	movs	r2, #0
- 8001b30:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
- 8001b34:	4611      	mov	r1, r2
- 8001b36:	f7fe fb75 	bl	8000224 <HAL_NVIC_SetPriority>
+ 8001b62:	2200      	movs	r2, #0
+ 8001b64:	f04f 30ff 	mov.w	r0, #4294967295	; 0xffffffff
+ 8001b68:	4611      	mov	r1, r2
+ 8001b6a:	f7fe fb5b 	bl	8000224 <HAL_NVIC_SetPriority>
 
     /**NOJTAG: JTAG-DP Disabled and SW-DP Enabled 
     */
   __HAL_AFIO_REMAP_SWJ_NOJTAG();
- 8001b3a:	4a06      	ldr	r2, [pc, #24]	; (8001b54 <HAL_MspInit+0x8c>)
- 8001b3c:	6853      	ldr	r3, [r2, #4]
- 8001b3e:	f023 63e0 	bic.w	r3, r3, #117440512	; 0x7000000
- 8001b42:	f043 7300 	orr.w	r3, r3, #33554432	; 0x2000000
- 8001b46:	6053      	str	r3, [r2, #4]
+ 8001b6e:	4a06      	ldr	r2, [pc, #24]	; (8001b88 <HAL_MspInit+0x8c>)
+ 8001b70:	6853      	ldr	r3, [r2, #4]
+ 8001b72:	f023 63e0 	bic.w	r3, r3, #117440512	; 0x7000000
+ 8001b76:	f043 7300 	orr.w	r3, r3, #33554432	; 0x2000000
+ 8001b7a:	6053      	str	r3, [r2, #4]
 
   /* USER CODE BEGIN MspInit 1 */
 
   /* USER CODE END MspInit 1 */
 }
- 8001b48:	b003      	add	sp, #12
- 8001b4a:	f85d fb04 	ldr.w	pc, [sp], #4
- 8001b4e:	bf00      	nop
- 8001b50:	40021000 	.word	0x40021000
- 8001b54:	40010000 	.word	0x40010000
+ 8001b7c:	b003      	add	sp, #12
+ 8001b7e:	f85d fb04 	ldr.w	pc, [sp], #4
+ 8001b82:	bf00      	nop
+ 8001b84:	40021000 	.word	0x40021000
+ 8001b88:	40010000 	.word	0x40010000
 
-08001b58 <NMI_Handler>:
- 8001b58:	4770      	bx	lr
- 8001b5a:	bf00      	nop
+08001b8c <NMI_Handler>:
+ 8001b8c:	4770      	bx	lr
+ 8001b8e:	bf00      	nop
 
-08001b5c <HardFault_Handler>:
+08001b90 <HardFault_Handler>:
 
 /**
 * @brief This function handles Hard fault interrupt.
 */
 void HardFault_Handler(void)
 {
- 8001b5c:	e7fe      	b.n	8001b5c <HardFault_Handler>
- 8001b5e:	bf00      	nop
+ 8001b90:	e7fe      	b.n	8001b90 <HardFault_Handler>
+ 8001b92:	bf00      	nop
 
-08001b60 <MemManage_Handler>:
+08001b94 <MemManage_Handler>:
 
 /**
 * @brief This function handles Memory management fault.
 */
 void MemManage_Handler(void)
 {
- 8001b60:	e7fe      	b.n	8001b60 <MemManage_Handler>
- 8001b62:	bf00      	nop
+ 8001b94:	e7fe      	b.n	8001b94 <MemManage_Handler>
+ 8001b96:	bf00      	nop
 
-08001b64 <BusFault_Handler>:
+08001b98 <BusFault_Handler>:
 
 /**
 * @brief This function handles Prefetch fault, memory access fault.
 */
 void BusFault_Handler(void)
 {
- 8001b64:	e7fe      	b.n	8001b64 <BusFault_Handler>
- 8001b66:	bf00      	nop
+ 8001b98:	e7fe      	b.n	8001b98 <BusFault_Handler>
+ 8001b9a:	bf00      	nop
 
-08001b68 <UsageFault_Handler>:
+08001b9c <UsageFault_Handler>:
 
 /**
 * @brief This function handles Undefined instruction or illegal state.
 */
 void UsageFault_Handler(void)
 {
- 8001b68:	e7fe      	b.n	8001b68 <UsageFault_Handler>
- 8001b6a:	bf00      	nop
+ 8001b9c:	e7fe      	b.n	8001b9c <UsageFault_Handler>
+ 8001b9e:	bf00      	nop
 
-08001b6c <SVC_Handler>:
- 8001b6c:	4770      	bx	lr
- 8001b6e:	bf00      	nop
+08001ba0 <SVC_Handler>:
+ 8001ba0:	4770      	bx	lr
+ 8001ba2:	bf00      	nop
 
-08001b70 <DebugMon_Handler>:
- 8001b70:	4770      	bx	lr
- 8001b72:	bf00      	nop
+08001ba4 <DebugMon_Handler>:
+ 8001ba4:	4770      	bx	lr
+ 8001ba6:	bf00      	nop
 
-08001b74 <PendSV_Handler>:
+08001ba8 <PendSV_Handler>:
 
 /**
 * @brief This function handles Pendable request for system service.
 */
 void PendSV_Handler(void)
 {
- 8001b74:	4770      	bx	lr
- 8001b76:	bf00      	nop
+ 8001ba8:	4770      	bx	lr
+ 8001baa:	bf00      	nop
 
-08001b78 <SysTick_Handler>:
+08001bac <SysTick_Handler>:
 
 /**
 * @brief This function handles System tick timer.
 */
 void SysTick_Handler(void)
 {
- 8001b78:	b508      	push	{r3, lr}
+ 8001bac:	b508      	push	{r3, lr}
   /* USER CODE BEGIN SysTick_IRQn 0 */
 
   /* USER CODE END SysTick_IRQn 0 */
   HAL_IncTick();
- 8001b7a:	f7fe fb1d 	bl	80001b8 <HAL_IncTick>
+ 8001bae:	f7fe fb03 	bl	80001b8 <HAL_IncTick>
   HAL_SYSTICK_IRQHandler();
   /* USER CODE BEGIN SysTick_IRQn 1 */
 
   /* USER CODE END SysTick_IRQn 1 */
 }
- 8001b7e:	e8bd 4008 	ldmia.w	sp!, {r3, lr}
+ 8001bb2:	e8bd 4008 	ldmia.w	sp!, {r3, lr}
   HAL_SYSTICK_IRQHandler();
- 8001b82:	f7fe bbab 	b.w	80002dc <HAL_SYSTICK_IRQHandler>
- 8001b86:	bf00      	nop
+ 8001bb6:	f7fe bb91 	b.w	80002dc <HAL_SYSTICK_IRQHandler>
+ 8001bba:	bf00      	nop
 
-08001b88 <SystemInit>:
+08001bbc <SystemInit>:
   * @note   This function should be used only after reset.
   * @param  None
   * @retval None
   */
 void SystemInit (void)
 {
- 8001b88:	b430      	push	{r4, r5}
+ 8001bbc:	b430      	push	{r4, r5}
 
   /* Reset CFGR2 register */
   RCC->CFGR2 = 0x00000000U;      
 #else
   /* Disable all interrupts and clear pending bits  */
   RCC->CIR = 0x009F0000U;
- 8001b8a:	f44f 051f 	mov.w	r5, #10420224	; 0x9f0000
+ 8001bbe:	f44f 051f 	mov.w	r5, #10420224	; 0x9f0000
 #endif 
 
 #ifdef VECT_TAB_SRAM
   SCB->VTOR = SRAM_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal SRAM. */
 #else
   SCB->VTOR = FLASH_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal FLASH. */
- 8001b8e:	f04f 6400 	mov.w	r4, #134217728	; 0x8000000
+ 8001bc2:	f04f 6400 	mov.w	r4, #134217728	; 0x8000000
   RCC->CR |= 0x00000001U;
- 8001b92:	4b0e      	ldr	r3, [pc, #56]	; (8001bcc <SystemInit+0x44>)
+ 8001bc6:	4b0e      	ldr	r3, [pc, #56]	; (8001c00 <SystemInit+0x44>)
   RCC->CFGR &= 0xF8FF0000U;
- 8001b94:	4a0e      	ldr	r2, [pc, #56]	; (8001bd0 <SystemInit+0x48>)
+ 8001bc8:	4a0e      	ldr	r2, [pc, #56]	; (8001c04 <SystemInit+0x48>)
   RCC->CR |= 0x00000001U;
- 8001b96:	6819      	ldr	r1, [r3, #0]
+ 8001bca:	6819      	ldr	r1, [r3, #0]
   SCB->VTOR = FLASH_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal FLASH. */
- 8001b98:	480e      	ldr	r0, [pc, #56]	; (8001bd4 <SystemInit+0x4c>)
+ 8001bcc:	480e      	ldr	r0, [pc, #56]	; (8001c08 <SystemInit+0x4c>)
   RCC->CR |= 0x00000001U;
- 8001b9a:	f041 0101 	orr.w	r1, r1, #1
- 8001b9e:	6019      	str	r1, [r3, #0]
+ 8001bce:	f041 0101 	orr.w	r1, r1, #1
+ 8001bd2:	6019      	str	r1, [r3, #0]
   RCC->CFGR &= 0xF8FF0000U;
- 8001ba0:	6859      	ldr	r1, [r3, #4]
- 8001ba2:	400a      	ands	r2, r1
- 8001ba4:	605a      	str	r2, [r3, #4]
+ 8001bd4:	6859      	ldr	r1, [r3, #4]
+ 8001bd6:	400a      	ands	r2, r1
+ 8001bd8:	605a      	str	r2, [r3, #4]
   RCC->CR &= 0xFEF6FFFFU;
- 8001ba6:	681a      	ldr	r2, [r3, #0]
- 8001ba8:	f022 7284 	bic.w	r2, r2, #17301504	; 0x1080000
- 8001bac:	f422 3280 	bic.w	r2, r2, #65536	; 0x10000
- 8001bb0:	601a      	str	r2, [r3, #0]
+ 8001bda:	681a      	ldr	r2, [r3, #0]
+ 8001bdc:	f022 7284 	bic.w	r2, r2, #17301504	; 0x1080000
+ 8001be0:	f422 3280 	bic.w	r2, r2, #65536	; 0x10000
+ 8001be4:	601a      	str	r2, [r3, #0]
   RCC->CR &= 0xFFFBFFFFU;
- 8001bb2:	681a      	ldr	r2, [r3, #0]
- 8001bb4:	f422 2280 	bic.w	r2, r2, #262144	; 0x40000
- 8001bb8:	601a      	str	r2, [r3, #0]
+ 8001be6:	681a      	ldr	r2, [r3, #0]
+ 8001be8:	f422 2280 	bic.w	r2, r2, #262144	; 0x40000
+ 8001bec:	601a      	str	r2, [r3, #0]
   RCC->CFGR &= 0xFF80FFFFU;
- 8001bba:	685a      	ldr	r2, [r3, #4]
- 8001bbc:	f422 02fe 	bic.w	r2, r2, #8323072	; 0x7f0000
- 8001bc0:	605a      	str	r2, [r3, #4]
+ 8001bee:	685a      	ldr	r2, [r3, #4]
+ 8001bf0:	f422 02fe 	bic.w	r2, r2, #8323072	; 0x7f0000
+ 8001bf4:	605a      	str	r2, [r3, #4]
   RCC->CIR = 0x009F0000U;
- 8001bc2:	609d      	str	r5, [r3, #8]
+ 8001bf6:	609d      	str	r5, [r3, #8]
   SCB->VTOR = FLASH_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal FLASH. */
- 8001bc4:	6084      	str	r4, [r0, #8]
+ 8001bf8:	6084      	str	r4, [r0, #8]
 #endif 
 }
- 8001bc6:	bc30      	pop	{r4, r5}
- 8001bc8:	4770      	bx	lr
- 8001bca:	bf00      	nop
- 8001bcc:	40021000 	.word	0x40021000
- 8001bd0:	f8ff0000 	.word	0xf8ff0000
- 8001bd4:	e000ed00 	.word	0xe000ed00
+ 8001bfa:	bc30      	pop	{r4, r5}
+ 8001bfc:	4770      	bx	lr
+ 8001bfe:	bf00      	nop
+ 8001c00:	40021000 	.word	0x40021000
+ 8001c04:	f8ff0000 	.word	0xf8ff0000
+ 8001c08:	e000ed00 	.word	0xe000ed00
 
-08001bd8 <Reset_Handler>:
+08001c0c <Reset_Handler>:
   .weak Reset_Handler
   .type Reset_Handler, %function
 Reset_Handler:
 
 /* Copy the data segment initializers from flash to SRAM */
   movs r1, #0
- 8001bd8:	2100      	movs	r1, #0
+ 8001c0c:	2100      	movs	r1, #0
   b LoopCopyDataInit
- 8001bda:	e003      	b.n	8001be4 <LoopCopyDataInit>
+ 8001c0e:	e003      	b.n	8001c18 <LoopCopyDataInit>
 
-08001bdc <CopyDataInit>:
+08001c10 <CopyDataInit>:
 
 CopyDataInit:
   ldr r3, =_sidata
- 8001bdc:	4b0b      	ldr	r3, [pc, #44]	; (8001c0c <LoopFillZerobss+0x14>)
+ 8001c10:	4b0b      	ldr	r3, [pc, #44]	; (8001c40 <LoopFillZerobss+0x14>)
   ldr r3, [r3, r1]
- 8001bde:	585b      	ldr	r3, [r3, r1]
+ 8001c12:	585b      	ldr	r3, [r3, r1]
   str r3, [r0, r1]
- 8001be0:	5043      	str	r3, [r0, r1]
+ 8001c14:	5043      	str	r3, [r0, r1]
   adds r1, r1, #4
- 8001be2:	3104      	adds	r1, #4
+ 8001c16:	3104      	adds	r1, #4
 
-08001be4 <LoopCopyDataInit>:
+08001c18 <LoopCopyDataInit>:
 
 LoopCopyDataInit:
   ldr r0, =_sdata
- 8001be4:	480a      	ldr	r0, [pc, #40]	; (8001c10 <LoopFillZerobss+0x18>)
+ 8001c18:	480a      	ldr	r0, [pc, #40]	; (8001c44 <LoopFillZerobss+0x18>)
   ldr r3, =_edata
- 8001be6:	4b0b      	ldr	r3, [pc, #44]	; (8001c14 <LoopFillZerobss+0x1c>)
+ 8001c1a:	4b0b      	ldr	r3, [pc, #44]	; (8001c48 <LoopFillZerobss+0x1c>)
   adds r2, r0, r1
- 8001be8:	1842      	adds	r2, r0, r1
+ 8001c1c:	1842      	adds	r2, r0, r1
   cmp r2, r3
- 8001bea:	429a      	cmp	r2, r3
+ 8001c1e:	429a      	cmp	r2, r3
   bcc CopyDataInit
- 8001bec:	d3f6      	bcc.n	8001bdc <CopyDataInit>
+ 8001c20:	d3f6      	bcc.n	8001c10 <CopyDataInit>
   ldr r2, =_sbss
- 8001bee:	4a0a      	ldr	r2, [pc, #40]	; (8001c18 <LoopFillZerobss+0x20>)
+ 8001c22:	4a0a      	ldr	r2, [pc, #40]	; (8001c4c <LoopFillZerobss+0x20>)
   b LoopFillZerobss
- 8001bf0:	e002      	b.n	8001bf8 <LoopFillZerobss>
+ 8001c24:	e002      	b.n	8001c2c <LoopFillZerobss>
 
-08001bf2 <FillZerobss>:
+08001c26 <FillZerobss>:
 /* Zero fill the bss segment. */
 FillZerobss:
   movs r3, #0
- 8001bf2:	2300      	movs	r3, #0
+ 8001c26:	2300      	movs	r3, #0
   str r3, [r2], #4
- 8001bf4:	f842 3b04 	str.w	r3, [r2], #4
+ 8001c28:	f842 3b04 	str.w	r3, [r2], #4
 
-08001bf8 <LoopFillZerobss>:
+08001c2c <LoopFillZerobss>:
 
 LoopFillZerobss:
   ldr r3, = _ebss
- 8001bf8:	4b08      	ldr	r3, [pc, #32]	; (8001c1c <LoopFillZerobss+0x24>)
+ 8001c2c:	4b08      	ldr	r3, [pc, #32]	; (8001c50 <LoopFillZerobss+0x24>)
   cmp r2, r3
- 8001bfa:	429a      	cmp	r2, r3
+ 8001c2e:	429a      	cmp	r2, r3
   bcc FillZerobss
- 8001bfc:	d3f9      	bcc.n	8001bf2 <FillZerobss>
+ 8001c30:	d3f9      	bcc.n	8001c26 <FillZerobss>
 
 /* Call the clock system intitialization function.*/
     bl  SystemInit
- 8001bfe:	f7ff ffc3 	bl	8001b88 <SystemInit>
+ 8001c32:	f7ff ffc3 	bl	8001bbc <SystemInit>
 /* Call static constructors */
     bl __libc_init_array
- 8001c02:	f000 f80f 	bl	8001c24 <__libc_init_array>
+ 8001c36:	f000 f80f 	bl	8001c58 <__libc_init_array>
 /* Call the application's entry point.*/
   bl main
- 8001c06:	f7ff f8af 	bl	8000d68 <main>
+ 8001c3a:	f7ff f895 	bl	8000d68 <main>
   bx lr
- 8001c0a:	4770      	bx	lr
+ 8001c3e:	4770      	bx	lr
   ldr r3, =_sidata
- 8001c0c:	08002b1c 	.word	0x08002b1c
+ 8001c40:	08002b54 	.word	0x08002b54
   ldr r0, =_sdata
- 8001c10:	20000000 	.word	0x20000000
+ 8001c44:	20000000 	.word	0x20000000
   ldr r3, =_edata
- 8001c14:	20000014 	.word	0x20000014
+ 8001c48:	20000014 	.word	0x20000014
   ldr r2, =_sbss
- 8001c18:	20000014 	.word	0x20000014
+ 8001c4c:	20000014 	.word	0x20000014
   ldr r3, = _ebss
- 8001c1c:	2000063c 	.word	0x2000063c
+ 8001c50:	2000063c 	.word	0x2000063c
 
-08001c20 <ADC1_2_IRQHandler>:
+08001c54 <ADC1_2_IRQHandler>:
  * @retval : None
 */
     .section .text.Default_Handler,"ax",%progbits
 Default_Handler:
 Infinite_Loop:
   b Infinite_Loop
- 8001c20:	e7fe      	b.n	8001c20 <ADC1_2_IRQHandler>
+ 8001c54:	e7fe      	b.n	8001c54 <ADC1_2_IRQHandler>
 	...
 
-08001c24 <__libc_init_array>:
- 8001c24:	b570      	push	{r4, r5, r6, lr}
- 8001c26:	2500      	movs	r5, #0
- 8001c28:	4e0c      	ldr	r6, [pc, #48]	; (8001c5c <__libc_init_array+0x38>)
- 8001c2a:	4c0d      	ldr	r4, [pc, #52]	; (8001c60 <__libc_init_array+0x3c>)
- 8001c2c:	1ba4      	subs	r4, r4, r6
- 8001c2e:	10a4      	asrs	r4, r4, #2
- 8001c30:	42a5      	cmp	r5, r4
- 8001c32:	d109      	bne.n	8001c48 <__libc_init_array+0x24>
- 8001c34:	f000 f87c 	bl	8001d30 <_init>
- 8001c38:	2500      	movs	r5, #0
- 8001c3a:	4e0a      	ldr	r6, [pc, #40]	; (8001c64 <__libc_init_array+0x40>)
- 8001c3c:	4c0a      	ldr	r4, [pc, #40]	; (8001c68 <__libc_init_array+0x44>)
- 8001c3e:	1ba4      	subs	r4, r4, r6
- 8001c40:	10a4      	asrs	r4, r4, #2
- 8001c42:	42a5      	cmp	r5, r4
- 8001c44:	d105      	bne.n	8001c52 <__libc_init_array+0x2e>
- 8001c46:	bd70      	pop	{r4, r5, r6, pc}
- 8001c48:	f856 3025 	ldr.w	r3, [r6, r5, lsl #2]
- 8001c4c:	4798      	blx	r3
- 8001c4e:	3501      	adds	r5, #1
- 8001c50:	e7ee      	b.n	8001c30 <__libc_init_array+0xc>
- 8001c52:	f856 3025 	ldr.w	r3, [r6, r5, lsl #2]
- 8001c56:	4798      	blx	r3
- 8001c58:	3501      	adds	r5, #1
- 8001c5a:	e7f2      	b.n	8001c42 <__libc_init_array+0x1e>
- 8001c5c:	08002b14 	.word	0x08002b14
- 8001c60:	08002b14 	.word	0x08002b14
- 8001c64:	08002b14 	.word	0x08002b14
- 8001c68:	08002b18 	.word	0x08002b18
+08001c58 <__libc_init_array>:
+ 8001c58:	b570      	push	{r4, r5, r6, lr}
+ 8001c5a:	2500      	movs	r5, #0
+ 8001c5c:	4e0c      	ldr	r6, [pc, #48]	; (8001c90 <__libc_init_array+0x38>)
+ 8001c5e:	4c0d      	ldr	r4, [pc, #52]	; (8001c94 <__libc_init_array+0x3c>)
+ 8001c60:	1ba4      	subs	r4, r4, r6
+ 8001c62:	10a4      	asrs	r4, r4, #2
+ 8001c64:	42a5      	cmp	r5, r4
+ 8001c66:	d109      	bne.n	8001c7c <__libc_init_array+0x24>
+ 8001c68:	f000 f87c 	bl	8001d64 <_init>
+ 8001c6c:	2500      	movs	r5, #0
+ 8001c6e:	4e0a      	ldr	r6, [pc, #40]	; (8001c98 <__libc_init_array+0x40>)
+ 8001c70:	4c0a      	ldr	r4, [pc, #40]	; (8001c9c <__libc_init_array+0x44>)
+ 8001c72:	1ba4      	subs	r4, r4, r6
+ 8001c74:	10a4      	asrs	r4, r4, #2
+ 8001c76:	42a5      	cmp	r5, r4
+ 8001c78:	d105      	bne.n	8001c86 <__libc_init_array+0x2e>
+ 8001c7a:	bd70      	pop	{r4, r5, r6, pc}
+ 8001c7c:	f856 3025 	ldr.w	r3, [r6, r5, lsl #2]
+ 8001c80:	4798      	blx	r3
+ 8001c82:	3501      	adds	r5, #1
+ 8001c84:	e7ee      	b.n	8001c64 <__libc_init_array+0xc>
+ 8001c86:	f856 3025 	ldr.w	r3, [r6, r5, lsl #2]
+ 8001c8a:	4798      	blx	r3
+ 8001c8c:	3501      	adds	r5, #1
+ 8001c8e:	e7f2      	b.n	8001c76 <__libc_init_array+0x1e>
+ 8001c90:	08002b4c 	.word	0x08002b4c
+ 8001c94:	08002b4c 	.word	0x08002b4c
+ 8001c98:	08002b4c 	.word	0x08002b4c
+ 8001c9c:	08002b50 	.word	0x08002b50
 
-08001c6c <__itoa>:
- 8001c6c:	1e93      	subs	r3, r2, #2
- 8001c6e:	2b22      	cmp	r3, #34	; 0x22
- 8001c70:	b510      	push	{r4, lr}
- 8001c72:	460c      	mov	r4, r1
- 8001c74:	d904      	bls.n	8001c80 <__itoa+0x14>
- 8001c76:	2300      	movs	r3, #0
- 8001c78:	461c      	mov	r4, r3
- 8001c7a:	700b      	strb	r3, [r1, #0]
- 8001c7c:	4620      	mov	r0, r4
- 8001c7e:	bd10      	pop	{r4, pc}
- 8001c80:	2a0a      	cmp	r2, #10
- 8001c82:	d109      	bne.n	8001c98 <__itoa+0x2c>
- 8001c84:	2800      	cmp	r0, #0
- 8001c86:	da07      	bge.n	8001c98 <__itoa+0x2c>
- 8001c88:	232d      	movs	r3, #45	; 0x2d
- 8001c8a:	700b      	strb	r3, [r1, #0]
- 8001c8c:	2101      	movs	r1, #1
- 8001c8e:	4240      	negs	r0, r0
- 8001c90:	4421      	add	r1, r4
- 8001c92:	f000 f80d 	bl	8001cb0 <__utoa>
- 8001c96:	e7f1      	b.n	8001c7c <__itoa+0x10>
- 8001c98:	2100      	movs	r1, #0
- 8001c9a:	e7f9      	b.n	8001c90 <__itoa+0x24>
+08001ca0 <__itoa>:
+ 8001ca0:	1e93      	subs	r3, r2, #2
+ 8001ca2:	2b22      	cmp	r3, #34	; 0x22
+ 8001ca4:	b510      	push	{r4, lr}
+ 8001ca6:	460c      	mov	r4, r1
+ 8001ca8:	d904      	bls.n	8001cb4 <__itoa+0x14>
+ 8001caa:	2300      	movs	r3, #0
+ 8001cac:	461c      	mov	r4, r3
+ 8001cae:	700b      	strb	r3, [r1, #0]
+ 8001cb0:	4620      	mov	r0, r4
+ 8001cb2:	bd10      	pop	{r4, pc}
+ 8001cb4:	2a0a      	cmp	r2, #10
+ 8001cb6:	d109      	bne.n	8001ccc <__itoa+0x2c>
+ 8001cb8:	2800      	cmp	r0, #0
+ 8001cba:	da07      	bge.n	8001ccc <__itoa+0x2c>
+ 8001cbc:	232d      	movs	r3, #45	; 0x2d
+ 8001cbe:	700b      	strb	r3, [r1, #0]
+ 8001cc0:	2101      	movs	r1, #1
+ 8001cc2:	4240      	negs	r0, r0
+ 8001cc4:	4421      	add	r1, r4
+ 8001cc6:	f000 f80d 	bl	8001ce4 <__utoa>
+ 8001cca:	e7f1      	b.n	8001cb0 <__itoa+0x10>
+ 8001ccc:	2100      	movs	r1, #0
+ 8001cce:	e7f9      	b.n	8001cc4 <__itoa+0x24>
 
-08001c9c <itoa>:
- 8001c9c:	f7ff bfe6 	b.w	8001c6c <__itoa>
+08001cd0 <itoa>:
+ 8001cd0:	f7ff bfe6 	b.w	8001ca0 <__itoa>
 
-08001ca0 <memset>:
- 8001ca0:	4603      	mov	r3, r0
- 8001ca2:	4402      	add	r2, r0
- 8001ca4:	4293      	cmp	r3, r2
- 8001ca6:	d100      	bne.n	8001caa <memset+0xa>
- 8001ca8:	4770      	bx	lr
- 8001caa:	f803 1b01 	strb.w	r1, [r3], #1
- 8001cae:	e7f9      	b.n	8001ca4 <memset+0x4>
+08001cd4 <memset>:
+ 8001cd4:	4603      	mov	r3, r0
+ 8001cd6:	4402      	add	r2, r0
+ 8001cd8:	4293      	cmp	r3, r2
+ 8001cda:	d100      	bne.n	8001cde <memset+0xa>
+ 8001cdc:	4770      	bx	lr
+ 8001cde:	f803 1b01 	strb.w	r1, [r3], #1
+ 8001ce2:	e7f9      	b.n	8001cd8 <memset+0x4>
 
-08001cb0 <__utoa>:
- 8001cb0:	b5f0      	push	{r4, r5, r6, r7, lr}
- 8001cb2:	b08b      	sub	sp, #44	; 0x2c
- 8001cb4:	4603      	mov	r3, r0
- 8001cb6:	460f      	mov	r7, r1
- 8001cb8:	466d      	mov	r5, sp
- 8001cba:	4c1c      	ldr	r4, [pc, #112]	; (8001d2c <__utoa+0x7c>)
- 8001cbc:	f104 0e20 	add.w	lr, r4, #32
- 8001cc0:	462e      	mov	r6, r5
- 8001cc2:	6820      	ldr	r0, [r4, #0]
- 8001cc4:	6861      	ldr	r1, [r4, #4]
- 8001cc6:	3408      	adds	r4, #8
- 8001cc8:	c603      	stmia	r6!, {r0, r1}
- 8001cca:	4574      	cmp	r4, lr
- 8001ccc:	4635      	mov	r5, r6
- 8001cce:	d1f7      	bne.n	8001cc0 <__utoa+0x10>
- 8001cd0:	7921      	ldrb	r1, [r4, #4]
- 8001cd2:	6820      	ldr	r0, [r4, #0]
- 8001cd4:	7131      	strb	r1, [r6, #4]
- 8001cd6:	1e91      	subs	r1, r2, #2
- 8001cd8:	2922      	cmp	r1, #34	; 0x22
- 8001cda:	6030      	str	r0, [r6, #0]
- 8001cdc:	f04f 0100 	mov.w	r1, #0
- 8001ce0:	d904      	bls.n	8001cec <__utoa+0x3c>
- 8001ce2:	7039      	strb	r1, [r7, #0]
- 8001ce4:	460f      	mov	r7, r1
- 8001ce6:	4638      	mov	r0, r7
- 8001ce8:	b00b      	add	sp, #44	; 0x2c
- 8001cea:	bdf0      	pop	{r4, r5, r6, r7, pc}
- 8001cec:	1e78      	subs	r0, r7, #1
- 8001cee:	4606      	mov	r6, r0
- 8001cf0:	fbb3 f5f2 	udiv	r5, r3, r2
- 8001cf4:	fb02 3315 	mls	r3, r2, r5, r3
- 8001cf8:	f10d 0e28 	add.w	lr, sp, #40	; 0x28
- 8001cfc:	4473      	add	r3, lr
- 8001cfe:	f813 3c28 	ldrb.w	r3, [r3, #-40]
- 8001d02:	1c4c      	adds	r4, r1, #1
- 8001d04:	f806 3f01 	strb.w	r3, [r6, #1]!
- 8001d08:	462b      	mov	r3, r5
- 8001d0a:	b965      	cbnz	r5, 8001d26 <__utoa+0x76>
- 8001d0c:	553d      	strb	r5, [r7, r4]
- 8001d0e:	187a      	adds	r2, r7, r1
- 8001d10:	1acc      	subs	r4, r1, r3
- 8001d12:	42a3      	cmp	r3, r4
- 8001d14:	dae7      	bge.n	8001ce6 <__utoa+0x36>
- 8001d16:	7844      	ldrb	r4, [r0, #1]
- 8001d18:	7815      	ldrb	r5, [r2, #0]
- 8001d1a:	3301      	adds	r3, #1
- 8001d1c:	f800 5f01 	strb.w	r5, [r0, #1]!
- 8001d20:	f802 4901 	strb.w	r4, [r2], #-1
- 8001d24:	e7f4      	b.n	8001d10 <__utoa+0x60>
- 8001d26:	4621      	mov	r1, r4
- 8001d28:	e7e2      	b.n	8001cf0 <__utoa+0x40>
- 8001d2a:	bf00      	nop
- 8001d2c:	08002aec 	.word	0x08002aec
+08001ce4 <__utoa>:
+ 8001ce4:	b5f0      	push	{r4, r5, r6, r7, lr}
+ 8001ce6:	b08b      	sub	sp, #44	; 0x2c
+ 8001ce8:	4603      	mov	r3, r0
+ 8001cea:	460f      	mov	r7, r1
+ 8001cec:	466d      	mov	r5, sp
+ 8001cee:	4c1c      	ldr	r4, [pc, #112]	; (8001d60 <__utoa+0x7c>)
+ 8001cf0:	f104 0e20 	add.w	lr, r4, #32
+ 8001cf4:	462e      	mov	r6, r5
+ 8001cf6:	6820      	ldr	r0, [r4, #0]
+ 8001cf8:	6861      	ldr	r1, [r4, #4]
+ 8001cfa:	3408      	adds	r4, #8
+ 8001cfc:	c603      	stmia	r6!, {r0, r1}
+ 8001cfe:	4574      	cmp	r4, lr
+ 8001d00:	4635      	mov	r5, r6
+ 8001d02:	d1f7      	bne.n	8001cf4 <__utoa+0x10>
+ 8001d04:	7921      	ldrb	r1, [r4, #4]
+ 8001d06:	6820      	ldr	r0, [r4, #0]
+ 8001d08:	7131      	strb	r1, [r6, #4]
+ 8001d0a:	1e91      	subs	r1, r2, #2
+ 8001d0c:	2922      	cmp	r1, #34	; 0x22
+ 8001d0e:	6030      	str	r0, [r6, #0]
+ 8001d10:	f04f 0100 	mov.w	r1, #0
+ 8001d14:	d904      	bls.n	8001d20 <__utoa+0x3c>
+ 8001d16:	7039      	strb	r1, [r7, #0]
+ 8001d18:	460f      	mov	r7, r1
+ 8001d1a:	4638      	mov	r0, r7
+ 8001d1c:	b00b      	add	sp, #44	; 0x2c
+ 8001d1e:	bdf0      	pop	{r4, r5, r6, r7, pc}
+ 8001d20:	1e78      	subs	r0, r7, #1
+ 8001d22:	4606      	mov	r6, r0
+ 8001d24:	fbb3 f5f2 	udiv	r5, r3, r2
+ 8001d28:	fb02 3315 	mls	r3, r2, r5, r3
+ 8001d2c:	f10d 0e28 	add.w	lr, sp, #40	; 0x28
+ 8001d30:	4473      	add	r3, lr
+ 8001d32:	f813 3c28 	ldrb.w	r3, [r3, #-40]
+ 8001d36:	1c4c      	adds	r4, r1, #1
+ 8001d38:	f806 3f01 	strb.w	r3, [r6, #1]!
+ 8001d3c:	462b      	mov	r3, r5
+ 8001d3e:	b965      	cbnz	r5, 8001d5a <__utoa+0x76>
+ 8001d40:	553d      	strb	r5, [r7, r4]
+ 8001d42:	187a      	adds	r2, r7, r1
+ 8001d44:	1acc      	subs	r4, r1, r3
+ 8001d46:	42a3      	cmp	r3, r4
+ 8001d48:	dae7      	bge.n	8001d1a <__utoa+0x36>
+ 8001d4a:	7844      	ldrb	r4, [r0, #1]
+ 8001d4c:	7815      	ldrb	r5, [r2, #0]
+ 8001d4e:	3301      	adds	r3, #1
+ 8001d50:	f800 5f01 	strb.w	r5, [r0, #1]!
+ 8001d54:	f802 4901 	strb.w	r4, [r2], #-1
+ 8001d58:	e7f4      	b.n	8001d44 <__utoa+0x60>
+ 8001d5a:	4621      	mov	r1, r4
+ 8001d5c:	e7e2      	b.n	8001d24 <__utoa+0x40>
+ 8001d5e:	bf00      	nop
+ 8001d60:	08002b24 	.word	0x08002b24
 
-08001d30 <_init>:
- 8001d30:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 8001d32:	bf00      	nop
- 8001d34:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 8001d36:	bc08      	pop	{r3}
- 8001d38:	469e      	mov	lr, r3
- 8001d3a:	4770      	bx	lr
+08001d64 <_init>:
+ 8001d64:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 8001d66:	bf00      	nop
+ 8001d68:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 8001d6a:	bc08      	pop	{r3}
+ 8001d6c:	469e      	mov	lr, r3
+ 8001d6e:	4770      	bx	lr
 
-08001d3c <_fini>:
- 8001d3c:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 8001d3e:	bf00      	nop
- 8001d40:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 8001d42:	bc08      	pop	{r3}
- 8001d44:	469e      	mov	lr, r3
- 8001d46:	4770      	bx	lr
+08001d70 <_fini>:
+ 8001d70:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 8001d72:	bf00      	nop
+ 8001d74:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 8001d76:	bc08      	pop	{r3}
+ 8001d78:	469e      	mov	lr, r3
+ 8001d7a:	4770      	bx	lr

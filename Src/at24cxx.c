@@ -183,7 +183,7 @@ uint8_t AT24CXX_Read_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
 
 }
 
-/*this function can write any number of bytes in arbitary location*/
+/*this function can write any number of bytes from arbitrary location*/
 uint8_t AT24CXX_Write_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
 {
 	uint16_t index;
