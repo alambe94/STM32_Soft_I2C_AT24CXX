@@ -15,8 +15,8 @@ void Soft_I2C_Init(void)
 	;
 	__HAL_RCC_GPIOB_CLK_ENABLE()
 	;
-	SDA_High();
-	SCL_High();
+	Soft_I2C_SDA_High();
+	Soft_I2C_SCL_High();
 
 	GPIO_Init.Mode = GPIO_MODE_OUTPUT_OD;
 	GPIO_Init.Pull = GPIO_PULLUP;
@@ -31,51 +31,49 @@ void Soft_I2C_Init(void)
 
 uint8_t Soft_I2C_Start(void)
 {
-	SDA_High();
+	Soft_I2C_SDA_High();
 	Soft_I2C_Delay();
-	SCL_High();
+	Soft_I2C_SCL_High();
 	Soft_I2C_Delay();
-	if (!SDA_Read())
+	if (!Soft_I2C_SDA_Read())
 	{
 		return Soft_I2C_ERR;
 	}
 
-	SDA_Low();
+	Soft_I2C_SDA_Low();
 
 	Soft_I2C_Delay();
-	if (SDA_Read())
+	if (Soft_I2C_SDA_Read())
 	{
 		return Soft_I2C_ERR;
 	}
 
-	Soft_I2C_Delay();
 	return Soft_I2C_OK;
-
 }
 
 void Soft_I2C_Stop(void)
 {
-	SCL_Low();
+	Soft_I2C_SCL_Low();
 	Soft_I2C_Delay();
-	SDA_Low();
+	Soft_I2C_SDA_Low();
 	Soft_I2C_Delay();
-	SCL_High();
+	Soft_I2C_SCL_High();
 	Soft_I2C_Delay();
-	SDA_High();
+	Soft_I2C_SDA_High();
 	Soft_I2C_Delay();
 }
 
 uint8_t Soft_I2C_Wait_ACK()
 {
 	uint16_t timeOut = 5000;
-	SCL_Low();
+	Soft_I2C_SCL_Low();
 	Soft_I2C_Delay();
-	SDA_High();
+	Soft_I2C_SDA_High();
 	Soft_I2C_Delay();
-	SCL_High();
+	Soft_I2C_SCL_High();
 	Soft_I2C_Delay();
 
-	while (SDA_Read())
+	while (Soft_I2C_SDA_Read())
 	{
 		timeOut--;
 		if (timeOut == 0)
@@ -85,7 +83,7 @@ uint8_t Soft_I2C_Wait_ACK()
 		}
 	}
 
-	SCL_Low();
+	Soft_I2C_SCL_Low();
 	Soft_I2C_Delay();
 
 	return Soft_I2C_OK;
@@ -95,13 +93,13 @@ uint8_t Soft_I2C_Wait_ACK()
 void Soft_I2C_ACK(void)
 {
 
-	SCL_Low();
+	Soft_I2C_SCL_Low();
 	Soft_I2C_Delay();
-	SDA_Low();
+	Soft_I2C_SDA_Low();
 	Soft_I2C_Delay();
-	SCL_High();
+	Soft_I2C_SCL_High();
 	Soft_I2C_Delay();
-	SCL_Low();
+	Soft_I2C_SCL_Low();
 	Soft_I2C_Delay();
 
 }
@@ -109,13 +107,13 @@ void Soft_I2C_ACK(void)
 void Soft_I2C_NACK(void)
 {
 
-	SCL_Low();
+	Soft_I2C_SCL_Low();
 	Soft_I2C_Delay();
-	SDA_High();
+	Soft_I2C_SDA_High();
 	Soft_I2C_Delay();
-	SCL_High();
+	Soft_I2C_SCL_High();
 	Soft_I2C_Delay();
-	SCL_Low();
+	Soft_I2C_SCL_Low();
 	Soft_I2C_Delay();
 
 }
@@ -125,25 +123,25 @@ uint8_t Soft_I2C_Send_Byte(uint8_t byte)
 
 	uint8_t count = 8;
 
-	SCL_Low();
+	Soft_I2C_SCL_Low();
 	Soft_I2C_Delay();
 	while (count--)
 	{
 		if (byte & 0x80)
 		{
-			SDA_High();
+			Soft_I2C_SDA_High();
 		}
 		else
 		{
-			SDA_Low();
+			Soft_I2C_SDA_Low();
 		}
 
 		byte <<= 1;
 
+		Soft_I2C_SCL_High();
 		Soft_I2C_Delay();
-		SCL_High();
+		Soft_I2C_SCL_Low();
 		Soft_I2C_Delay();
-		SCL_Low();
 	}
 	if (Soft_I2C_Wait_ACK() == Soft_I2C_ERR)
 	{
@@ -158,20 +156,20 @@ uint8_t Soft_I2C_Receive_Byte(void)
 	uint8_t i = 8;
 	uint8_t ReceivedByte = 0;
 
-	SDA_High();
+	Soft_I2C_SDA_High();
 	while (i--)
 	{
 		ReceivedByte <<= 1;
-		SCL_Low();
+		Soft_I2C_SCL_Low();
 		Soft_I2C_Delay();
-		SCL_High();
+		Soft_I2C_SCL_High();
 		Soft_I2C_Delay();
-		if (SDA_Read())
+		if (Soft_I2C_SDA_Read())
 		{
 			ReceivedByte |= 0x01;
 		}
 	}
-	SCL_Low();
+	Soft_I2C_SCL_Low();
 	return ReceivedByte;
 
 }
@@ -273,7 +271,6 @@ uint8_t Soft_I2C_Write_Bytes(uint8_t slaveAddr, uint8_t regAddr, uint8_t *buf,
 			return Soft_I2C_ERR;
 		}
 
-		Soft_I2C_Delay();
 	}
 
 	Soft_I2C_Stop();

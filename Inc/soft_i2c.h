@@ -22,14 +22,14 @@
 
 //SDA		
 //SCL		
-#define SDA_High()	HAL_GPIO_WritePin(Soft_I2C_SDA_Port,Soft_I2C_SDA_Pin,GPIO_PIN_SET)
-#define SDA_Low()	HAL_GPIO_WritePin(Soft_I2C_SDA_Port,Soft_I2C_SDA_Pin,GPIO_PIN_RESET)
-#define SDA_Read()	HAL_GPIO_ReadPin(Soft_I2C_SDA_Port,Soft_I2C_SDA_Pin)
+#define Soft_I2C_SDA_High()	    HAL_GPIO_WritePin(Soft_I2C_SDA_Port,Soft_I2C_SDA_Pin,GPIO_PIN_SET)
+#define Soft_I2C_SDA_Low()	    HAL_GPIO_WritePin(Soft_I2C_SDA_Port,Soft_I2C_SDA_Pin,GPIO_PIN_RESET)
+#define Soft_I2C_SDA_Read()	    HAL_GPIO_ReadPin(Soft_I2C_SDA_Port,Soft_I2C_SDA_Pin)
 
 
-#define SCL_High()	HAL_GPIO_WritePin(Soft_I2C_SCL_Port,Soft_I2C_SCL_Pin,GPIO_PIN_SET)
-#define SCL_Low()	HAL_GPIO_WritePin(Soft_I2C_SCL_Port,Soft_I2C_SCL_Pin,GPIO_PIN_RESET)
-#define SCL_Read()	HAL_GPIO_ReadPin(Soft_I2C_SCL_Port,Soft_I2C_SCL_Pin)
+#define Soft_I2C_SCL_High()	    HAL_GPIO_WritePin(Soft_I2C_SCL_Port,Soft_I2C_SCL_Pin,GPIO_PIN_SET)
+#define Soft_I2C_SCL_Low()	    HAL_GPIO_WritePin(Soft_I2C_SCL_Port,Soft_I2C_SCL_Pin,GPIO_PIN_RESET)
+#define Soft_I2C_SCL_Read()	    HAL_GPIO_ReadPin(Soft_I2C_SCL_Port,Soft_I2C_SCL_Pin)
 
 
 
