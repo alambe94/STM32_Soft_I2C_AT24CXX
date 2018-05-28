@@ -9,12 +9,13 @@
 #define AT24CXX_OK		0
 #define AT24CXX_ERR		1
 
-#define ADDRESS_WIDTH_16 16u
-#define ADDRESS_WIDTH_8  8u
+#define ADDRESS_WIDTH_16   16u
+#define ADDRESS_WIDTH_8    8u
 
-#define PAGE_LENGTH_8   8u
-#define PAGE_LENGTH_16  16u
-#define PAGE_LENGTH_64  64u
+#define PAGE_LENGTH_8      8u
+#define PAGE_LENGTH_16     16u
+#define PAGE_LENGTH_32     32u
+#define PAGE_LENGTH_64     64u
 
 
 /******************at24cxx config******************************/
@@ -22,6 +23,8 @@
 
 #define AT24CXX_ADDRESS_WIDTH    ADDRESS_WIDTH_8
 #define AT24CXX_PAGE_LENGTH      PAGE_LENGTH_8
+
+/******************at24cxx config******************************/
 
 
 void    AT24CXX_Init();

@@ -36,7 +36,9 @@ uint8_t AT24CXX_Write_Byte(uint16_t Address, uint8_t data)
 		return AT24CXX_ERR;
 	}
 	Soft_I2C_Stop();
+
 	HAL_Delay(5);/*Memory Programming Time approx 5ms*//*3ms for BL24CXX */
+
 	return AT24CXX_OK;
 }
 
@@ -80,6 +82,7 @@ uint8_t AT24CXX_Read_Byte(uint16_t Address, uint8_t* data)
 	*data = Soft_I2C_Receive_Byte();
 
 	Soft_I2C_Stop();/*Explicit stop condition for single byte*/
+
 	return AT24CXX_OK;
 }
 
@@ -122,7 +125,9 @@ uint8_t AT24CXX_Write_Page(uint16_t Address, uint8_t *buf, uint16_t len)
 		}
 	}
 	Soft_I2C_Stop();
+
 	HAL_Delay(5);/*Memory Programming Time approx 5ms*//*3ms for BL24CXX */
+
 	return AT24CXX_OK;
 }
 
@@ -220,5 +225,6 @@ uint8_t AT24CXX_Write_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
 	{
 		return AT24CXX_ERR;
 	}
+
 	return AT24CXX_OK;
 }

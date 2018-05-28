@@ -1717,7 +1717,7 @@ __attribute__((always_inline)) __STATIC_INLINE void __NOP(void)
  8000afc:	20000010 	.word	0x20000010
 
 08000b00 <AT24CXX_Read_Buffer>:
-	HAL_Delay(5);/*Memory Programming Time approx 5ms*//*3ms for BL24CXX */
+
 	return AT24CXX_OK;
 }
 
@@ -1976,10 +1976,10 @@ uint8_t AT24CXX_Write_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
  8000c7a:	d1f7      	bne.n	8000c6c <AT24CXX_Write_Buffer+0x100>
 		return AT24CXX_ERR;
  8000c7c:	2001      	movs	r0, #1
-			(len - byte_counter - (page_counter * AT24CXX_PAGE_LENGTH))) == AT24CXX_ERR)
 	{
 		return AT24CXX_ERR;
 	}
+
 	return AT24CXX_OK;
 }
  8000c7e:	b003      	add	sp, #12
