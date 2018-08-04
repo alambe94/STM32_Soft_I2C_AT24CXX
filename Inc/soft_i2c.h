@@ -18,7 +18,7 @@
 #endif
 
 #ifndef _SOFT_I2C_SDA_PORT
-#error "Please define _SOFT_I2C_SDA_PIN as MCU GPIO_PORT  in main.h"
+#error "Please define _SOFT_I2C_SDA_PORT as MCU GPIO_PORT  in main.h"
 #endif
 
 #ifndef _SOFT_I2C_SCL_PIN
