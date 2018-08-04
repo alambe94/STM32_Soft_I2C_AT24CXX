@@ -58,6 +58,15 @@
 
 /* USER CODE BEGIN Private defines */
 
+#define _SOFT_I2C_SDA_PIN		GPIO_PIN_7
+#define _SOFT_I2C_SDA_PORT		GPIOB
+
+
+#define _SOFT_I2C_SCL_PIN		GPIO_PIN_6
+#define _SOFT_I2C_SCL_PORT		GPIOB
+
+
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

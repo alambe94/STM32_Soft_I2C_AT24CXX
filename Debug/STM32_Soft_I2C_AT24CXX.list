@@ -21,23 +21,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
   8 .ARM.attributes 00000029  00000000  00000000  00020014  2**0
                   CONTENTS, READONLY
-  9 .debug_info   0000ec9f  00000000  00000000  0002003d  2**0
+  9 .debug_info   0000ecb4  00000000  00000000  0002003d  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_abbrev 0000219a  00000000  00000000  0002ecdc  2**0
+ 10 .debug_abbrev 0000218d  00000000  00000000  0002ecf1  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    0000257f  00000000  00000000  00030e76  2**0
+ 11 .debug_loc    0000257f  00000000  00000000  00030e7e  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_aranges 00000480  00000000  00000000  000333f8  2**3
+ 12 .debug_aranges 00000480  00000000  00000000  00033400  2**3
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_ranges 00000b48  00000000  00000000  00033878  2**3
+ 13 .debug_ranges 00000b48  00000000  00000000  00033880  2**3
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_line   0000337b  00000000  00000000  000343c0  2**0
+ 14 .debug_line   000032e2  00000000  00000000  000343c8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_str    000018ae  00000000  00000000  0003773b  2**0
+ 15 .debug_str    000018cb  00000000  00000000  000376aa  2**0
                   CONTENTS, READONLY, DEBUGGING
- 16 .comment      0000007c  00000000  00000000  00038fe9  2**0
+ 16 .comment      0000007c  00000000  00000000  00038f75  2**0
                   CONTENTS, READONLY
- 17 .debug_frame  00000b80  00000000  00000000  00039068  2**2
+ 17 .debug_frame  00000b80  00000000  00000000  00038ff4  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -1728,7 +1728,7 @@ uint8_t AT24CXX_Read_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
  8000b04:	460c      	mov	r4, r1
  8000b06:	4616      	mov	r6, r2
 
-	if (Soft_I2C_Start() == Soft_I2C_ERR)/*generate star condition*/
+	if (Soft_I2C_Start() == SOFT_I2C_ERR)/*generate star condition*/
  8000b08:	f000 fa26 	bl	8000f58 <Soft_I2C_Start>
  8000b0c:	2801      	cmp	r0, #1
  8000b0e:	d025      	beq.n	8000b5c <AT24CXX_Read_Buffer+0x5c>
@@ -1737,17 +1737,17 @@ uint8_t AT24CXX_Read_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
 		return AT24CXX_ERR;
 	}
 
-	if (Soft_I2C_Send_Byte(AT24CXX_EEPROM_ADDR + 0) == Soft_I2C_ERR)/*Send device address + write bit */
+	if (Soft_I2C_Send_Byte(AT24CXX_EEPROM_ADDR + 0) == SOFT_I2C_ERR)/*Send device address + write bit */
  8000b10:	20a6      	movs	r0, #166	; 0xa6
  8000b12:	f000 faaf 	bl	8001074 <Soft_I2C_Send_Byte>
  8000b16:	2801      	cmp	r0, #1
  8000b18:	d01e      	beq.n	8000b58 <AT24CXX_Read_Buffer+0x58>
-		if (Soft_I2C_Send_Byte((Address >> 8)) == Soft_I2C_ERR)
+		if (Soft_I2C_Send_Byte((Address >> 8)) == SOFT_I2C_ERR)
 		{
 			return AT24CXX_ERR;
 		}
 	}
-	if (Soft_I2C_Send_Byte(Address) == Soft_I2C_ERR)/*send register address to write*/
+	if (Soft_I2C_Send_Byte(Address) == SOFT_I2C_ERR)/*send register address to write*/
  8000b1a:	b2e8      	uxtb	r0, r5
  8000b1c:	f000 faaa 	bl	8001074 <Soft_I2C_Send_Byte>
  8000b20:	2801      	cmp	r0, #1
@@ -1756,7 +1756,7 @@ uint8_t AT24CXX_Read_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
 		return AT24CXX_ERR;
 	}
 
-	if (Soft_I2C_Start() == Soft_I2C_ERR) //repeated start
+	if (Soft_I2C_Start() == SOFT_I2C_ERR) //repeated start
  8000b24:	f000 fa18 	bl	8000f58 <Soft_I2C_Start>
  8000b28:	2801      	cmp	r0, #1
  8000b2a:	d017      	beq.n	8000b5c <AT24CXX_Read_Buffer+0x5c>
@@ -1765,7 +1765,7 @@ uint8_t AT24CXX_Read_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
 		return AT24CXX_ERR;
 	}
 
-	if (Soft_I2C_Send_Byte(AT24CXX_EEPROM_ADDR + 1) == Soft_I2C_ERR) //read bit
+	if (Soft_I2C_Send_Byte(AT24CXX_EEPROM_ADDR + 1) == SOFT_I2C_ERR) //read bit
  8000b2c:	20a7      	movs	r0, #167	; 0xa7
  8000b2e:	f000 faa1 	bl	8001074 <Soft_I2C_Send_Byte>
  8000b32:	2801      	cmp	r0, #1
@@ -1839,16 +1839,16 @@ uint8_t AT24CXX_Write_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
  8000b84:	468a      	mov	sl, r1
  8000b86:	4616      	mov	r6, r2
  8000b88:	4680      	mov	r8, r0
-	if (Soft_I2C_Start() == Soft_I2C_ERR)/*generate star condition*/
+	if (Soft_I2C_Start() == SOFT_I2C_ERR)/*generate star condition*/
  8000b8a:	f000 f9e5 	bl	8000f58 <Soft_I2C_Start>
  8000b8e:	2801      	cmp	r0, #1
  8000b90:	d078      	beq.n	8000c84 <AT24CXX_Write_Buffer+0x118>
-	if (Soft_I2C_Send_Byte(AT24CXX_EEPROM_ADDR + 0) == Soft_I2C_ERR)/*Send device address + write bit */
+	if (Soft_I2C_Send_Byte(AT24CXX_EEPROM_ADDR + 0) == SOFT_I2C_ERR)/*Send device address + write bit */
  8000b92:	20a6      	movs	r0, #166	; 0xa6
  8000b94:	f000 fa6e 	bl	8001074 <Soft_I2C_Send_Byte>
  8000b98:	2801      	cmp	r0, #1
  8000b9a:	d06f      	beq.n	8000c7c <AT24CXX_Write_Buffer+0x110>
-	if (Soft_I2C_Send_Byte(Address) == Soft_I2C_ERR)/*send register address to write*/
+	if (Soft_I2C_Send_Byte(Address) == SOFT_I2C_ERR)/*send register address to write*/
  8000b9c:	fa5f f088 	uxtb.w	r0, r8
  8000ba0:	f000 fa68 	bl	8001074 <Soft_I2C_Send_Byte>
  8000ba4:	2801      	cmp	r0, #1
@@ -1856,7 +1856,7 @@ uint8_t AT24CXX_Write_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
  8000ba8:	4654      	mov	r4, sl
  8000baa:	eb0a 0509 	add.w	r5, sl, r9
  8000bae:	e005      	b.n	8000bbc <AT24CXX_Write_Buffer+0x50>
-		if (Soft_I2C_Send_Byte(*buf++) == Soft_I2C_ERR)/*write data to address*/
+		if (Soft_I2C_Send_Byte(*buf++) == SOFT_I2C_ERR)/*write data to address*/
  8000bb0:	f814 0b01 	ldrb.w	r0, [r4], #1
  8000bb4:	f000 fa5e 	bl	8001074 <Soft_I2C_Send_Byte>
  8000bb8:	2801      	cmp	r0, #1
@@ -1886,16 +1886,16 @@ uint8_t AT24CXX_Write_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
  8000bdc:	2500      	movs	r5, #0
  8000bde:	44c8      	add	r8, r9
  8000be0:	fa1f f888 	uxth.w	r8, r8
-	if (Soft_I2C_Start() == Soft_I2C_ERR)/*generate star condition*/
+	if (Soft_I2C_Start() == SOFT_I2C_ERR)/*generate star condition*/
  8000be4:	f000 f9b8 	bl	8000f58 <Soft_I2C_Start>
  8000be8:	2801      	cmp	r0, #1
  8000bea:	d04b      	beq.n	8000c84 <AT24CXX_Write_Buffer+0x118>
-	if (Soft_I2C_Send_Byte(AT24CXX_EEPROM_ADDR + 0) == Soft_I2C_ERR)/*Send device address + write bit */
+	if (Soft_I2C_Send_Byte(AT24CXX_EEPROM_ADDR + 0) == SOFT_I2C_ERR)/*Send device address + write bit */
  8000bec:	20a6      	movs	r0, #166	; 0xa6
  8000bee:	f000 fa41 	bl	8001074 <Soft_I2C_Send_Byte>
  8000bf2:	2801      	cmp	r0, #1
  8000bf4:	d042      	beq.n	8000c7c <AT24CXX_Write_Buffer+0x110>
-	if (Soft_I2C_Send_Byte(Address) == Soft_I2C_ERR)/*send register address to write*/
+	if (Soft_I2C_Send_Byte(Address) == SOFT_I2C_ERR)/*send register address to write*/
  8000bf6:	eb08 00c5 	add.w	r0, r8, r5, lsl #3
  8000bfa:	b2c0      	uxtb	r0, r0
  8000bfc:	f000 fa3a 	bl	8001074 <Soft_I2C_Send_Byte>
@@ -1905,7 +1905,7 @@ uint8_t AT24CXX_Write_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
 		if (AT24CXX_Write_Page(
  8000c04:	4626      	mov	r6, r4
  8000c06:	3408      	adds	r4, #8
-		if (Soft_I2C_Send_Byte(*buf++) == Soft_I2C_ERR)/*write data to address*/
+		if (Soft_I2C_Send_Byte(*buf++) == SOFT_I2C_ERR)/*write data to address*/
  8000c08:	f816 0b01 	ldrb.w	r0, [r6], #1
  8000c0c:	f000 fa32 	bl	8001074 <Soft_I2C_Send_Byte>
  8000c10:	2801      	cmp	r0, #1
@@ -1939,18 +1939,18 @@ uint8_t AT24CXX_Write_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
  8000c32:	b284      	uxth	r4, r0
 	if (len == 0u)
  8000c34:	b36c      	cbz	r4, 8000c92 <AT24CXX_Write_Buffer+0x126>
-	if (Soft_I2C_Start() == Soft_I2C_ERR)/*generate star condition*/
+	if (Soft_I2C_Start() == SOFT_I2C_ERR)/*generate star condition*/
  8000c36:	f000 f98f 	bl	8000f58 <Soft_I2C_Start>
  8000c3a:	2801      	cmp	r0, #1
  8000c3c:	d022      	beq.n	8000c84 <AT24CXX_Write_Buffer+0x118>
-	if (Soft_I2C_Send_Byte(AT24CXX_EEPROM_ADDR + 0) == Soft_I2C_ERR)/*Send device address + write bit */
+	if (Soft_I2C_Send_Byte(AT24CXX_EEPROM_ADDR + 0) == SOFT_I2C_ERR)/*Send device address + write bit */
  8000c3e:	20a6      	movs	r0, #166	; 0xa6
  8000c40:	f000 fa18 	bl	8001074 <Soft_I2C_Send_Byte>
  8000c44:	2801      	cmp	r0, #1
  8000c46:	d019      	beq.n	8000c7c <AT24CXX_Write_Buffer+0x110>
 	if (AT24CXX_Write_Page(
  8000c48:	eb05 0008 	add.w	r0, r5, r8
-	if (Soft_I2C_Send_Byte(Address) == Soft_I2C_ERR)/*send register address to write*/
+	if (Soft_I2C_Send_Byte(Address) == SOFT_I2C_ERR)/*send register address to write*/
  8000c4c:	b2c0      	uxtb	r0, r0
  8000c4e:	f000 fa11 	bl	8001074 <Soft_I2C_Send_Byte>
  8000c52:	2801      	cmp	r0, #1
@@ -1969,7 +1969,7 @@ uint8_t AT24CXX_Write_Buffer(uint16_t Address, uint8_t *buf, uint16_t len)
 	while (len--)
  8000c6c:	45a1      	cmp	r9, r4
  8000c6e:	d012      	beq.n	8000c96 <AT24CXX_Write_Buffer+0x12a>
-		if (Soft_I2C_Send_Byte(*buf++) == Soft_I2C_ERR)/*write data to address*/
+		if (Soft_I2C_Send_Byte(*buf++) == SOFT_I2C_ERR)/*write data to address*/
  8000c70:	f819 0f01 	ldrb.w	r0, [r9, #1]!
  8000c74:	f000 f9fe 	bl	8001074 <Soft_I2C_Send_Byte>
  8000c78:	2801      	cmp	r0, #1
@@ -2214,7 +2214,7 @@ void SystemClock_Config(void)
  8000dce:	4669      	mov	r1, sp
  8000dd0:	4628      	mov	r0, r5
  8000dd2:	f000 ff73 	bl	8001cbc <itoa>
-		if(Soft_I2C_Scan(i<<1)==Soft_I2C_OK)
+		if(Soft_I2C_Scan(i<<1)==SOFT_I2C_OK)
  8000dd6:	b2e8      	uxtb	r0, r5
  8000dd8:	f000 fad8 	bl	800138c <Soft_I2C_Scan>
  8000ddc:	2800      	cmp	r0, #0
@@ -2354,7 +2354,7 @@ void Soft_I2C_Init(void)
 	;
 	__HAL_RCC_GPIOB_CLK_ENABLE()
 	;
-	Soft_I2C_SDA_High();
+	SOFT_I2C_SDA_HIGH();
  8000ed0:	4c20      	ldr	r4, [pc, #128]	; (8000f54 <Soft_I2C_Init+0x94>)
 	__HAL_RCC_GPIOC_CLK_ENABLE()
  8000ed2:	f001 0110 	and.w	r1, r1, #16
@@ -2362,13 +2362,13 @@ void Soft_I2C_Init(void)
  8000ed8:	9900      	ldr	r1, [sp, #0]
 	__HAL_RCC_GPIOD_CLK_ENABLE()
  8000eda:	699d      	ldr	r5, [r3, #24]
-	Soft_I2C_SDA_High();
+	SOFT_I2C_SDA_HIGH();
  8000edc:	4620      	mov	r0, r4
 	__HAL_RCC_GPIOD_CLK_ENABLE()
  8000ede:	f045 0520 	orr.w	r5, r5, #32
  8000ee2:	619d      	str	r5, [r3, #24]
  8000ee4:	699e      	ldr	r6, [r3, #24]
-	Soft_I2C_SDA_High();
+	SOFT_I2C_SDA_HIGH();
  8000ee6:	2201      	movs	r2, #1
 	__HAL_RCC_GPIOD_CLK_ENABLE()
  8000ee8:	f006 0620 	and.w	r6, r6, #32
@@ -2376,7 +2376,7 @@ void Soft_I2C_Init(void)
  8000eee:	9e01      	ldr	r6, [sp, #4]
 	__HAL_RCC_GPIOA_CLK_ENABLE()
  8000ef0:	699e      	ldr	r6, [r3, #24]
-	Soft_I2C_SDA_High();
+	SOFT_I2C_SDA_HIGH();
  8000ef2:	2180      	movs	r1, #128	; 0x80
 	__HAL_RCC_GPIOA_CLK_ENABLE()
  8000ef4:	f046 0604 	orr.w	r6, r6, #4
@@ -2387,7 +2387,7 @@ void Soft_I2C_Init(void)
 	GPIO_Init.Pull = GPIO_PULLUP;
 	GPIO_Init.Speed = GPIO_SPEED_FREQ_MEDIUM;
 
-	GPIO_Init.Pin = Soft_I2C_SDA_Pin;
+	GPIO_Init.Pin = SOFT_I2C_SDA_PIN;
  8000efc:	ad08      	add	r5, sp, #32
 	__HAL_RCC_GPIOA_CLK_ENABLE()
  8000efe:	f006 0604 	and.w	r6, r6, #4
@@ -2401,22 +2401,22 @@ void Soft_I2C_Init(void)
  8000f10:	f003 0308 	and.w	r3, r3, #8
  8000f14:	9303      	str	r3, [sp, #12]
  8000f16:	9b03      	ldr	r3, [sp, #12]
-	Soft_I2C_SDA_High();
+	SOFT_I2C_SDA_HIGH();
  8000f18:	f7ff faea 	bl	80004f0 <HAL_GPIO_WritePin>
-	Soft_I2C_SCL_High();
+	SOFT_I2C_SCL_HIGH();
  8000f1c:	4620      	mov	r0, r4
  8000f1e:	2201      	movs	r2, #1
  8000f20:	2140      	movs	r1, #64	; 0x40
  8000f22:	f7ff fae5 	bl	80004f0 <HAL_GPIO_WritePin>
-	GPIO_Init.Pin = Soft_I2C_SDA_Pin;
+	GPIO_Init.Pin = SOFT_I2C_SDA_PIN;
  8000f26:	2180      	movs	r1, #128	; 0x80
 	GPIO_Init.Mode = GPIO_MODE_OUTPUT_OD;
  8000f28:	2211      	movs	r2, #17
 	GPIO_Init.Pull = GPIO_PULLUP;
  8000f2a:	2301      	movs	r3, #1
-	GPIO_Init.Pin = Soft_I2C_SDA_Pin;
+	GPIO_Init.Pin = SOFT_I2C_SDA_PIN;
  8000f2c:	f845 1d10 	str.w	r1, [r5, #-16]!
-	HAL_GPIO_Init(Soft_I2C_SDA_Port, &GPIO_Init);
+	HAL_GPIO_Init(SOFT_I2C_SDA_PORT, &GPIO_Init);
  8000f30:	4629      	mov	r1, r5
  8000f32:	4620      	mov	r0, r4
 	GPIO_Init.Mode = GPIO_MODE_OUTPUT_OD;
@@ -2425,17 +2425,17 @@ void Soft_I2C_Init(void)
  8000f36:	9306      	str	r3, [sp, #24]
 	GPIO_Init.Speed = GPIO_SPEED_FREQ_MEDIUM;
  8000f38:	9307      	str	r3, [sp, #28]
-	HAL_GPIO_Init(Soft_I2C_SDA_Port, &GPIO_Init);
+	HAL_GPIO_Init(SOFT_I2C_SDA_PORT, &GPIO_Init);
  8000f3a:	f7ff f9d3 	bl	80002e4 <HAL_GPIO_Init>
 
-	GPIO_Init.Pin = Soft_I2C_SCL_Pin;
+	GPIO_Init.Pin = SOFT_I2C_SCL_PIN;
  8000f3e:	2340      	movs	r3, #64	; 0x40
-	HAL_GPIO_Init(Soft_I2C_SCL_Port, &GPIO_Init);
+	HAL_GPIO_Init(SOFT_I2C_SCL_PORT, &GPIO_Init);
  8000f40:	4629      	mov	r1, r5
  8000f42:	4620      	mov	r0, r4
-	GPIO_Init.Pin = Soft_I2C_SCL_Pin;
+	GPIO_Init.Pin = SOFT_I2C_SCL_PIN;
  8000f44:	9304      	str	r3, [sp, #16]
-	HAL_GPIO_Init(Soft_I2C_SCL_Port, &GPIO_Init);
+	HAL_GPIO_Init(SOFT_I2C_SCL_PORT, &GPIO_Init);
  8000f46:	f7ff f9cd 	bl	80002e4 <HAL_GPIO_Init>
 }
  8000f4a:	b008      	add	sp, #32
@@ -2446,49 +2446,55 @@ void Soft_I2C_Init(void)
 
 08000f58 <Soft_I2C_Start>:
 
+}
+
+
 uint8_t Soft_I2C_Start(void)
 {
  8000f58:	b508      	push	{r3, lr}
-	Soft_I2C_SDA_High();
+	SOFT_I2C_SDA_HIGH();
  8000f5a:	2201      	movs	r2, #1
  8000f5c:	2180      	movs	r1, #128	; 0x80
  8000f5e:	4811      	ldr	r0, [pc, #68]	; (8000fa4 <Soft_I2C_Start+0x4c>)
  8000f60:	f7ff fac6 	bl	80004f0 <HAL_GPIO_WritePin>
-
-void Soft_I2C_Delay()
-{
-	//approx 275khz scl clock on 72Mhz
-
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8000f64:	f7ff fd8e 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SCL_High();
+	Soft_I2C_Delay();
+	SOFT_I2C_SCL_HIGH();
  8000f68:	2140      	movs	r1, #64	; 0x40
  8000f6a:	2201      	movs	r2, #1
  8000f6c:	480d      	ldr	r0, [pc, #52]	; (8000fa4 <Soft_I2C_Start+0x4c>)
  8000f6e:	f7ff fabf 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8000f72:	f7ff fd87 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	if (!Soft_I2C_SDA_Read())
+	Soft_I2C_Delay();
+	if (!SOFT_I2C_SDA_READ())
  8000f76:	2180      	movs	r1, #128	; 0x80
  8000f78:	480a      	ldr	r0, [pc, #40]	; (8000fa4 <Soft_I2C_Start+0x4c>)
  8000f7a:	f7ff fab3 	bl	80004e4 <HAL_GPIO_ReadPin>
  8000f7e:	b908      	cbnz	r0, 8000f84 <Soft_I2C_Start+0x2c>
-		return Soft_I2C_ERR;
+	{
+		return SOFT_I2C_ERR;
  8000f80:	2001      	movs	r0, #1
+	{
+		return SOFT_I2C_ERR;
+	}
+
+	return SOFT_I2C_OK;
 }
  8000f82:	bd08      	pop	{r3, pc}
-	Soft_I2C_SDA_Low();
+	SOFT_I2C_SDA_LOW();
  8000f84:	2200      	movs	r2, #0
  8000f86:	2180      	movs	r1, #128	; 0x80
  8000f88:	4806      	ldr	r0, [pc, #24]	; (8000fa4 <Soft_I2C_Start+0x4c>)
  8000f8a:	f7ff fab1 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8000f8e:	f7ff fd79 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	if (Soft_I2C_SDA_Read())
+	if (SOFT_I2C_SDA_READ())
  8000f92:	2180      	movs	r1, #128	; 0x80
  8000f94:	4803      	ldr	r0, [pc, #12]	; (8000fa4 <Soft_I2C_Start+0x4c>)
  8000f96:	f7ff faa5 	bl	80004e4 <HAL_GPIO_ReadPin>
-		return Soft_I2C_ERR;
+		return SOFT_I2C_ERR;
  8000f9a:	3000      	adds	r0, #0
  8000f9c:	bf18      	it	ne
  8000f9e:	2001      	movne	r0, #1
@@ -2497,9 +2503,11 @@ void Soft_I2C_Delay()
  8000fa4:	40010c00 	.word	0x40010c00
 
 08000fa8 <Soft_I2C_Stop>:
+
+void Soft_I2C_Stop(void)
 {
  8000fa8:	b510      	push	{r4, lr}
-	Soft_I2C_SCL_Low();
+	SOFT_I2C_SCL_LOW();
  8000faa:	4c0f      	ldr	r4, [pc, #60]	; (8000fe8 <Soft_I2C_Stop+0x40>)
  8000fac:	2200      	movs	r2, #0
  8000fae:	4620      	mov	r0, r4
@@ -2507,25 +2515,29 @@ void Soft_I2C_Delay()
  8000fb2:	f7ff fa9d 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8000fb6:	f7ff fd65 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SDA_Low();
+	Soft_I2C_Delay();
+	SOFT_I2C_SDA_LOW();
  8000fba:	4620      	mov	r0, r4
  8000fbc:	2200      	movs	r2, #0
  8000fbe:	2180      	movs	r1, #128	; 0x80
  8000fc0:	f7ff fa96 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8000fc4:	f7ff fd5e 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SCL_High();
+	Soft_I2C_Delay();
+	SOFT_I2C_SCL_HIGH();
  8000fc8:	4620      	mov	r0, r4
  8000fca:	2201      	movs	r2, #1
  8000fcc:	2140      	movs	r1, #64	; 0x40
  8000fce:	f7ff fa8f 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8000fd2:	f7ff fd57 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SDA_High();
+	Soft_I2C_Delay();
+	SOFT_I2C_SDA_HIGH();
  8000fd6:	4620      	mov	r0, r4
  8000fd8:	2201      	movs	r2, #1
  8000fda:	2180      	movs	r1, #128	; 0x80
  8000fdc:	f7ff fa88 	bl	80004f0 <HAL_GPIO_WritePin>
+	Soft_I2C_Delay();
 }
  8000fe0:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
@@ -2533,9 +2545,15 @@ void Soft_I2C_Delay()
  8000fe8:	40010c00 	.word	0x40010c00
 
 08000fec <Soft_I2C_ACK>:
+	return SOFT_I2C_OK;
+
+}
+
+void Soft_I2C_ACK(void)
 {
  8000fec:	b510      	push	{r4, lr}
-	Soft_I2C_SCL_Low();
+
+	SOFT_I2C_SCL_LOW();
  8000fee:	4c0f      	ldr	r4, [pc, #60]	; (800102c <Soft_I2C_ACK+0x40>)
  8000ff0:	2200      	movs	r2, #0
  8000ff2:	4620      	mov	r0, r4
@@ -2543,25 +2561,30 @@ void Soft_I2C_Delay()
  8000ff6:	f7ff fa7b 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8000ffa:	f7ff fd43 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SDA_Low();
+	Soft_I2C_Delay();
+	SOFT_I2C_SDA_LOW();
  8000ffe:	4620      	mov	r0, r4
  8001000:	2200      	movs	r2, #0
  8001002:	2180      	movs	r1, #128	; 0x80
  8001004:	f7ff fa74 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001008:	f7ff fd3c 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SCL_High();
+	Soft_I2C_Delay();
+	SOFT_I2C_SCL_HIGH();
  800100c:	4620      	mov	r0, r4
  800100e:	2201      	movs	r2, #1
  8001010:	2140      	movs	r1, #64	; 0x40
  8001012:	f7ff fa6d 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001016:	f7ff fd35 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SCL_Low();
+	Soft_I2C_Delay();
+	SOFT_I2C_SCL_LOW();
  800101a:	4620      	mov	r0, r4
  800101c:	2200      	movs	r2, #0
  800101e:	2140      	movs	r1, #64	; 0x40
  8001020:	f7ff fa66 	bl	80004f0 <HAL_GPIO_WritePin>
+	Soft_I2C_Delay();
+
 }
  8001024:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
@@ -2569,9 +2592,12 @@ void Soft_I2C_Delay()
  800102c:	40010c00 	.word	0x40010c00
 
 08001030 <Soft_I2C_NACK>:
+
+void Soft_I2C_NACK(void)
 {
  8001030:	b510      	push	{r4, lr}
-	Soft_I2C_SCL_Low();
+
+	SOFT_I2C_SCL_LOW();
  8001032:	4c0f      	ldr	r4, [pc, #60]	; (8001070 <Soft_I2C_NACK+0x40>)
  8001034:	2200      	movs	r2, #0
  8001036:	4620      	mov	r0, r4
@@ -2579,25 +2605,30 @@ void Soft_I2C_Delay()
  800103a:	f7ff fa59 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  800103e:	f7ff fd21 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SDA_High();
+	Soft_I2C_Delay();
+	SOFT_I2C_SDA_HIGH();
  8001042:	4620      	mov	r0, r4
  8001044:	2201      	movs	r2, #1
  8001046:	2180      	movs	r1, #128	; 0x80
  8001048:	f7ff fa52 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  800104c:	f7ff fd1a 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SCL_High();
+	Soft_I2C_Delay();
+	SOFT_I2C_SCL_HIGH();
  8001050:	4620      	mov	r0, r4
  8001052:	2201      	movs	r2, #1
  8001054:	2140      	movs	r1, #64	; 0x40
  8001056:	f7ff fa4b 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  800105a:	f7ff fd13 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SCL_Low();
+	Soft_I2C_Delay();
+	SOFT_I2C_SCL_LOW();
  800105e:	4620      	mov	r0, r4
  8001060:	2200      	movs	r2, #0
  8001062:	2140      	movs	r1, #64	; 0x40
  8001064:	f7ff fa44 	bl	80004f0 <HAL_GPIO_WritePin>
+	Soft_I2C_Delay();
+
 }
  8001068:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
@@ -2605,39 +2636,54 @@ void Soft_I2C_Delay()
  8001070:	40010c00 	.word	0x40010c00
 
 08001074 <Soft_I2C_Send_Byte>:
+
+uint8_t Soft_I2C_Send_Byte(uint8_t byte)
 {
  8001074:	b570      	push	{r4, r5, r6, lr}
-	Soft_I2C_SCL_Low();
+
+	uint8_t count = 8;
+
+	SOFT_I2C_SCL_LOW();
  8001076:	2200      	movs	r2, #0
  8001078:	2140      	movs	r1, #64	; 0x40
 {
  800107a:	4604      	mov	r4, r0
-	Soft_I2C_SCL_Low();
+	SOFT_I2C_SCL_LOW();
  800107c:	4836      	ldr	r0, [pc, #216]	; (8001158 <Soft_I2C_Send_Byte+0xe4>)
  800107e:	f7ff fa37 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001082:	2508      	movs	r5, #8
  8001084:	f7ff fcfe 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-			Soft_I2C_SDA_Low();
+		{
+			SOFT_I2C_SDA_HIGH();
+		}
+		else
+		{
+			SOFT_I2C_SDA_LOW();
  8001088:	4e33      	ldr	r6, [pc, #204]	; (8001158 <Soft_I2C_Send_Byte+0xe4>)
 		if (byte & 0x80)
  800108a:	0623      	lsls	r3, r4, #24
-			Soft_I2C_SDA_High();
+			SOFT_I2C_SDA_HIGH();
  800108c:	bf4c      	ite	mi
  800108e:	2201      	movmi	r2, #1
-			Soft_I2C_SDA_Low();
+			SOFT_I2C_SDA_LOW();
  8001090:	2200      	movpl	r2, #0
  8001092:	2180      	movs	r1, #128	; 0x80
  8001094:	4630      	mov	r0, r6
  8001096:	f7ff fa2b 	bl	80004f0 <HAL_GPIO_WritePin>
-		Soft_I2C_SCL_High();
+		}
+
+		byte <<= 1;
+
+		SOFT_I2C_SCL_HIGH();
  800109a:	2201      	movs	r2, #1
  800109c:	2140      	movs	r1, #64	; 0x40
  800109e:	4630      	mov	r0, r6
  80010a0:	f7ff fa26 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80010a4:	f7ff fcee 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-		Soft_I2C_SCL_Low();
+		Soft_I2C_Delay();
+		SOFT_I2C_SCL_LOW();
  80010a8:	2200      	movs	r2, #0
  80010aa:	2140      	movs	r1, #64	; 0x40
  80010ac:	4630      	mov	r0, r6
@@ -2653,21 +2699,21 @@ void Soft_I2C_Delay()
  80010be:	b2e4      	uxtb	r4, r4
 	while (count--)
  80010c0:	d1e3      	bne.n	800108a <Soft_I2C_Send_Byte+0x16>
-	Soft_I2C_SCL_Low();
+	SOFT_I2C_SCL_LOW();
  80010c2:	2200      	movs	r2, #0
  80010c4:	2140      	movs	r1, #64	; 0x40
  80010c6:	4824      	ldr	r0, [pc, #144]	; (8001158 <Soft_I2C_Send_Byte+0xe4>)
  80010c8:	f7ff fa12 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80010cc:	f7ff fcda 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SDA_High();
+	SOFT_I2C_SDA_HIGH();
  80010d0:	2201      	movs	r2, #1
  80010d2:	2180      	movs	r1, #128	; 0x80
  80010d4:	4820      	ldr	r0, [pc, #128]	; (8001158 <Soft_I2C_Send_Byte+0xe4>)
  80010d6:	f7ff fa0b 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80010da:	f7ff fcd3 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SCL_High();
+	SOFT_I2C_SCL_HIGH();
  80010de:	2201      	movs	r2, #1
  80010e0:	2140      	movs	r1, #64	; 0x40
  80010e2:	481d      	ldr	r0, [pc, #116]	; (8001158 <Soft_I2C_Send_Byte+0xe4>)
@@ -2675,12 +2721,12 @@ void Soft_I2C_Delay()
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80010e8:	f241 3488 	movw	r4, #5000	; 0x1388
  80010ec:	f7ff fcca 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	while (Soft_I2C_SDA_Read())
+	while (SOFT_I2C_SDA_READ())
  80010f0:	4e19      	ldr	r6, [pc, #100]	; (8001158 <Soft_I2C_Send_Byte+0xe4>)
  80010f2:	e000      	b.n	80010f6 <Soft_I2C_Send_Byte+0x82>
 		if (timeOut == 0)
  80010f4:	b18c      	cbz	r4, 800111a <Soft_I2C_Send_Byte+0xa6>
-	while (Soft_I2C_SDA_Read())
+	while (SOFT_I2C_SDA_READ())
  80010f6:	2180      	movs	r1, #128	; 0x80
  80010f8:	4630      	mov	r0, r6
  80010fa:	f7ff f9f3 	bl	80004e4 <HAL_GPIO_ReadPin>
@@ -2689,55 +2735,66 @@ void Soft_I2C_Delay()
  8001102:	b2a4      	uxth	r4, r4
  8001104:	2800      	cmp	r0, #0
  8001106:	d1f5      	bne.n	80010f4 <Soft_I2C_Send_Byte+0x80>
-	Soft_I2C_SCL_Low();
+	SOFT_I2C_SCL_LOW();
  8001108:	4602      	mov	r2, r0
  800110a:	2140      	movs	r1, #64	; 0x40
  800110c:	4812      	ldr	r0, [pc, #72]	; (8001158 <Soft_I2C_Send_Byte+0xe4>)
  800110e:	f7ff f9ef 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001112:	f7ff fcb7 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	return Soft_I2C_OK;
+	}
+	if (Soft_I2C_Wait_ACK() == SOFT_I2C_ERR)
+	{
+		return SOFT_I2C_ERR;
+	}
+	return SOFT_I2C_OK;
  8001116:	4628      	mov	r0, r5
 }
  8001118:	bd70      	pop	{r4, r5, r6, pc}
-	Soft_I2C_SCL_Low();
+	SOFT_I2C_SCL_LOW();
  800111a:	4622      	mov	r2, r4
  800111c:	2140      	movs	r1, #64	; 0x40
  800111e:	480e      	ldr	r0, [pc, #56]	; (8001158 <Soft_I2C_Send_Byte+0xe4>)
  8001120:	f7ff f9e6 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001124:	f7ff fcae 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SDA_Low();
+	SOFT_I2C_SDA_LOW();
  8001128:	4622      	mov	r2, r4
  800112a:	2180      	movs	r1, #128	; 0x80
  800112c:	480a      	ldr	r0, [pc, #40]	; (8001158 <Soft_I2C_Send_Byte+0xe4>)
  800112e:	f7ff f9df 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001132:	f7ff fca7 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SCL_High();
+	SOFT_I2C_SCL_HIGH();
  8001136:	2201      	movs	r2, #1
  8001138:	2140      	movs	r1, #64	; 0x40
  800113a:	4807      	ldr	r0, [pc, #28]	; (8001158 <Soft_I2C_Send_Byte+0xe4>)
  800113c:	f7ff f9d8 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001140:	f7ff fca0 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SDA_High();
+	SOFT_I2C_SDA_HIGH();
  8001144:	2201      	movs	r2, #1
  8001146:	2180      	movs	r1, #128	; 0x80
  8001148:	4803      	ldr	r0, [pc, #12]	; (8001158 <Soft_I2C_Send_Byte+0xe4>)
  800114a:	f7ff f9d1 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  800114e:	f7ff fc99 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-		return Soft_I2C_ERR;
+		return SOFT_I2C_ERR;
  8001152:	2001      	movs	r0, #1
  8001154:	bd70      	pop	{r4, r5, r6, pc}
  8001156:	bf00      	nop
  8001158:	40010c00 	.word	0x40010c00
 
 0800115c <Soft_I2C_Receive_Byte>:
+
+uint8_t Soft_I2C_Receive_Byte(void)
 {
  800115c:	b570      	push	{r4, r5, r6, lr}
-	Soft_I2C_SDA_High();
+
+	uint8_t i = 8;
+	uint8_t ReceivedByte = 0;
+
+	SOFT_I2C_SDA_HIGH();
  800115e:	2201      	movs	r2, #1
  8001160:	2180      	movs	r1, #128	; 0x80
  8001162:	4814      	ldr	r0, [pc, #80]	; (80011b4 <Soft_I2C_Receive_Byte+0x58>)
@@ -2745,7 +2802,10 @@ void Soft_I2C_Delay()
  8001168:	2408      	movs	r4, #8
 	uint8_t ReceivedByte = 0;
  800116a:	2500      	movs	r5, #0
-		Soft_I2C_SCL_Low();
+	while (i--)
+	{
+		ReceivedByte <<= 1;
+		SOFT_I2C_SCL_LOW();
  800116c:	4e11      	ldr	r6, [pc, #68]	; (80011b4 <Soft_I2C_Receive_Byte+0x58>)
  800116e:	2200      	movs	r2, #0
  8001170:	2140      	movs	r1, #64	; 0x40
@@ -2753,14 +2813,16 @@ void Soft_I2C_Delay()
  8001174:	f7ff f9bc 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001178:	f7ff fc84 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-		Soft_I2C_SCL_High();
+		Soft_I2C_Delay();
+		SOFT_I2C_SCL_HIGH();
  800117c:	2201      	movs	r2, #1
  800117e:	2140      	movs	r1, #64	; 0x40
  8001180:	4630      	mov	r0, r6
  8001182:	f7ff f9b5 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001186:	f7ff fc7d 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-		if (Soft_I2C_SDA_Read())
+		Soft_I2C_Delay();
+		if (SOFT_I2C_SDA_READ())
  800118a:	2180      	movs	r1, #128	; 0x80
  800118c:	4630      	mov	r0, r6
  800118e:	f7ff f9a9 	bl	80004e4 <HAL_GPIO_ReadPin>
@@ -2768,18 +2830,23 @@ void Soft_I2C_Delay()
  8001192:	006d      	lsls	r5, r5, #1
  8001194:	b2ed      	uxtb	r5, r5
  8001196:	1e62      	subs	r2, r4, #1
-		if (Soft_I2C_SDA_Read())
+		if (SOFT_I2C_SDA_READ())
  8001198:	b108      	cbz	r0, 800119e <Soft_I2C_Receive_Byte+0x42>
+		{
 			ReceivedByte |= 0x01;
  800119a:	f045 0501 	orr.w	r5, r5, #1
 	while (i--)
  800119e:	f012 04ff 	ands.w	r4, r2, #255	; 0xff
  80011a2:	d1e4      	bne.n	800116e <Soft_I2C_Receive_Byte+0x12>
-	Soft_I2C_SCL_Low();
+		}
+	}
+	SOFT_I2C_SCL_LOW();
  80011a4:	4622      	mov	r2, r4
  80011a6:	2140      	movs	r1, #64	; 0x40
  80011a8:	4802      	ldr	r0, [pc, #8]	; (80011b4 <Soft_I2C_Receive_Byte+0x58>)
  80011aa:	f7ff f9a1 	bl	80004f0 <HAL_GPIO_WritePin>
+	return ReceivedByte;
+
 }
  80011ae:	4628      	mov	r0, r5
  80011b0:	bd70      	pop	{r4, r5, r6, pc}
@@ -2787,213 +2854,254 @@ void Soft_I2C_Delay()
  80011b4:	40010c00 	.word	0x40010c00
 
 080011b8 <Soft_I2C_Write_Byte>:
+
+uint8_t Soft_I2C_Write_Byte(uint8_t slave_address, uint8_t register_address, uint8_t *byte)
 {
  80011b8:	b570      	push	{r4, r5, r6, lr}
  80011ba:	4604      	mov	r4, r0
  80011bc:	460e      	mov	r6, r1
-	Soft_I2C_SDA_High();
+	SOFT_I2C_SDA_HIGH();
  80011be:	4836      	ldr	r0, [pc, #216]	; (8001298 <Soft_I2C_Write_Byte+0xe0>)
  80011c0:	2180      	movs	r1, #128	; 0x80
 {
  80011c2:	4615      	mov	r5, r2
-	Soft_I2C_SDA_High();
+	SOFT_I2C_SDA_HIGH();
  80011c4:	2201      	movs	r2, #1
  80011c6:	f7ff f993 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80011ca:	f7ff fc5b 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SCL_High();
+	SOFT_I2C_SCL_HIGH();
  80011ce:	2140      	movs	r1, #64	; 0x40
  80011d0:	2201      	movs	r2, #1
  80011d2:	4831      	ldr	r0, [pc, #196]	; (8001298 <Soft_I2C_Write_Byte+0xe0>)
  80011d4:	f7ff f98c 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80011d8:	f7ff fc54 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	if (!Soft_I2C_SDA_Read())
+	if (!SOFT_I2C_SDA_READ())
  80011dc:	2180      	movs	r1, #128	; 0x80
  80011de:	482e      	ldr	r0, [pc, #184]	; (8001298 <Soft_I2C_Write_Byte+0xe0>)
  80011e0:	f7ff f980 	bl	80004e4 <HAL_GPIO_ReadPin>
  80011e4:	b9e8      	cbnz	r0, 8001222 <Soft_I2C_Write_Byte+0x6a>
-	Soft_I2C_SCL_Low();
+	SOFT_I2C_SCL_LOW();
  80011e6:	2200      	movs	r2, #0
  80011e8:	2140      	movs	r1, #64	; 0x40
  80011ea:	482b      	ldr	r0, [pc, #172]	; (8001298 <Soft_I2C_Write_Byte+0xe0>)
  80011ec:	f7ff f980 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80011f0:	f7ff fc48 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SDA_Low();
+	SOFT_I2C_SDA_LOW();
  80011f4:	2200      	movs	r2, #0
  80011f6:	2180      	movs	r1, #128	; 0x80
  80011f8:	4827      	ldr	r0, [pc, #156]	; (8001298 <Soft_I2C_Write_Byte+0xe0>)
  80011fa:	f7ff f979 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80011fe:	f7ff fc41 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SCL_High();
+	SOFT_I2C_SCL_HIGH();
  8001202:	2201      	movs	r2, #1
  8001204:	2140      	movs	r1, #64	; 0x40
  8001206:	4824      	ldr	r0, [pc, #144]	; (8001298 <Soft_I2C_Write_Byte+0xe0>)
  8001208:	f7ff f972 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  800120c:	f7ff fc3a 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SDA_High();
+	SOFT_I2C_SDA_HIGH();
  8001210:	2201      	movs	r2, #1
  8001212:	2180      	movs	r1, #128	; 0x80
  8001214:	4820      	ldr	r0, [pc, #128]	; (8001298 <Soft_I2C_Write_Byte+0xe0>)
  8001216:	f7ff f96b 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  800121a:	f7ff fc33 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-		return Soft_I2C_ERR;
+
+	if (Soft_I2C_Start() == SOFT_I2C_ERR)
+	{
+		Soft_I2C_Stop();
+		return SOFT_I2C_ERR;
  800121e:	2001      	movs	r0, #1
  8001220:	bd70      	pop	{r4, r5, r6, pc}
-	Soft_I2C_SDA_Low();
+	SOFT_I2C_SDA_LOW();
  8001222:	2180      	movs	r1, #128	; 0x80
  8001224:	2200      	movs	r2, #0
  8001226:	481c      	ldr	r0, [pc, #112]	; (8001298 <Soft_I2C_Write_Byte+0xe0>)
  8001228:	f7ff f962 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  800122c:	f7ff fc2a 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	if (Soft_I2C_SDA_Read())
+	if (SOFT_I2C_SDA_READ())
  8001230:	2180      	movs	r1, #128	; 0x80
  8001232:	4819      	ldr	r0, [pc, #100]	; (8001298 <Soft_I2C_Write_Byte+0xe0>)
  8001234:	f7ff f956 	bl	80004e4 <HAL_GPIO_ReadPin>
  8001238:	2800      	cmp	r0, #0
  800123a:	d1d4      	bne.n	80011e6 <Soft_I2C_Write_Byte+0x2e>
-	if (Soft_I2C_Send_Byte(slaveAddr) == Soft_I2C_ERR)
+	}
+
+	if (Soft_I2C_Send_Byte(slave_address) == SOFT_I2C_ERR)
  800123c:	4620      	mov	r0, r4
  800123e:	f7ff ff19 	bl	8001074 <Soft_I2C_Send_Byte>
  8001242:	2801      	cmp	r0, #1
  8001244:	d0eb      	beq.n	800121e <Soft_I2C_Write_Byte+0x66>
-	if (Soft_I2C_Send_Byte(regAddr) == Soft_I2C_ERR)
+	{
+		return SOFT_I2C_ERR;
+	}
+	if (Soft_I2C_Send_Byte(register_address) == SOFT_I2C_ERR)
  8001246:	4630      	mov	r0, r6
  8001248:	f7ff ff14 	bl	8001074 <Soft_I2C_Send_Byte>
  800124c:	2801      	cmp	r0, #1
  800124e:	d0e6      	beq.n	800121e <Soft_I2C_Write_Byte+0x66>
+	{
+		return SOFT_I2C_ERR;
+	}
+
 	if (byte)
  8001250:	b125      	cbz	r5, 800125c <Soft_I2C_Write_Byte+0xa4>
-		if (Soft_I2C_Send_Byte(*byte) == Soft_I2C_ERR)
+	{
+		if (Soft_I2C_Send_Byte(*byte) == SOFT_I2C_ERR)
  8001252:	7828      	ldrb	r0, [r5, #0]
  8001254:	f7ff ff0e 	bl	8001074 <Soft_I2C_Send_Byte>
  8001258:	2801      	cmp	r0, #1
  800125a:	d0e0      	beq.n	800121e <Soft_I2C_Write_Byte+0x66>
-	Soft_I2C_SCL_Low();
+	SOFT_I2C_SCL_LOW();
  800125c:	2200      	movs	r2, #0
  800125e:	2140      	movs	r1, #64	; 0x40
  8001260:	480d      	ldr	r0, [pc, #52]	; (8001298 <Soft_I2C_Write_Byte+0xe0>)
  8001262:	f7ff f945 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001266:	f7ff fc0d 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SDA_Low();
+	SOFT_I2C_SDA_LOW();
  800126a:	2200      	movs	r2, #0
  800126c:	2180      	movs	r1, #128	; 0x80
  800126e:	480a      	ldr	r0, [pc, #40]	; (8001298 <Soft_I2C_Write_Byte+0xe0>)
  8001270:	f7ff f93e 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001274:	f7ff fc06 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SCL_High();
+	SOFT_I2C_SCL_HIGH();
  8001278:	2201      	movs	r2, #1
  800127a:	2140      	movs	r1, #64	; 0x40
  800127c:	4806      	ldr	r0, [pc, #24]	; (8001298 <Soft_I2C_Write_Byte+0xe0>)
  800127e:	f7ff f937 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001282:	f7ff fbff 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SDA_High();
+	SOFT_I2C_SDA_HIGH();
  8001286:	2201      	movs	r2, #1
  8001288:	2180      	movs	r1, #128	; 0x80
  800128a:	4803      	ldr	r0, [pc, #12]	; (8001298 <Soft_I2C_Write_Byte+0xe0>)
  800128c:	f7ff f930 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001290:	f7ff fbf8 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	return Soft_I2C_OK;
+		}
+	}
+
+	Soft_I2C_Stop();
+
+	return SOFT_I2C_OK;
  8001294:	2000      	movs	r0, #0
  8001296:	bd70      	pop	{r4, r5, r6, pc}
  8001298:	40010c00 	.word	0x40010c00
 
 0800129c <Soft_I2C_Write_Bytes>:
+
+}
+
+uint8_t Soft_I2C_Write_Bytes(uint8_t slave_address, uint8_t register_address, uint8_t *buf,
+		uint8_t num)
 {
  800129c:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
  800129e:	4606      	mov	r6, r0
  80012a0:	460f      	mov	r7, r1
-	Soft_I2C_SDA_High();
+	SOFT_I2C_SDA_HIGH();
  80012a2:	4839      	ldr	r0, [pc, #228]	; (8001388 <Soft_I2C_Write_Bytes+0xec>)
  80012a4:	2180      	movs	r1, #128	; 0x80
 {
  80012a6:	4614      	mov	r4, r2
-	Soft_I2C_SDA_High();
+	SOFT_I2C_SDA_HIGH();
  80012a8:	2201      	movs	r2, #1
 {
  80012aa:	461d      	mov	r5, r3
-	Soft_I2C_SDA_High();
+	SOFT_I2C_SDA_HIGH();
  80012ac:	f7ff f920 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80012b0:	f7ff fbe8 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SCL_High();
+	SOFT_I2C_SCL_HIGH();
  80012b4:	2140      	movs	r1, #64	; 0x40
  80012b6:	2201      	movs	r2, #1
  80012b8:	4833      	ldr	r0, [pc, #204]	; (8001388 <Soft_I2C_Write_Bytes+0xec>)
  80012ba:	f7ff f919 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80012be:	f7ff fbe1 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	if (!Soft_I2C_SDA_Read())
+	if (!SOFT_I2C_SDA_READ())
  80012c2:	2180      	movs	r1, #128	; 0x80
  80012c4:	4830      	ldr	r0, [pc, #192]	; (8001388 <Soft_I2C_Write_Bytes+0xec>)
  80012c6:	f7ff f90d 	bl	80004e4 <HAL_GPIO_ReadPin>
  80012ca:	b9e8      	cbnz	r0, 8001308 <Soft_I2C_Write_Bytes+0x6c>
-	Soft_I2C_SCL_Low();
+	SOFT_I2C_SCL_LOW();
  80012cc:	2200      	movs	r2, #0
  80012ce:	2140      	movs	r1, #64	; 0x40
  80012d0:	482d      	ldr	r0, [pc, #180]	; (8001388 <Soft_I2C_Write_Bytes+0xec>)
  80012d2:	f7ff f90d 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80012d6:	f7ff fbd5 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SDA_Low();
+	SOFT_I2C_SDA_LOW();
  80012da:	2200      	movs	r2, #0
  80012dc:	2180      	movs	r1, #128	; 0x80
  80012de:	482a      	ldr	r0, [pc, #168]	; (8001388 <Soft_I2C_Write_Bytes+0xec>)
  80012e0:	f7ff f906 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80012e4:	f7ff fbce 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SCL_High();
+	SOFT_I2C_SCL_HIGH();
  80012e8:	2201      	movs	r2, #1
  80012ea:	2140      	movs	r1, #64	; 0x40
  80012ec:	4826      	ldr	r0, [pc, #152]	; (8001388 <Soft_I2C_Write_Bytes+0xec>)
  80012ee:	f7ff f8ff 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80012f2:	f7ff fbc7 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SDA_High();
+	SOFT_I2C_SDA_HIGH();
  80012f6:	2201      	movs	r2, #1
  80012f8:	2180      	movs	r1, #128	; 0x80
  80012fa:	4823      	ldr	r0, [pc, #140]	; (8001388 <Soft_I2C_Write_Bytes+0xec>)
  80012fc:	f7ff f8f8 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001300:	f7ff fbc0 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-		return Soft_I2C_ERR;
+
+	if (Soft_I2C_Start() == SOFT_I2C_ERR)
+	{
+		Soft_I2C_Stop();
+		return SOFT_I2C_ERR;
  8001304:	2001      	movs	r0, #1
  8001306:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
-	Soft_I2C_SDA_Low();
+	SOFT_I2C_SDA_LOW();
  8001308:	2180      	movs	r1, #128	; 0x80
  800130a:	2200      	movs	r2, #0
  800130c:	481e      	ldr	r0, [pc, #120]	; (8001388 <Soft_I2C_Write_Bytes+0xec>)
  800130e:	f7ff f8ef 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001312:	f7ff fbb7 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	if (Soft_I2C_SDA_Read())
+	if (SOFT_I2C_SDA_READ())
  8001316:	2180      	movs	r1, #128	; 0x80
  8001318:	481b      	ldr	r0, [pc, #108]	; (8001388 <Soft_I2C_Write_Bytes+0xec>)
  800131a:	f7ff f8e3 	bl	80004e4 <HAL_GPIO_ReadPin>
  800131e:	2800      	cmp	r0, #0
  8001320:	d1d4      	bne.n	80012cc <Soft_I2C_Write_Bytes+0x30>
-	if (Soft_I2C_Send_Byte(slaveAddr) == Soft_I2C_ERR)
+	}
+
+	if (Soft_I2C_Send_Byte(slave_address) == SOFT_I2C_ERR)
  8001322:	4630      	mov	r0, r6
  8001324:	f7ff fea6 	bl	8001074 <Soft_I2C_Send_Byte>
  8001328:	2801      	cmp	r0, #1
  800132a:	d0eb      	beq.n	8001304 <Soft_I2C_Write_Bytes+0x68>
-	if (Soft_I2C_Send_Byte(regAddr) == Soft_I2C_ERR)
+	{
+		return SOFT_I2C_ERR;
+	}
+
+	if (Soft_I2C_Send_Byte(register_address) == SOFT_I2C_ERR)
  800132c:	4638      	mov	r0, r7
  800132e:	f7ff fea1 	bl	8001074 <Soft_I2C_Send_Byte>
  8001332:	2801      	cmp	r0, #1
  8001334:	d0e6      	beq.n	8001304 <Soft_I2C_Write_Bytes+0x68>
  8001336:	4425      	add	r5, r4
  8001338:	e005      	b.n	8001346 <Soft_I2C_Write_Bytes+0xaa>
-		if (Soft_I2C_Send_Byte(*buf++) == Soft_I2C_ERR)
+		return SOFT_I2C_ERR;
+	}
+
+	while (num--)
+	{
+		if (Soft_I2C_Send_Byte(*buf++) == SOFT_I2C_ERR)
  800133a:	f814 0b01 	ldrb.w	r0, [r4], #1
  800133e:	f7ff fe99 	bl	8001074 <Soft_I2C_Send_Byte>
  8001342:	2801      	cmp	r0, #1
@@ -3001,144 +3109,164 @@ void Soft_I2C_Delay()
 	while (num--)
  8001346:	42ac      	cmp	r4, r5
  8001348:	d1f7      	bne.n	800133a <Soft_I2C_Write_Bytes+0x9e>
-	Soft_I2C_SCL_Low();
+	SOFT_I2C_SCL_LOW();
  800134a:	2200      	movs	r2, #0
  800134c:	2140      	movs	r1, #64	; 0x40
  800134e:	480e      	ldr	r0, [pc, #56]	; (8001388 <Soft_I2C_Write_Bytes+0xec>)
  8001350:	f7ff f8ce 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001354:	f7ff fb96 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SDA_Low();
+	SOFT_I2C_SDA_LOW();
  8001358:	2200      	movs	r2, #0
  800135a:	2180      	movs	r1, #128	; 0x80
  800135c:	480a      	ldr	r0, [pc, #40]	; (8001388 <Soft_I2C_Write_Bytes+0xec>)
  800135e:	f7ff f8c7 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001362:	f7ff fb8f 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SCL_High();
+	SOFT_I2C_SCL_HIGH();
  8001366:	2201      	movs	r2, #1
  8001368:	2140      	movs	r1, #64	; 0x40
  800136a:	4807      	ldr	r0, [pc, #28]	; (8001388 <Soft_I2C_Write_Bytes+0xec>)
  800136c:	f7ff f8c0 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001370:	f7ff fb88 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SDA_High();
+	SOFT_I2C_SDA_HIGH();
  8001374:	2201      	movs	r2, #1
  8001376:	2180      	movs	r1, #128	; 0x80
  8001378:	4803      	ldr	r0, [pc, #12]	; (8001388 <Soft_I2C_Write_Bytes+0xec>)
  800137a:	f7ff f8b9 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  800137e:	f7ff fb81 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	return Soft_I2C_OK;
+
+	}
+
+	Soft_I2C_Stop();
+
+	return SOFT_I2C_OK;
  8001382:	2000      	movs	r0, #0
  8001384:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
  8001386:	bf00      	nop
  8001388:	40010c00 	.word	0x40010c00
 
 0800138c <Soft_I2C_Scan>:
+	return SOFT_I2C_OK;
+
+}
+
+uint8_t Soft_I2C_Scan(uint8_t slave_address)
 {
  800138c:	b538      	push	{r3, r4, r5, lr}
-	Soft_I2C_SDA_High();
+	SOFT_I2C_SDA_HIGH();
  800138e:	2201      	movs	r2, #1
  8001390:	2180      	movs	r1, #128	; 0x80
 {
  8001392:	4605      	mov	r5, r0
-	Soft_I2C_SDA_High();
+	SOFT_I2C_SDA_HIGH();
  8001394:	4830      	ldr	r0, [pc, #192]	; (8001458 <Soft_I2C_Scan+0xcc>)
  8001396:	f7ff f8ab 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  800139a:	f7ff fb73 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SCL_High();
+	SOFT_I2C_SCL_HIGH();
  800139e:	2140      	movs	r1, #64	; 0x40
  80013a0:	2201      	movs	r2, #1
  80013a2:	482d      	ldr	r0, [pc, #180]	; (8001458 <Soft_I2C_Scan+0xcc>)
  80013a4:	f7ff f8a4 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80013a8:	f7ff fb6c 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	if (!Soft_I2C_SDA_Read())
+	if (!SOFT_I2C_SDA_READ())
  80013ac:	2180      	movs	r1, #128	; 0x80
  80013ae:	482a      	ldr	r0, [pc, #168]	; (8001458 <Soft_I2C_Scan+0xcc>)
  80013b0:	f7ff f898 	bl	80004e4 <HAL_GPIO_ReadPin>
  80013b4:	b9e8      	cbnz	r0, 80013f2 <Soft_I2C_Scan+0x66>
-	Soft_I2C_SCL_Low();
+	SOFT_I2C_SCL_LOW();
  80013b6:	2200      	movs	r2, #0
  80013b8:	2140      	movs	r1, #64	; 0x40
  80013ba:	4827      	ldr	r0, [pc, #156]	; (8001458 <Soft_I2C_Scan+0xcc>)
  80013bc:	f7ff f898 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80013c0:	f7ff fb60 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SDA_Low();
+	SOFT_I2C_SDA_LOW();
  80013c4:	2200      	movs	r2, #0
  80013c6:	2180      	movs	r1, #128	; 0x80
  80013c8:	4823      	ldr	r0, [pc, #140]	; (8001458 <Soft_I2C_Scan+0xcc>)
  80013ca:	f7ff f891 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80013ce:	f7ff fb59 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SCL_High();
+	SOFT_I2C_SCL_HIGH();
  80013d2:	2201      	movs	r2, #1
  80013d4:	2140      	movs	r1, #64	; 0x40
  80013d6:	4820      	ldr	r0, [pc, #128]	; (8001458 <Soft_I2C_Scan+0xcc>)
  80013d8:	f7ff f88a 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80013dc:	f7ff fb52 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SDA_High();
+	SOFT_I2C_SDA_HIGH();
  80013e0:	2201      	movs	r2, #1
  80013e2:	2180      	movs	r1, #128	; 0x80
  80013e4:	481c      	ldr	r0, [pc, #112]	; (8001458 <Soft_I2C_Scan+0xcc>)
  80013e6:	f7ff f883 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80013ea:	f7ff fb4b 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-		return Soft_I2C_ERR;
+
+	if (Soft_I2C_Start() == SOFT_I2C_ERR)
+	{
+		Soft_I2C_Stop();
+		return SOFT_I2C_ERR;
  80013ee:	2001      	movs	r0, #1
  80013f0:	bd38      	pop	{r3, r4, r5, pc}
-	Soft_I2C_SDA_Low();
+	SOFT_I2C_SDA_LOW();
  80013f2:	2200      	movs	r2, #0
  80013f4:	2180      	movs	r1, #128	; 0x80
  80013f6:	4818      	ldr	r0, [pc, #96]	; (8001458 <Soft_I2C_Scan+0xcc>)
  80013f8:	f7ff f87a 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  80013fc:	f7ff fb42 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	if (Soft_I2C_SDA_Read())
+	if (SOFT_I2C_SDA_READ())
  8001400:	2180      	movs	r1, #128	; 0x80
  8001402:	4815      	ldr	r0, [pc, #84]	; (8001458 <Soft_I2C_Scan+0xcc>)
  8001404:	f7ff f86e 	bl	80004e4 <HAL_GPIO_ReadPin>
  8001408:	4604      	mov	r4, r0
  800140a:	2800      	cmp	r0, #0
  800140c:	d1d3      	bne.n	80013b6 <Soft_I2C_Scan+0x2a>
-	if (Soft_I2C_Send_Byte(slaveAddr) == Soft_I2C_ERR)
+	}
+
+	if (Soft_I2C_Send_Byte(slave_address) == SOFT_I2C_ERR)
  800140e:	4628      	mov	r0, r5
  8001410:	f7ff fe30 	bl	8001074 <Soft_I2C_Send_Byte>
  8001414:	2801      	cmp	r0, #1
  8001416:	d01d      	beq.n	8001454 <Soft_I2C_Scan+0xc8>
-	Soft_I2C_SCL_Low();
+	SOFT_I2C_SCL_LOW();
  8001418:	4622      	mov	r2, r4
  800141a:	2140      	movs	r1, #64	; 0x40
  800141c:	480e      	ldr	r0, [pc, #56]	; (8001458 <Soft_I2C_Scan+0xcc>)
  800141e:	f7ff f867 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001422:	f7ff fb2f 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SDA_Low();
+	SOFT_I2C_SDA_LOW();
  8001426:	4622      	mov	r2, r4
  8001428:	2180      	movs	r1, #128	; 0x80
  800142a:	480b      	ldr	r0, [pc, #44]	; (8001458 <Soft_I2C_Scan+0xcc>)
  800142c:	f7ff f860 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  8001430:	f7ff fb28 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SCL_High();
+	SOFT_I2C_SCL_HIGH();
  8001434:	2201      	movs	r2, #1
  8001436:	2140      	movs	r1, #64	; 0x40
  8001438:	4807      	ldr	r0, [pc, #28]	; (8001458 <Soft_I2C_Scan+0xcc>)
  800143a:	f7ff f859 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  800143e:	f7ff fb21 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	Soft_I2C_SDA_High();
+	SOFT_I2C_SDA_HIGH();
  8001442:	2201      	movs	r2, #1
  8001444:	2180      	movs	r1, #128	; 0x80
  8001446:	4804      	ldr	r0, [pc, #16]	; (8001458 <Soft_I2C_Scan+0xcc>)
  8001448:	f7ff f852 	bl	80004f0 <HAL_GPIO_WritePin>
 	uint32_t Ticks = HAL_RCC_GetSysClockFreq() / 1000000;
  800144c:	f7ff fb1a 	bl	8000a84 <HAL_RCC_GetSysClockFreq>
-	return Soft_I2C_OK;
+	{
+		return SOFT_I2C_ERR;
+	}
+	Soft_I2C_Stop();
+	return SOFT_I2C_OK;
  8001450:	4620      	mov	r0, r4
  8001452:	bd38      	pop	{r3, r4, r5, pc}
 }
@@ -3173,13 +3301,13 @@ void ssd1306_UpdateScreen(void)
  8001474:	b5f0      	push	{r4, r5, r6, r7, lr}
  8001476:	24b0      	movs	r4, #176	; 0xb0
  8001478:	b083      	sub	sp, #12
-    if(Soft_I2C_Write_Byte(SSD1306_I2C_ADDR,0x00,&command)==Soft_I2C_ERR)
+    if(Soft_I2C_Write_Byte(SSD1306_I2C_ADDR,0x00,&command)==SOFT_I2C_ERR)
  800147a:	2600      	movs	r6, #0
  800147c:	4d24      	ldr	r5, [pc, #144]	; (8001510 <ssd1306_UpdateScreen+0x9c>)
     	_Error_Handler(__FILE__, __LINE__);
  800147e:	4f25      	ldr	r7, [pc, #148]	; (8001514 <ssd1306_UpdateScreen+0xa0>)
  8001480:	e022      	b.n	80014c8 <ssd1306_UpdateScreen+0x54>
-    if(Soft_I2C_Write_Byte(SSD1306_I2C_ADDR,0x00,&command)==Soft_I2C_ERR)
+    if(Soft_I2C_Write_Byte(SSD1306_I2C_ADDR,0x00,&command)==SOFT_I2C_ERR)
  8001482:	f10d 0206 	add.w	r2, sp, #6
  8001486:	2100      	movs	r1, #0
  8001488:	2078      	movs	r0, #120	; 0x78
@@ -3200,7 +3328,7 @@ void ssd1306_UpdateScreen(void)
 		ssd1306_WriteCommand(0x10);
 
 		// We schrijven alles map per map weg
-	    if(Soft_I2C_Write_Bytes(SSD1306_I2C_ADDR,0x40,&SSD1306_Buffer[SSD1306_WIDTH * i],SSD1306_WIDTH)==Soft_I2C_ERR)
+	    if(Soft_I2C_Write_Bytes(SSD1306_I2C_ADDR,0x40,&SSD1306_Buffer[SSD1306_WIDTH * i],SSD1306_WIDTH)==SOFT_I2C_ERR)
  80014ac:	462a      	mov	r2, r5
  80014ae:	2380      	movs	r3, #128	; 0x80
  80014b0:	2140      	movs	r1, #64	; 0x40
@@ -3214,7 +3342,7 @@ void ssd1306_UpdateScreen(void)
 	for (i = 0; i < 8; i++) {
  80014c4:	2cb8      	cmp	r4, #184	; 0xb8
  80014c6:	d020      	beq.n	800150a <ssd1306_UpdateScreen+0x96>
-    if(Soft_I2C_Write_Byte(SSD1306_I2C_ADDR,0x00,&command)==Soft_I2C_ERR)
+    if(Soft_I2C_Write_Byte(SSD1306_I2C_ADDR,0x00,&command)==SOFT_I2C_ERR)
  80014c8:	f10d 0207 	add.w	r2, sp, #7
  80014cc:	2100      	movs	r1, #0
  80014ce:	2078      	movs	r0, #120	; 0x78
@@ -3261,7 +3389,7 @@ void ssd1306_UpdateScreen(void)
  800151c:	b088      	sub	sp, #32
  800151e:	aa08      	add	r2, sp, #32
  8001520:	f802 3d01 	strb.w	r3, [r2, #-1]!
-    if(Soft_I2C_Write_Byte(SSD1306_I2C_ADDR,0x00,&command)==Soft_I2C_ERR)
+    if(Soft_I2C_Write_Byte(SSD1306_I2C_ADDR,0x00,&command)==SOFT_I2C_ERR)
  8001524:	2100      	movs	r1, #0
  8001526:	2078      	movs	r0, #120	; 0x78
  8001528:	f7ff fe46 	bl	80011b8 <Soft_I2C_Write_Byte>

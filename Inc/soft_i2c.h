@@ -10,41 +10,57 @@
 #ifndef SOFT_I2C_H_
 #define SOFT_I2C_H_
 
-#define Soft_I2C_OK		    0
-#define Soft_I2C_ERR		1
+#define SOFT_I2C_OK		    0
+#define SOFT_I2C_ERR		1
 
-#define Soft_I2C_SDA_Pin		GPIO_PIN_7
-#define Soft_I2C_SDA_Port		GPIOB
+#ifndef _SOFT_I2C_SDA_PIN
+#error "Please define _SOFT_I2C_SDA_PIN as MCU GPIO_PIN in main.h"
+#endif
+
+#ifndef _SOFT_I2C_SDA_PORT
+#error "Please define _SOFT_I2C_SDA_PIN as MCU GPIO_PORT  in main.h"
+#endif
+
+#ifndef _SOFT_I2C_SCL_PIN
+#error "Please define_SOFT_I2C_SCL_PIN as MCU GPIO_PIN  in main.h"
+#endif
+
+#ifndef _SOFT_I2C_SCL_PORT
+#error "Please define _SOFT_I2C_SCL_PORT as MCU GPIO_PORT  in main.h"
+#endif
+
+#define SOFT_I2C_SDA_PIN		_SOFT_I2C_SDA_PIN
+#define SOFT_I2C_SDA_PORT		_SOFT_I2C_SDA_PORT
 
 
-#define Soft_I2C_SCL_Pin		GPIO_PIN_6
-#define Soft_I2C_SCL_Port		GPIOB
+#define SOFT_I2C_SCL_PIN		_SOFT_I2C_SCL_PIN
+#define SOFT_I2C_SCL_PORT		_SOFT_I2C_SCL_PORT
 
 //SDA		
 //SCL		
-#define Soft_I2C_SDA_High()	    HAL_GPIO_WritePin(Soft_I2C_SDA_Port,Soft_I2C_SDA_Pin,GPIO_PIN_SET)
-#define Soft_I2C_SDA_Low()	    HAL_GPIO_WritePin(Soft_I2C_SDA_Port,Soft_I2C_SDA_Pin,GPIO_PIN_RESET)
-#define Soft_I2C_SDA_Read()	    HAL_GPIO_ReadPin(Soft_I2C_SDA_Port,Soft_I2C_SDA_Pin)
+#define SOFT_I2C_SDA_HIGH()	    HAL_GPIO_WritePin(SOFT_I2C_SDA_PORT,SOFT_I2C_SDA_PIN,GPIO_PIN_SET)
+#define SOFT_I2C_SDA_LOW()	    HAL_GPIO_WritePin(SOFT_I2C_SDA_PORT,SOFT_I2C_SDA_PIN,GPIO_PIN_RESET)
+#define SOFT_I2C_SDA_READ()	    HAL_GPIO_ReadPin(SOFT_I2C_SDA_PORT,SOFT_I2C_SDA_PIN)
 
 
-#define Soft_I2C_SCL_High()	    HAL_GPIO_WritePin(Soft_I2C_SCL_Port,Soft_I2C_SCL_Pin,GPIO_PIN_SET)
-#define Soft_I2C_SCL_Low()	    HAL_GPIO_WritePin(Soft_I2C_SCL_Port,Soft_I2C_SCL_Pin,GPIO_PIN_RESET)
-#define Soft_I2C_SCL_Read()	    HAL_GPIO_ReadPin(Soft_I2C_SCL_Port,Soft_I2C_SCL_Pin)
+#define SOFT_I2C_SCL_HIGH()	    HAL_GPIO_WritePin(SOFT_I2C_SCL_PORT,SOFT_I2C_SCL_PIN,GPIO_PIN_SET)
+#define SOFT_I2C_SCL_LOW()	    HAL_GPIO_WritePin(SOFT_I2C_SCL_PORT,SOFT_I2C_SCL_PIN,GPIO_PIN_RESET)
+#define SOFT_I2C_SCL_READ()	    HAL_GPIO_ReadPin(SOFT_I2C_SCL_PORT,SOFT_I2C_SCL_PIN)
 
 
 
 void Soft_I2C_Init(void);
 
-uint8_t Soft_I2C_Write_Byte(uint8_t slaveAddr, uint8_t regAddr,
+uint8_t Soft_I2C_Write_Byte(uint8_t slave_address, uint8_t register_address,
                            uint8_t *byte);
 
-uint8_t Soft_I2C_Read_Byte(uint8_t slaveAddr, uint8_t regAddr,
+uint8_t Soft_I2C_Read_Byte(uint8_t slave_address, uint8_t register_address,
                           uint8_t *val);
 
-uint8_t Soft_I2C_Write_Bytes(uint8_t slaveAddr, uint8_t regAddr,
+uint8_t Soft_I2C_Write_Bytes(uint8_t slave_address, uint8_t register_address,
                             uint8_t *buf, uint8_t num);
 
-uint8_t Soft_I2C_Read_Bytes(uint8_t slaveAddr, uint8_t regAddr,
+uint8_t Soft_I2C_Read_Bytes(uint8_t slave_address, uint8_t register_address,
                            uint8_t *buf, uint8_t num);
 
 uint8_t Soft_I2C_Start(void);
@@ -59,7 +75,7 @@ void Soft_I2C_NACK(void);
 
 uint8_t Soft_I2C_Send_Byte(uint8_t byte);
 
-uint8_t Soft_I2C_Scan(uint8_t slaveAddr);
+uint8_t Soft_I2C_Scan(uint8_t slave_address);
 
 void Soft_I2C_Delay();
 

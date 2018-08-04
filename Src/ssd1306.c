@@ -15,7 +15,7 @@ static SSD1306_t SSD1306;
 //
  void ssd1306_WriteCommand(uint8_t command)
 {
-    if(Soft_I2C_Write_Byte(SSD1306_I2C_ADDR,0x00,&command)==Soft_I2C_ERR)
+    if(Soft_I2C_Write_Byte(SSD1306_I2C_ADDR,0x00,&command)==SOFT_I2C_ERR)
     {
     	_Error_Handler(__FILE__, __LINE__);
     }
@@ -104,7 +104,7 @@ void ssd1306_UpdateScreen(void)
 		ssd1306_WriteCommand(0x10);
 
 		// We schrijven alles map per map weg
-	    if(Soft_I2C_Write_Bytes(SSD1306_I2C_ADDR,0x40,&SSD1306_Buffer[SSD1306_WIDTH * i],SSD1306_WIDTH)==Soft_I2C_ERR)
+	    if(Soft_I2C_Write_Bytes(SSD1306_I2C_ADDR,0x40,&SSD1306_Buffer[SSD1306_WIDTH * i],SSD1306_WIDTH)==SOFT_I2C_ERR)
 	    {
 	    	_Error_Handler(__FILE__, __LINE__);
 	    }

@@ -109,7 +109,7 @@ int main(void)
 	{
 		itoa(i<<1 ,temp, 16);//int string base 16 (hex)
 
-		if(Soft_I2C_Scan(i<<1)==Soft_I2C_OK)
+		if(Soft_I2C_Scan(i<<1)==SOFT_I2C_OK)
 		{
 			ssd1306_SetCursor(0, 30);
 			ssd1306_WriteString("At:", Font_11x18, White);
