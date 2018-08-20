@@ -13,21 +13,11 @@
 #define SOFT_I2C_OK		    0
 #define SOFT_I2C_ERR		1
 
-#ifndef _SOFT_I2C_SDA_PIN
-#error "Please define _SOFT_I2C_SDA_PIN as MCU GPIO_PIN in main.h"
-#endif
+//_SOFT_I2C_SDA_PIN defined in main.h
+//_SOFT_I2C_SDA_PORT defined in main.h
+//_SOFT_I2C_SCL_PIN defined in main.h
+//_SOFT_I2C_SCL_PORT defined in main.h
 
-#ifndef _SOFT_I2C_SDA_PORT
-#error "Please define _SOFT_I2C_SDA_PORT as MCU GPIO_PORT  in main.h"
-#endif
-
-#ifndef _SOFT_I2C_SCL_PIN
-#error "Please define_SOFT_I2C_SCL_PIN as MCU GPIO_PIN  in main.h"
-#endif
-
-#ifndef _SOFT_I2C_SCL_PORT
-#error "Please define _SOFT_I2C_SCL_PORT as MCU GPIO_PORT  in main.h"
-#endif
 
 #define SOFT_I2C_SDA_PIN		_SOFT_I2C_SDA_PIN
 #define SOFT_I2C_SDA_PORT		_SOFT_I2C_SDA_PORT

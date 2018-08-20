@@ -17,7 +17,7 @@ uint8_t AT24CXX_Write_Byte(uint16_t register_address, uint8_t data) {
 		return AT24CXX_ERR;
 	}
 
-	if (AT24CXX_ADDRESS_WIDTH > ADDRESS_WIDTH_8)/* Only if address is 16 bit */
+	if (AT24CXX_ADDRESS_WIDTH > 8)/* Only if address is 16 bit */
 	{
 		if (Soft_I2C_Send_Byte((register_address >> 8)) == SOFT_I2C_ERR) {
 			return AT24CXX_ERR;
@@ -51,7 +51,7 @@ uint8_t AT24CXX_Read_Byte(uint16_t register_address, uint8_t* data) {
 		return AT24CXX_ERR;
 	}
 
-	if (AT24CXX_ADDRESS_WIDTH > ADDRESS_WIDTH_8)/* Only if address is 16 bit */
+	if (AT24CXX_ADDRESS_WIDTH > 8)/* Only if address is 16 bit */
 	{
 		if (Soft_I2C_Send_Byte((register_address >> 8)) == SOFT_I2C_ERR) {
 			return AT24CXX_ERR;
@@ -82,7 +82,7 @@ uint8_t AT24CXX_Read_Byte(uint16_t register_address, uint8_t* data) {
 
 uint8_t AT24CXX_Write_Page(uint16_t start_address, uint8_t *buf, uint16_t len) {
 
-	if (len == 0u) {
+	if (len == 0) {
 		return AT24CXX_OK;
 	}
 
@@ -97,7 +97,7 @@ uint8_t AT24CXX_Write_Page(uint16_t start_address, uint8_t *buf, uint16_t len) {
 		return AT24CXX_ERR;
 	}
 
-	if (AT24CXX_ADDRESS_WIDTH > ADDRESS_WIDTH_8)/* Only if address is 16 bit */
+	if (AT24CXX_ADDRESS_WIDTH > 8)/* Only if address is 16 bit */
 	{
 		if (Soft_I2C_Send_Byte((start_address >> 8)) == SOFT_I2C_ERR) {
 			return AT24CXX_ERR;
@@ -134,7 +134,7 @@ uint8_t AT24CXX_Read_Buffer(uint16_t start_address, uint8_t *buf, uint16_t len) 
 		return AT24CXX_ERR;
 	}
 
-	if (AT24CXX_ADDRESS_WIDTH > ADDRESS_WIDTH_8)/* Only if address is 16 bit */
+	if (AT24CXX_ADDRESS_WIDTH > 8)/* Only if address is 16 bit */
 	{
 		if (Soft_I2C_Send_Byte((start_address >> 8)) == SOFT_I2C_ERR) {
 			return AT24CXX_ERR;
@@ -179,8 +179,7 @@ uint8_t AT24CXX_Write_Buffer(uint16_t start_address, uint8_t *buf, uint16_t len)
 	uint16_t page_counter, byte_counter;
 	uint16_t offset_address=0;
 
-	byte_counter =
-			(AT24CXX_PAGE_LENGTH - (start_address % AT24CXX_PAGE_LENGTH));
+	byte_counter = (AT24CXX_PAGE_LENGTH - (start_address % AT24CXX_PAGE_LENGTH));
 
 	if (len < byte_counter) {
 		byte_counter = len;
