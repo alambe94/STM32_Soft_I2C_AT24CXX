@@ -31,11 +31,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  13 .debug_ranges 00000b50  00000000  00000000  000338a0  2**3
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_line   000032e2  00000000  00000000  000343f0  2**0
+ 14 .debug_line   000032e4  00000000  00000000  000343f0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_str    000018e0  00000000  00000000  000376d2  2**0
+ 15 .debug_str    000018e0  00000000  00000000  000376d4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 16 .comment      0000007c  00000000  00000000  00038fb2  2**0
+ 16 .comment      0000007c  00000000  00000000  00038fb4  2**0
                   CONTENTS, READONLY
  17 .debug_frame  00000b84  00000000  00000000  00039030  2**2
                   CONTENTS, READONLY, DEBUGGING
@@ -1717,100 +1717,102 @@ __attribute__((always_inline)) __STATIC_INLINE void __NOP(void)
  8000afc:	20000010 	.word	0x20000010
 
 08000b00 <AT24CXX_Read_Buffer>:
-	HAL_Delay(5);/*Memory Programming Time approx 5ms*//*3ms for BL24CXX */
-
-	return AT24CXX_OK;
+  return AT24CXX_OK;
 }
 
-uint8_t AT24CXX_Read_Buffer(uint16_t start_address, uint8_t *buf, uint16_t len) {
+uint8_t
+AT24CXX_Read_Buffer (uint16_t start_address, uint8_t *buf, uint16_t len)
+{
  8000b00:	b570      	push	{r4, r5, r6, lr}
  8000b02:	4605      	mov	r5, r0
  8000b04:	460c      	mov	r4, r1
  8000b06:	4616      	mov	r6, r2
 
-	if (Soft_I2C_Start() == SOFT_I2C_ERR)/*generate star condition*/
+  if (Soft_I2C_Start () == SOFT_I2C_ERR)/*generate star condition*/
  8000b08:	f000 fa26 	bl	8000f58 <Soft_I2C_Start>
  8000b0c:	2801      	cmp	r0, #1
  8000b0e:	d025      	beq.n	8000b5c <AT24CXX_Read_Buffer+0x5c>
-	{
-		Soft_I2C_Stop();
-		return AT24CXX_ERR;
-	}
+    {
+      Soft_I2C_Stop ();
+      return AT24CXX_ERR;
+    }
 
-	if (Soft_I2C_Send_Byte(AT24CXX_EEPROM_ADDR + 0) == SOFT_I2C_ERR)/*Send device address + write bit */
+  if (Soft_I2C_Send_Byte (AT24CXX_EEPROM_ADDR + 0) == SOFT_I2C_ERR)/*Send device address + write bit */
  8000b10:	20a6      	movs	r0, #166	; 0xa6
  8000b12:	f000 faaf 	bl	8001074 <Soft_I2C_Send_Byte>
  8000b16:	2801      	cmp	r0, #1
  8000b18:	d01e      	beq.n	8000b58 <AT24CXX_Read_Buffer+0x58>
 	{
-		if (Soft_I2C_Send_Byte((start_address >> 8)) == SOFT_I2C_ERR) {
-			return AT24CXX_ERR;
-		}
+	  return AT24CXX_ERR;
 	}
-	if (Soft_I2C_Send_Byte(start_address) == SOFT_I2C_ERR)/*send register address to write*/
+    }
+
+  if (Soft_I2C_Send_Byte (start_address) == SOFT_I2C_ERR)/*send register address to write*/
  8000b1a:	b2e8      	uxtb	r0, r5
  8000b1c:	f000 faaa 	bl	8001074 <Soft_I2C_Send_Byte>
  8000b20:	2801      	cmp	r0, #1
  8000b22:	d019      	beq.n	8000b58 <AT24CXX_Read_Buffer+0x58>
-	{
-		return AT24CXX_ERR;
-	}
+    {
+      return AT24CXX_ERR;
+    }
 
-	if (Soft_I2C_Start() == SOFT_I2C_ERR) //repeated start
+  if (Soft_I2C_Start () == SOFT_I2C_ERR) //repeated start
  8000b24:	f000 fa18 	bl	8000f58 <Soft_I2C_Start>
  8000b28:	2801      	cmp	r0, #1
  8000b2a:	d017      	beq.n	8000b5c <AT24CXX_Read_Buffer+0x5c>
-	{
-		Soft_I2C_Stop();
-		return AT24CXX_ERR;
-	}
+    {
+      Soft_I2C_Stop ();
+      return AT24CXX_ERR;
+    }
 
-	if (Soft_I2C_Send_Byte(AT24CXX_EEPROM_ADDR + 1) == SOFT_I2C_ERR) //read bit
+  if (Soft_I2C_Send_Byte (AT24CXX_EEPROM_ADDR + 1) == SOFT_I2C_ERR) //read bit
  8000b2c:	20a7      	movs	r0, #167	; 0xa7
  8000b2e:	f000 faa1 	bl	8001074 <Soft_I2C_Send_Byte>
  8000b32:	2801      	cmp	r0, #1
  8000b34:	d010      	beq.n	8000b58 <AT24CXX_Read_Buffer+0x58>
-	{
-		return AT24CXX_ERR;
-	}
+    {
+      return AT24CXX_ERR;
+    }
 
-	while (len--) {
+  while (len--)
  8000b36:	1e75      	subs	r5, r6, #1
  8000b38:	b2ad      	uxth	r5, r5
  8000b3a:	b14e      	cbz	r6, 8000b50 <AT24CXX_Read_Buffer+0x50>
  8000b3c:	4425      	add	r5, r4
  8000b3e:	3c01      	subs	r4, #1
-		*buf++ = Soft_I2C_Receive_Byte();
+    {
+      *buf++ = Soft_I2C_Receive_Byte ();
  8000b40:	f000 fb0c 	bl	800115c <Soft_I2C_Receive_Byte>
  8000b44:	f804 0f01 	strb.w	r0, [r4, #1]!
 
-		if (len == 0) {
+      if (len == 0)
  8000b48:	42ac      	cmp	r4, r5
  8000b4a:	d10b      	bne.n	8000b64 <AT24CXX_Read_Buffer+0x64>
-			Soft_I2C_NACK();
+	{
+	  Soft_I2C_NACK ();
  8000b4c:	f000 fa70 	bl	8001030 <Soft_I2C_NACK>
-		} else {
-			Soft_I2C_ACK();
-		}
+	{
+	  Soft_I2C_ACK ();
 	}
+    }
 
-	Soft_I2C_Stop();
+  Soft_I2C_Stop ();
  8000b50:	f000 fa2a 	bl	8000fa8 <Soft_I2C_Stop>
 
-	return AT24CXX_OK;
+  return AT24CXX_OK;
  8000b54:	2000      	movs	r0, #0
 
 }
  8000b56:	bd70      	pop	{r4, r5, r6, pc}
-		return AT24CXX_ERR;
+      return AT24CXX_ERR;
  8000b58:	2001      	movs	r0, #1
  8000b5a:	bd70      	pop	{r4, r5, r6, pc}
-		Soft_I2C_Stop();
+      Soft_I2C_Stop ();
  8000b5c:	f000 fa24 	bl	8000fa8 <Soft_I2C_Stop>
-		return AT24CXX_ERR;
+      return AT24CXX_ERR;
  8000b60:	2001      	movs	r0, #1
  8000b62:	bd70      	pop	{r4, r5, r6, pc}
-			Soft_I2C_ACK();
+	  Soft_I2C_ACK ();
  8000b64:	f000 fa42 	bl	8000fec <Soft_I2C_ACK>
  8000b68:	e7ea      	b.n	8000b40 <AT24CXX_Read_Buffer+0x40>
  8000b6a:	bf00      	nop
@@ -1818,38 +1820,40 @@ uint8_t AT24CXX_Read_Buffer(uint16_t start_address, uint8_t *buf, uint16_t len) 
 08000b6c <AT24CXX_Write_Buffer>:
 
 /*this function can write any number of bytes from arbitrary location*/
-uint8_t AT24CXX_Write_Buffer(uint16_t start_address, uint8_t *buf, uint16_t len) {
+uint8_t
+AT24CXX_Write_Buffer (uint16_t start_address, uint8_t *buf, uint16_t len)
+{
  8000b6c:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
 
-	uint16_t index;
-	uint16_t page_counter, byte_counter;
-	uint16_t offset_address=0;
+  uint16_t index;
+  uint16_t page_counter, byte_counter;
+  uint16_t offset_address = 0;
 
-	byte_counter = (AT24CXX_PAGE_LENGTH - (start_address % AT24CXX_PAGE_LENGTH));
+  byte_counter = (AT24CXX_PAGE_LENGTH - (start_address % AT24CXX_PAGE_LENGTH));
  8000b70:	f000 0407 	and.w	r4, r0, #7
  8000b74:	f1c4 0408 	rsb	r4, r4, #8
  8000b78:	b2a4      	uxth	r4, r4
-uint8_t AT24CXX_Write_Buffer(uint16_t start_address, uint8_t *buf, uint16_t len) {
+{
  8000b7a:	b083      	sub	sp, #12
 
-	if (len < byte_counter) {
+  if (len < byte_counter)
  8000b7c:	4294      	cmp	r4, r2
-uint8_t AT24CXX_Write_Buffer(uint16_t start_address, uint8_t *buf, uint16_t len) {
+{
  8000b7e:	9001      	str	r0, [sp, #4]
  8000b80:	4617      	mov	r7, r2
  8000b82:	4689      	mov	r9, r1
-	if (len < byte_counter) {
+  if (len < byte_counter)
  8000b84:	d85a      	bhi.n	8000c3c <AT24CXX_Write_Buffer+0xd0>
-	if (Soft_I2C_Start() == SOFT_I2C_ERR)/*generate star condition*/
+  if (Soft_I2C_Start () == SOFT_I2C_ERR)/*generate star condition*/
  8000b86:	f000 f9e7 	bl	8000f58 <Soft_I2C_Start>
  8000b8a:	2801      	cmp	r0, #1
  8000b8c:	d05f      	beq.n	8000c4e <AT24CXX_Write_Buffer+0xe2>
-	if (Soft_I2C_Send_Byte(AT24CXX_EEPROM_ADDR + 0) == SOFT_I2C_ERR)/*Send device address + write bit */
+  if (Soft_I2C_Send_Byte (AT24CXX_EEPROM_ADDR + 0) == SOFT_I2C_ERR)/*Send device address + write bit */
  8000b8e:	20a6      	movs	r0, #166	; 0xa6
  8000b90:	f000 fa70 	bl	8001074 <Soft_I2C_Send_Byte>
  8000b94:	2801      	cmp	r0, #1
  8000b96:	d07b      	beq.n	8000c90 <AT24CXX_Write_Buffer+0x124>
-	if (Soft_I2C_Send_Byte(start_address) == SOFT_I2C_ERR)/*send register address to write*/
+  if (Soft_I2C_Send_Byte (start_address) == SOFT_I2C_ERR)/*send register address to write*/
  8000b98:	f89d a004 	ldrb.w	sl, [sp, #4]
  8000b9c:	4650      	mov	r0, sl
  8000b9e:	f000 fa69 	bl	8001074 <Soft_I2C_Send_Byte>
@@ -1858,157 +1862,159 @@ uint8_t AT24CXX_Write_Buffer(uint16_t start_address, uint8_t *buf, uint16_t len)
  8000ba6:	464d      	mov	r5, r9
  8000ba8:	eb09 0604 	add.w	r6, r9, r4
  8000bac:	e005      	b.n	8000bba <AT24CXX_Write_Buffer+0x4e>
-		if (Soft_I2C_Send_Byte(*buf++) == SOFT_I2C_ERR)/*write data to address*/
+      if (Soft_I2C_Send_Byte (*buf++) == SOFT_I2C_ERR)/*write data to address*/
  8000bae:	f815 0b01 	ldrb.w	r0, [r5], #1
  8000bb2:	f000 fa5f 	bl	8001074 <Soft_I2C_Send_Byte>
  8000bb6:	2801      	cmp	r0, #1
  8000bb8:	d06a      	beq.n	8000c90 <AT24CXX_Write_Buffer+0x124>
-	while (len--) {
+  while (len--)
  8000bba:	42b5      	cmp	r5, r6
  8000bbc:	d1f7      	bne.n	8000bae <AT24CXX_Write_Buffer+0x42>
-	Soft_I2C_Stop();
+  Soft_I2C_Stop ();
  8000bbe:	f000 f9f3 	bl	8000fa8 <Soft_I2C_Stop>
-	HAL_Delay(5);/*Memory Programming Time approx 5ms*//*3ms for BL24CXX */
+  HAL_Delay (5);/*Memory Programming Time approx 5ms*//*3ms for BL24CXX */
  8000bc2:	2005      	movs	r0, #5
  8000bc4:	f7ff fb0a 	bl	80001dc <HAL_Delay>
+  if (AT24CXX_Write_Page (start_address, buf, byte_counter) == AT24CXX_ERR)
+    {
+      return AT24CXX_ERR;
+    }
 
-	if (AT24CXX_Write_Page(start_address, buf, byte_counter) == AT24CXX_ERR) {
-		return AT24CXX_ERR;
-	}
-
-	page_counter = ((len - byte_counter) / AT24CXX_PAGE_LENGTH);
+  page_counter = ((len - byte_counter) / AT24CXX_PAGE_LENGTH);
  8000bc8:	ebb7 0804 	subs.w	r8, r7, r4
  8000bcc:	bf48      	it	mi
  8000bce:	f108 0807 	addmi.w	r8, r8, #7
  8000bd2:	f3c8 08cf 	ubfx	r8, r8, #3, #16
 
-	for (index = 0; index < (page_counter); index++) {
+  for (index = 0; index < (page_counter); index++)
  8000bd6:	f1b8 0f00 	cmp.w	r8, #0
  8000bda:	d065      	beq.n	8000ca8 <AT24CXX_Write_Buffer+0x13c>
  8000bdc:	2600      	movs	r6, #0
-	if (Soft_I2C_Start() == SOFT_I2C_ERR)/*generate star condition*/
+  if (Soft_I2C_Start () == SOFT_I2C_ERR)/*generate star condition*/
  8000bde:	f000 f9bb 	bl	8000f58 <Soft_I2C_Start>
  8000be2:	2801      	cmp	r0, #1
  8000be4:	d033      	beq.n	8000c4e <AT24CXX_Write_Buffer+0xe2>
-	if (Soft_I2C_Send_Byte(AT24CXX_EEPROM_ADDR + 0) == SOFT_I2C_ERR)/*Send device address + write bit */
+  if (Soft_I2C_Send_Byte (AT24CXX_EEPROM_ADDR + 0) == SOFT_I2C_ERR)/*Send device address + write bit */
  8000be6:	20a6      	movs	r0, #166	; 0xa6
  8000be8:	f000 fa44 	bl	8001074 <Soft_I2C_Send_Byte>
  8000bec:	2801      	cmp	r0, #1
  8000bee:	d04f      	beq.n	8000c90 <AT24CXX_Write_Buffer+0x124>
-	if (Soft_I2C_Send_Byte(start_address) == SOFT_I2C_ERR)/*send register address to write*/
+  if (Soft_I2C_Send_Byte (start_address) == SOFT_I2C_ERR)/*send register address to write*/
  8000bf0:	eb0a 0004 	add.w	r0, sl, r4
  8000bf4:	b2c0      	uxtb	r0, r0
  8000bf6:	f000 fa3d 	bl	8001074 <Soft_I2C_Send_Byte>
  8000bfa:	2801      	cmp	r0, #1
  8000bfc:	d048      	beq.n	8000c90 <AT24CXX_Write_Buffer+0x124>
+    {
 
-		offset_address = byte_counter + (index * AT24CXX_PAGE_LENGTH);
+      offset_address = byte_counter + (index * AT24CXX_PAGE_LENGTH);
 
-		if (AT24CXX_Write_Page((start_address + offset_address),
+      if (AT24CXX_Write_Page ((start_address + offset_address),
  8000bfe:	eb09 0b04 	add.w	fp, r9, r4
  8000c02:	f10b 0508 	add.w	r5, fp, #8
-		if (Soft_I2C_Send_Byte(*buf++) == SOFT_I2C_ERR)/*write data to address*/
+      if (Soft_I2C_Send_Byte (*buf++) == SOFT_I2C_ERR)/*write data to address*/
  8000c06:	f81b 0b01 	ldrb.w	r0, [fp], #1
  8000c0a:	f000 fa33 	bl	8001074 <Soft_I2C_Send_Byte>
  8000c0e:	2801      	cmp	r0, #1
  8000c10:	d03e      	beq.n	8000c90 <AT24CXX_Write_Buffer+0x124>
-	while (len--) {
+  while (len--)
  8000c12:	45ab      	cmp	fp, r5
  8000c14:	d1f7      	bne.n	8000c06 <AT24CXX_Write_Buffer+0x9a>
-	Soft_I2C_Stop();
+  Soft_I2C_Stop ();
  8000c16:	f000 f9c7 	bl	8000fa8 <Soft_I2C_Stop>
  8000c1a:	3601      	adds	r6, #1
-	HAL_Delay(5);/*Memory Programming Time approx 5ms*//*3ms for BL24CXX */
+  HAL_Delay (5);/*Memory Programming Time approx 5ms*//*3ms for BL24CXX */
  8000c1c:	2005      	movs	r0, #5
  8000c1e:	f7ff fadd 	bl	80001dc <HAL_Delay>
-	for (index = 0; index < (page_counter); index++) {
+  for (index = 0; index < (page_counter); index++)
  8000c22:	b2b3      	uxth	r3, r6
  8000c24:	3408      	adds	r4, #8
  8000c26:	4598      	cmp	r8, r3
  8000c28:	b2a4      	uxth	r4, r4
  8000c2a:	d8d8      	bhi.n	8000bde <AT24CXX_Write_Buffer+0x72>
  8000c2c:	4626      	mov	r6, r4
-		}
 	}
+    }
 
-	offset_address += AT24CXX_PAGE_LENGTH;
+  offset_address += AT24CXX_PAGE_LENGTH;
 
-	if (AT24CXX_Write_Page((start_address + offset_address),
+  if (AT24CXX_Write_Page ((start_address + offset_address),
  8000c2e:	1b38      	subs	r0, r7, r4
  8000c30:	b285      	uxth	r5, r0
-	if (len == 0) {
+  if (len == 0)
  8000c32:	b945      	cbnz	r5, 8000c46 <AT24CXX_Write_Buffer+0xda>
-			(buf + offset_address), (len - offset_address)) == AT24CXX_ERR) {
-		return AT24CXX_ERR;
-	}
+			  (len - offset_address)) == AT24CXX_ERR)
+    {
+      return AT24CXX_ERR;
+    }
 
-	return AT24CXX_OK;
+  return AT24CXX_OK;
  8000c34:	2000      	movs	r0, #0
 }
  8000c36:	b003      	add	sp, #12
  8000c38:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
-	if (len == 0) {
+  if (len == 0)
  8000c3c:	bb92      	cbnz	r2, 8000ca4 <AT24CXX_Write_Buffer+0x138>
  8000c3e:	2608      	movs	r6, #8
-	if (AT24CXX_Write_Page((start_address + offset_address),
+  if (AT24CXX_Write_Page ((start_address + offset_address),
  8000c40:	f64f 75f8 	movw	r5, #65528	; 0xfff8
-	if (len == 0) {
+  if (len == 0)
  8000c44:	4634      	mov	r4, r6
-	if (Soft_I2C_Start() == SOFT_I2C_ERR)/*generate star condition*/
+  if (Soft_I2C_Start () == SOFT_I2C_ERR)/*generate star condition*/
  8000c46:	f000 f987 	bl	8000f58 <Soft_I2C_Start>
  8000c4a:	2801      	cmp	r0, #1
  8000c4c:	d105      	bne.n	8000c5a <AT24CXX_Write_Buffer+0xee>
-		Soft_I2C_Stop();
+      Soft_I2C_Stop ();
  8000c4e:	f000 f9ab 	bl	8000fa8 <Soft_I2C_Stop>
-		return AT24CXX_ERR;
+      return AT24CXX_ERR;
  8000c52:	2001      	movs	r0, #1
 }
  8000c54:	b003      	add	sp, #12
  8000c56:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
-	if (Soft_I2C_Send_Byte(AT24CXX_EEPROM_ADDR + 0) == SOFT_I2C_ERR)/*Send device address + write bit */
+  if (Soft_I2C_Send_Byte (AT24CXX_EEPROM_ADDR + 0) == SOFT_I2C_ERR)/*Send device address + write bit */
  8000c5a:	20a6      	movs	r0, #166	; 0xa6
  8000c5c:	f000 fa0a 	bl	8001074 <Soft_I2C_Send_Byte>
  8000c60:	2801      	cmp	r0, #1
  8000c62:	d015      	beq.n	8000c90 <AT24CXX_Write_Buffer+0x124>
-	if (AT24CXX_Write_Page((start_address + offset_address),
+  if (AT24CXX_Write_Page ((start_address + offset_address),
  8000c64:	9b01      	ldr	r3, [sp, #4]
  8000c66:	4423      	add	r3, r4
-	if (Soft_I2C_Send_Byte(start_address) == SOFT_I2C_ERR)/*send register address to write*/
+  if (Soft_I2C_Send_Byte (start_address) == SOFT_I2C_ERR)/*send register address to write*/
  8000c68:	b2d8      	uxtb	r0, r3
  8000c6a:	f000 fa03 	bl	8001074 <Soft_I2C_Send_Byte>
  8000c6e:	2801      	cmp	r0, #1
  8000c70:	d00e      	beq.n	8000c90 <AT24CXX_Write_Buffer+0x124>
-	while (len--) {
+  while (len--)
  8000c72:	1e6c      	subs	r4, r5, #1
  8000c74:	b2a4      	uxth	r4, r4
-	if (AT24CXX_Write_Page((start_address + offset_address),
+  if (AT24CXX_Write_Page ((start_address + offset_address),
  8000c76:	eb09 0506 	add.w	r5, r9, r6
  8000c7a:	442c      	add	r4, r5
  8000c7c:	3d01      	subs	r5, #1
  8000c7e:	e001      	b.n	8000c84 <AT24CXX_Write_Buffer+0x118>
-	while (len--) {
+  while (len--)
  8000c80:	42a5      	cmp	r5, r4
  8000c82:	d009      	beq.n	8000c98 <AT24CXX_Write_Buffer+0x12c>
-		if (Soft_I2C_Send_Byte(*buf++) == SOFT_I2C_ERR)/*write data to address*/
+      if (Soft_I2C_Send_Byte (*buf++) == SOFT_I2C_ERR)/*write data to address*/
  8000c84:	f815 0f01 	ldrb.w	r0, [r5, #1]!
  8000c88:	f000 f9f4 	bl	8001074 <Soft_I2C_Send_Byte>
  8000c8c:	2801      	cmp	r0, #1
  8000c8e:	d1f7      	bne.n	8000c80 <AT24CXX_Write_Buffer+0x114>
-		return AT24CXX_ERR;
+      return AT24CXX_ERR;
  8000c90:	2001      	movs	r0, #1
 }
  8000c92:	b003      	add	sp, #12
  8000c94:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
-	Soft_I2C_Stop();
+  Soft_I2C_Stop ();
  8000c98:	f000 f986 	bl	8000fa8 <Soft_I2C_Stop>
-	HAL_Delay(5);/*Memory Programming Time approx 5ms*//*3ms for BL24CXX */
+  HAL_Delay (5);/*Memory Programming Time approx 5ms*//*3ms for BL24CXX */
  8000c9c:	2005      	movs	r0, #5
  8000c9e:	f7ff fa9d 	bl	80001dc <HAL_Delay>
  8000ca2:	e7c7      	b.n	8000c34 <AT24CXX_Write_Buffer+0xc8>
-	if (len == 0) {
+  if (len == 0)
  8000ca4:	4614      	mov	r4, r2
  8000ca6:	e76e      	b.n	8000b86 <AT24CXX_Write_Buffer+0x1a>
-	for (index = 0; index < (page_counter); index++) {
+  for (index = 0; index < (page_counter); index++)
  8000ca8:	2608      	movs	r6, #8
  8000caa:	4634      	mov	r4, r6
  8000cac:	e7bf      	b.n	8000c2e <AT24CXX_Write_Buffer+0xc2>
