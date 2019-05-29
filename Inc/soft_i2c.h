@@ -10,66 +10,63 @@
 #ifndef SOFT_I2C_H_
 #define SOFT_I2C_H_
 
-#define SOFT_I2C_OK		    0
+#define SOFT_I2C_OK		0
 #define SOFT_I2C_ERR		1
 
-//_SOFT_I2C_SDA_PIN defined in main.h
-//_SOFT_I2C_SDA_PORT defined in main.h
-//_SOFT_I2C_SCL_PIN defined in main.h
-//_SOFT_I2C_SCL_PORT defined in main.h
+typedef struct Soft_I2C_t
+    {
+	GPIO_TypeDef* GPIO_SCL_Port;
+	uint16_t GPIO_SCL_Pin;
+
+	GPIO_TypeDef* GPIO_SDA_Port;
+	uint16_t GPIO_SDA_Pin;
+
+    } Soft_I2C_t;
 
 
-#define SOFT_I2C_SDA_PIN		_SOFT_I2C_SDA_PIN
-#define SOFT_I2C_SDA_PORT		_SOFT_I2C_SDA_PORT
+void Soft_I2C_Init(Soft_I2C_t* i2c_handle);
 
-
-#define SOFT_I2C_SCL_PIN		_SOFT_I2C_SCL_PIN
-#define SOFT_I2C_SCL_PORT		_SOFT_I2C_SCL_PORT
-
-//SDA		
-//SCL		
-#define SOFT_I2C_SDA_HIGH()	    HAL_GPIO_WritePin(SOFT_I2C_SDA_PORT,SOFT_I2C_SDA_PIN,GPIO_PIN_SET)
-#define SOFT_I2C_SDA_LOW()	    HAL_GPIO_WritePin(SOFT_I2C_SDA_PORT,SOFT_I2C_SDA_PIN,GPIO_PIN_RESET)
-#define SOFT_I2C_SDA_READ()	    HAL_GPIO_ReadPin(SOFT_I2C_SDA_PORT,SOFT_I2C_SDA_PIN)
-
-
-#define SOFT_I2C_SCL_HIGH()	    HAL_GPIO_WritePin(SOFT_I2C_SCL_PORT,SOFT_I2C_SCL_PIN,GPIO_PIN_SET)
-#define SOFT_I2C_SCL_LOW()	    HAL_GPIO_WritePin(SOFT_I2C_SCL_PORT,SOFT_I2C_SCL_PIN,GPIO_PIN_RESET)
-#define SOFT_I2C_SCL_READ()	    HAL_GPIO_ReadPin(SOFT_I2C_SCL_PORT,SOFT_I2C_SCL_PIN)
-
-
-
-void Soft_I2C_Init(void);
-
-uint8_t Soft_I2C_Write_Byte(uint8_t slave_address, uint8_t register_address,
+uint8_t Soft_I2C_Write_Byte(Soft_I2C_t* i2c_handle,
+	                   uint8_t slave_address,
+			   uint8_t register_address,
                            uint8_t *byte);
 
-uint8_t Soft_I2C_Read_Byte(uint8_t slave_address, uint8_t register_address,
-                          uint8_t *val);
+uint8_t Soft_I2C_Read_Byte(Soft_I2C_t* i2c_handle,
+	                   uint8_t slave_address,
+			   uint8_t register_address,
+                           uint8_t *val);
 
-uint8_t Soft_I2C_Write_Bytes(uint8_t slave_address, uint8_t register_address,
-                            uint8_t *buf, uint8_t num);
+uint8_t Soft_I2C_Write_Bytes(Soft_I2C_t* i2c_handle,
+	                     uint8_t slave_address,
+			     uint8_t register_address,
+                             uint8_t *buf,
+			     uint8_t num);
 
-uint8_t Soft_I2C_Read_Bytes(uint8_t slave_address, uint8_t register_address,
-                           uint8_t *buf, uint8_t num);
+uint8_t Soft_I2C_Read_Bytes(Soft_I2C_t* i2c_handle,
+	                    uint8_t slave_address,
+	                    uint8_t register_address,
+                            uint8_t *buf,
+			    uint8_t num);
 
-uint8_t Soft_I2C_Start(void);
+uint8_t Soft_I2C_Start(Soft_I2C_t* i2c_handle);
 
-void Soft_I2C_Stop(void);
+void Soft_I2C_Stop(Soft_I2C_t* i2c_handle);
 
-uint8_t Soft_I2C_Wait_ACK();
+uint8_t Soft_I2C_Wait_ACK(Soft_I2C_t* i2c_handle);
 
-void Soft_I2C_ACK(void);
+void Soft_I2C_ACK(Soft_I2C_t* i2c_handle);
 
-void Soft_I2C_NACK(void);
+void Soft_I2C_NACK(Soft_I2C_t* i2c_handle);
 
-uint8_t Soft_I2C_Send_Byte(uint8_t byte);
+uint8_t Soft_I2C_Send_Byte(Soft_I2C_t* i2c_handle, uint8_t byte);
 
-uint8_t Soft_I2C_Scan(uint8_t slave_address);
+uint8_t Soft_I2C_Scan(Soft_I2C_t* i2c_handle, uint8_t slave_address);
+
+uint8_t Soft_I2C_Devices(Soft_I2C_t* i2c_handle);
 
 void Soft_I2C_Delay();
 
 
-uint8_t Soft_I2C_Receive_Byte(void);
+uint8_t Soft_I2C_Receive_Byte(Soft_I2C_t* i2c_handle);
 
 #endif /* SOFT_I2C_H_ */

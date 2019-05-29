@@ -2,6 +2,10 @@
 #include"ssd1306.h"
 #include "stm32f1xx_hal.h"
 #include "soft_i2c.h"
+#include "main.h"
+
+extern Soft_I2C_t Soft_I2C1;
+
 // Databuffer voor het scherm
 static uint8_t SSD1306_Buffer[SSD1306_WIDTH * SSD1306_HEIGHT / 8];
 
@@ -15,9 +19,9 @@ static SSD1306_t SSD1306;
 //
  void ssd1306_WriteCommand(uint8_t command)
 {
-    if(Soft_I2C_Write_Byte(SSD1306_I2C_ADDR,0x00,&command)==SOFT_I2C_ERR)
+    if(Soft_I2C_Write_Byte(&Soft_I2C1, SSD1306_I2C_ADDR,0x00, &command)==SOFT_I2C_ERR)
     {
-    	_Error_Handler(__FILE__, __LINE__);
+    	Error_Handler();
     }
 }
 
@@ -104,9 +108,9 @@ void ssd1306_UpdateScreen(void)
 		ssd1306_WriteCommand(0x10);
 
 		// We schrijven alles map per map weg
-	    if(Soft_I2C_Write_Bytes(SSD1306_I2C_ADDR,0x40,&SSD1306_Buffer[SSD1306_WIDTH * i],SSD1306_WIDTH)==SOFT_I2C_ERR)
+	    if(Soft_I2C_Write_Bytes(&Soft_I2C1,SSD1306_I2C_ADDR,0x40,&SSD1306_Buffer[SSD1306_WIDTH * i],SSD1306_WIDTH)==SOFT_I2C_ERR)
 	    {
-	    	_Error_Handler(__FILE__, __LINE__);
+	    	Error_Handler();
 	    }
 	}
 }
